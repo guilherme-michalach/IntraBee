@@ -1,16 +1,8 @@
-# DB Config
-DB_USERNAME=postgres
-DB_PASSWORD=123456
-DB_DATABASE=intra_bee
-DB_HOST=localhost
-DB_PORT=5432
-DB_DIALECT=postgres
+const path = require('path');
 
-
-# Token Config
-TOKEN_SECRET=
-TOKEN_EXPIRATION=
-
-
-# APP Config
-APP_URL=
+module.exports = {
+  'config': path.resolve('src', 'config', 'database.js'),
+  'models-path': path.resolve('src', 'db', 'models'),
+  'seeders-path': path.resolve('src', 'db', 'seeders'),
+  'migrations-path': path.resolve('src', 'db', 'migrations')
+};
