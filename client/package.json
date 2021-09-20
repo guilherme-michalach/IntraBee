@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.2",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
     "pg": "^8.7.1",
@@ -18,7 +19,8 @@
     "react-native-web": "~0.13.12",
     "sequelize": "^6.6.5",
     "socket.io": "^4.2.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "expo-secure-store": "~10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
