@@ -23,5 +23,8 @@
     "sequelize": "^6.6.5",
     "sequelize-cli": "^6.2.0",
     "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }

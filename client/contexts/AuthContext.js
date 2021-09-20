@@ -59,14 +59,46 @@ export function AuthProvider ({ children }) {
         restoreToken();
     }, []);
 
+
+
     const memoContext = React.useMemo(() => ({
         signIn: async (email, password) => {
             try {
                 const accessToken = (await api.post("/auth/login", { email, password })).data;
+
+                await SecureStore.setItemAsync("access-token", accessToken);
+
+                api.defaults.header.common["Authorization"] = `Bearer ${accessToken}`;
+
+                dispatch({ type: "SIGN_IN", token: accessToken });
             } catch (error) {
+                console.log(error);
+                throw(error);
+            }
+        },
+        signUp: async(user) => {
+            try {
+                await api.post("/users", { ...user });
+            } catch (error) {
+                console.log(error);
                 throw(error);
             }
         }
-    }))
+        ,
+        signOut: async (user) => {
+            try {
+                SecureStore.deleteItemAsync("access-token")
+            } catch (error) {
+                console.log(error);
+                throw(error);
+            }
+        }
+    }), []);
+
+    return (
+        <AuthContext.Provider value={{ state, memoContext }}>
+            { children }
+        </AuthContext.Provider>
+    )
 
 }
