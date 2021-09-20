@@ -14,15 +14,12 @@ export function AuthRoutes() {
                 name = "SignIn"
                 component = {SignInScreen}
                 options = {{ headerShown: false }}
-            >
-            </Stack.Screen>
+            />
             <Stack.Screen
                 name = "SignUp"
                 component = {SignUpScreen}
-                options = {}
-            >
-
-            </Stack.Screen>
+                options = {{ title: "Cadastro de Usuário" }}
+            />
         </StackNavigator>
     );
 }
