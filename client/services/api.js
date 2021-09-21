@@ -3,5 +3,5 @@ import axios from "axios";
 
 export const api = axios.create({
     baseURL: Constants.manifest.extra.apiURL,
-    timeout: 3000
+    timeout: 1000
 })

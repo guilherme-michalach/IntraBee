@@ -13,3 +13,8 @@ const initialState = {
     isLoading: false,       
 }
 
+export default function SignInScreen () {}
+
+const styles = StyleSheet.create({
+    
+})
