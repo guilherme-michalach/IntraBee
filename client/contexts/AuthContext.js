@@ -37,7 +37,7 @@ export const useAuth = () => React.useContext(AuthContext);
 
 // Caso em que há a tentiva de restaurar login
 
-export function AuthProvider ({ children }) {
+export function AuthProvider({ children }) {
     const [state, dispatch] = React.useReducer(reducer, initialState);
 
     React.useEffect(() => {
@@ -46,12 +46,13 @@ export function AuthProvider ({ children }) {
 
             try {
                 accessToken = await SecureStore.getItemAsync("access-token");
-            } catch (error) {
-                console.log(error);
+
+                api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+            } catch (err) { 
+                console.log(err);
             }
 
-            setTimeout(() => dispatch({ type: "RESTORE_TOKEN", token: accessToken }), 3000);
-            //Modificar tempo depois ou até mesmo tirar timeout pra não ficar tendo delays no app
+            dispatch({ type: "RESTORE_TOKEN", token: accessToken });            
         }
 
         restoreToken();
@@ -61,35 +62,35 @@ export function AuthProvider ({ children }) {
 
     const memoContext = React.useMemo(() => ({
         signIn: async (email, password) => {
-            try {
-                const accessToken = (await api.post("/auth/login", { email, password })).data;
+            try {                                                
+                const accessToken = (await api.post("/auth/login", { email, password })).data;                
 
                 await SecureStore.setItemAsync("access-token", accessToken);
-
-                api.defaults.header.common["Authorization"] = `Bearer ${accessToken}`;
+                
+                api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
                 dispatch({ type: "SIGN_IN", token: accessToken });
-            } catch (error) {
-                console.log(error);
-                throw(error);
-            }
+            } catch (err) {
+                console.log(err);
+                throw err;                           
+            }            
         },
-        signUp: async(user) => {
+        signUp: async (user) => {
+            try {                                                        
+                await api.post("/users", { ...user });                                                                                
+            } catch (err) {
+                console.log(err);
+                throw err;                           
+            }         
+        },
+        signOut: () => {
             try {
-                await api.post("/users", { ...user });
-            } catch (error) {
-                console.log(error);
-                throw(error);
+                SecureStore.deleteItemAsync("access-token");
+            } catch (err) {
+                console.log(err);
             }
-        }
-        ,
-        signOut: async (user) => {
-            try {
-                SecureStore.deleteItemAsync("access-token")
-            } catch (error) {
-                console.log(error);
-                throw(error);
-            }
+
+            dispatch({ type: "SIGN_OUT" });
         }
     }), []);
 
