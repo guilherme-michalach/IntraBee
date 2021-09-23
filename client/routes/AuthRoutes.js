@@ -12,12 +12,12 @@ export function AuthRoutes() {
         >
             <Stack.Screen
                 name = "SignIn"
-                component = {SignInScreen}
+                component = { SignInScreen }
                 options = {{ headerShown: false }}
             />
             <Stack.Screen
                 name = "SignUp"
-                component = {SignUpScreen}
+                component = { SignUpScreen }
                 options = {{ title: "Cadastro de Usuário" }}
             />
         </StackNavigator>

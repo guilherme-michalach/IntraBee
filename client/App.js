@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SignInScreen } from './screens/SignInScreen';
 import { AuthRoutes } from './routes/AuthRoutes';

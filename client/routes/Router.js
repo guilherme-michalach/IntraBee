@@ -12,7 +12,7 @@ export function Router() {
         <NavigationContainer>
             {state.isloading ? (
                 <SplashScreen />
-            ) : state.accesToken == null ? (
+            ) : state.accessToken == null ? (
                 <AuthRoutes />
             ) : (
                 <HomeScreen />
