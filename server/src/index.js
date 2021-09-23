@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 
+const { Usuario } = require("./db/models");
+
 // Definição de middlewares, falta implementar posteriormente os de chat
 app.use(cors());
 app.use(express.json());

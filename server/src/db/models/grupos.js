@@ -3,21 +3,22 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Grupos extends Model {
+  class Grupo extends Model {
     
     static associate(models) {
       this.belongsToMany(models.Usuario, { through: "usuario_grupos" });
-      this.belongsToMany(models.Chats, { through: "chats_grupos" })
+      this.belongsToMany(models.Chat, { through: "chats_grupos" })
     }
     
   };
-  Grupos.init({
+  Grupo.init({
     nome:{
     type: DataTypes.STRING,
     allowNull:false
-  }, 
+    }
+  }, {
     sequelize,
-    modelName: 'Grupos',
+    modelName: 'Grupo',
   });
-  return Grupos;
+  return Grupo;
 };

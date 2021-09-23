@@ -3,13 +3,13 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Apontamentos extends Model {
+  class Apontamento extends Model {
    
     static associate(models) {
       this.belongsToMany(models.Usuario, { through: "usuario_apontamentos" });
     }
   };
-  Apontamentos.init({
+  Apontamento.init({
     data: {
       type: DataTypes.DATE,
       allowNull:false
@@ -17,9 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     hora:{
       type: DataTypes.DATE,
       allowNull:false
-    }, 
+    },
+  }, { 
     sequelize,
-    modelName: 'Apontamentos',
+    modelName: 'Apontamento',
   });
-  return Apontamentos;
+  return Apontamento;
 };
