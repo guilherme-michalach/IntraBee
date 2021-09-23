@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Mensagens extends Model {
    
     static associate(models) {
-      this.belongsToMany(models.Usuario, { through: "usuario_mensagens" });
+      // this.belongsToMany(models.Usuario, { through: "usuario_mensagens" });
     }
   };
   Mensagens.init({
@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     conteudo: {
       type: DataTypes.STRING,
       allowNull:false
-  }, 
+    }
+  }, {
     sequelize,
     modelName: 'Mensagens',
   });
