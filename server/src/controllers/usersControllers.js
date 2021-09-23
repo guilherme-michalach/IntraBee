@@ -40,8 +40,51 @@ async function getUser(req, res, next) {
     }
 }
 
+async function deleteUser(req, res, next) {
+    const { userId } = res.locals;
+
+    try {
+        const userToDelete = await Usuario.findOne({ where: {id: userId }});
+
+        if(!userToDelete) {
+            throw new createHttpError(404, "Usuário não encontrado");
+        }
+
+        await userToDelete.destroy();
+        
+        res.status(204).end();
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+async function changePassword(req, res, next) {
+    const { userId } = res.locals;
+    const { senha } = req.body;
+
+    try {
+        // const user = await Usuario.findOne({ where: { id: userId } });
+        const user = await Usuario.findOne({ where: { id: userId }});
+
+        if (!user) {
+            throw new createHttpError(404, "Usuário não encontrado");
+        }
+
+        user.senha = senha;
+
+        await user.save();
+
+        res.status(204).end();
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
 
 module.exports = {
     createUser,
-    getUser
+    getUser,
+    deleteUser,
+    changePassword
 }
