@@ -4,8 +4,9 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Evento extends Model {
-
+    
     static associate(models) {
+      this.belongsToMany(models.Usuario, { through: "usuario_eventos" });
     }
   };
   Evento.init({
