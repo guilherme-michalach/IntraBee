@@ -58,8 +58,6 @@ export function AuthProvider({ children }) {
         restoreToken();
     }, []);
 
-
-
     const memoContext = React.useMemo(() => ({
         signIn: async (email, password) => {
             try {                                                
