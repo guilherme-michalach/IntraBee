@@ -14,7 +14,6 @@
     "expo": "^41.0.1",
     "expo-constants": "^10.1.1",
     "expo-secure-store": "~10.2.0",
-    "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
