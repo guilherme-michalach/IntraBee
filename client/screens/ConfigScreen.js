@@ -6,11 +6,13 @@ export default function ConfigScreen () {
     // Mudar senha
     if(!isAdmin) {
         return (
-
+            <></>
         )
     }
 
-    return ()
+    return (
+        <></>
+    )
 }
 
 const styles = StyleSheet.create({

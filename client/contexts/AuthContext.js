@@ -9,8 +9,6 @@ const initialState = {
     accessToken: null
 }
 
-// Opções de o que fazer em cada caso de acesso.
-
 function reducer (prevState, action) {
     switch(action.type) {
         case "RESTORE_TOKEN":
@@ -24,18 +22,15 @@ function reducer (prevState, action) {
                 ...prevState,
                 accessToken: action.token
             }
-        case "SIGN_OUT": {
+        case "SIGN_OUT":
             return {
                 ...prevState,
                 accessToken: null
             }
-        }
     }
 }
 
 export const useAuth = () => React.useContext(AuthContext);
-
-// Caso em que há a tentiva de restaurar login
 
 export function AuthProvider({ children }) {
     const [state, dispatch] = React.useReducer(reducer, initialState);
@@ -96,6 +91,5 @@ export function AuthProvider({ children }) {
         <AuthContext.Provider value={{ state, memoContext }}>
             { children }
         </AuthContext.Provider>
-    )
-
+    );
 }

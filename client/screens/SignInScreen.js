@@ -19,76 +19,74 @@ const initialState = {
 }
 
 export function SignInScreen ({ navigation }) {
-    const { memoContext } = useAuth();
+    const { memoContext } = useAuth();    
     const [state, setState] = useState(initialState);
-
-    useEffect(() => {
+    
+    useEffect(() => {        
         setState(prevState => ({
-            ...prevState,
+            ...prevState, 
             isLoginValid: prevState.isEmailValid && prevState.isPasswordValid
         }));
     }, [state.isEmailValid, state.isPasswordValid]);
 
     async function handleSignIn () {
         setState(prevState => ({ ...prevState, isLoading: true }));
-
-        try {
+        try {            
             await memoContext.signIn(state.email, state.password);
-
-        } catch (error) {
-            setState(prevState => ({
-                ...prevState,
-                isLoading: false,
-                emailError: true,
+        } catch (err) {
+            setState(prevState => ({ 
+                ...prevState, 
+                isLoading: false,                 
+                emailError: true,                
                 passwordError: true
             }));
-            showErrorMessage(error);
-        }
+            showErrorMessage(err);
+        }        
     }
 
-    function handleNavigateSignUpScreen() {
+    function handleNavigateSignUpScreen () {
         setState(initialState);
-        navigation.push("SignUp")
+        navigation.push("SignUp");
     }
 
-    return (
+    return (            
         <KeyboardAvoidingView behavior="height" style={styles.container}>
             <Loader isVisible={state.isLoading} />
             <MaterialIcons name="add-task" size={200} color={colors.primary} />
-            <ValidationInput
+            <ValidationInput 
                 value={state.email}
                 onChangeText={text => handleEmailChange(text, setState)}
-                placeholder="Seu E-mail"
-                labelText="Insira seu E-mail"
+                placeholder="Seu e-mail"
+                labelText="E-mail"
                 keyboardType="email-address"
-                isValid={state.isEmailValid} 
-            />
-            <ValidationInput
+                isValid={state.isEmailValid} />
+            
+            <ValidationInput 
                 value={state.password}
                 onChangeText={text => handlePasswordChange(text, setState)}
                 placeholder="Sua senha"
-                labelText="Insira sua senha"
+                labelText="Senha"
                 secureTextEntry={true}
-                isValid={state.isPasswordValid} 
-            /> <TouchableOpacity onPress={handleNavigateSignUpScreen}>
-            <Text>Não tem conta ainda? Cadastre-se</Text>
-        </TouchableOpacity>   
-        <View style={{ width: "100%", margin: 10 }}>
-            <Button 
-                text="Login" 
-                onPress={handleSignIn}
-                disabled={!state.isLoginValid}/>
-        </View>
-    </KeyboardAvoidingView>
-);
+                isValid={state.isPasswordValid} />
+            <TouchableOpacity onPress={handleNavigateSignUpScreen}>
+                <Text>Não tem conta ainda? Cadastre-se</Text>
+            </TouchableOpacity>   
+            <View style={{ width: "100%", margin: 10 }}>
+                <Button 
+                    text="Login" 
+                    onPress={handleSignIn}
+                    disabled={!state.isLoginValid}/>
+            </View>
+        </KeyboardAvoidingView>
+    );
 }
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  backgroundColor: colors.backgroundColor,
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 10
-},
+    container: {
+      flex: 1,
+      backgroundColor: colors.backgroundColor,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 10
+    },
 });
