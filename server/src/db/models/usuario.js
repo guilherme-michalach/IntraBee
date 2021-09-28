@@ -28,15 +28,16 @@ module.exports = (sequelize, DataTypes) => {
 
   };
   Usuario.init({
-    id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4
-    },
     nome:{
       type: DataTypes.STRING,
       allowNull:false
     },
+    senha: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      set(senha) {
+        this.setDataValue("senha", bcrypt.hashSync(senha, 10));
+    } },
     email: {
       type: DataTypes.STRING,
       allowNull:false,
