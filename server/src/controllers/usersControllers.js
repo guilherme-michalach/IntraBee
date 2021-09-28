@@ -1,7 +1,5 @@
 const { Usuario } = require("../db/models");
 const createHttpError = require("http-errors");
-const fs = require("fs");
-const path = require("path");
 
 async function createUser(req, res, next) {
     const { nome, email, senha, telefone, cargo } = req.body;

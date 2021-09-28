@@ -2,7 +2,6 @@ import React from "react";
 import { Modal, StyleSheet, View, ActivityIndicator } from "react-native";
 import colors from "../theme/colors";
 
-
 export function Loader({isVisible}) {
     return (
         <Modal

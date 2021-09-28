@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 const bcrypt = require("bcrypt");
 
@@ -10,18 +8,17 @@ module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     
     static associate(models) {
-      // this.belongsToMany(models.Evento, { through: "usuario_eventos" });
-      // this.belongsToMany(models.Apontamentos, { through: "usuario_apontamentos" });
-      // this.belongsToMany(models.Grupos, { through: "usuario_grupos" });
-      // this.belongsToMany(models.Mensagens, { through: "usuario_mensagens" });
-      // this.hasMany(models.Chats, { foreignKey: "id_usuario1" });
-      // this.hasMany(models.Chats, { foreignKey: "id_usuario2" });
+      this.hasMany(models.Evento, { through: "usuario_eventos" });
+      this.hasMany(models.Apontamentos, { through: "usuario_apontamentos" });
+      this.hasMany(models.Grupos, { through: "usuario_grupos" });
+      this.hasMany(models.Mensagens, { through: "usuario_mensagens" });
+      this.hasMany(models.Chats, { foreignKey: "id_usuario1" });
+      this.hasMany(models.Chats, { foreignKey: "id_usuario2" });
     }
 
     senhaValida(senha) {
       return bcrypt.compareSync(senha, this.senha);
     }    
-
 
     toJSON() {
       return {
@@ -29,15 +26,22 @@ module.exports = (sequelize, DataTypes) => {
         senha: undefined
       }
     }
+
   };
   Usuario.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
+    },
     nome:{
       type: DataTypes.STRING,
       allowNull:false
     },
     email: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      unique: true
     },
     senha: {
       type: DataTypes.STRING,
@@ -52,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     cargo:{
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: true
     },
     isAdmin:{
       type: DataTypes.BOOLEAN,

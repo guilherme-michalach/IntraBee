@@ -1,11 +1,11 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Apontamentos extends Model {   
     static associate(models) {
-      // this.belongsToMany(models.Usuario, { through: "usuario_apontamentos" });
+      this.belongsTo(models.Usuario, { through: "usuario_apontamentos" });
     }
   };
   Apontamentos.init({
