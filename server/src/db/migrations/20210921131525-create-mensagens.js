@@ -8,17 +8,33 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      data: {
-        type: Sequelize.DATE,
-        allowNull:false
-      },
-      hora: {
-        type: Sequelize.DATE,
-        allowNull:false
-      },
-      conteudo: {
+      text: {
         type: Sequelize.STRING,
+        allowNull: false
+      },
+      date: {
+        type:Sequelize.DATE,
         allowNull:false
+      },
+      chat_id: {
+        allowNull: false,        
+        type: Sequelize.INTEGER,
+        references: {
+          model: "chats",
+          key: "id"
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+      },
+      user_id: {
+        allowNull: false,       
+        type: Sequelize.INTEGER,
+        references: {
+          model: "usuarios",
+          key: "id"
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       created_at: {
         allowNull: false,

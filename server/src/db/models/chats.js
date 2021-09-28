@@ -3,23 +3,20 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Chats extends Model {
+  class Chat extends Model {
   
     static associate(models) {
-      this.hasMany(models.Usuario, { foreignKey: "id_usuario1" });
-      // this.belongsToMany(models.Usuario, { foreignKey: "id_usuario2" });
-      // this.belongsToMany(models.Usuario, { foreignKey: "id_grupos" });
-      this.belongsTo(models.Grupos, { through: "chats_grupos" })
+      this.hasMany(models.Mensagem, { foreignKey: "chat_id" });
+      this.belongsToMany(models.Usuario, { through: "chats_usuarios", as: "usuarios" });
+      this.belongsToMany(models.Grupo, { through: "chats_grupos" });
 
-      // this.belongsToMany(models.Usuario, { foreignKey: "id_usuario1" });
-      // this.belongsToMany(models.Usuario, { foreignKey: "id_usuario2" });
-      // this.belongsToMany(models.Usuario, { foreignKey: "id_grupos" });
-      // this.hasMany(models.Grupos, { through: "chats_grupos" })
     }
   };
-  Chats.init({}, {
+  Chat.init({
+    name: DataTypes.STRING
+  }, {
     sequelize,
-    modelName: 'Chats',
+    modelName: 'Chat',
   });
-  return Chats;
+  return Chat;
 };

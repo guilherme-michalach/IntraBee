@@ -5,9 +5,9 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 3001;
 
-const app = express();
+const { Usuario } = require("./db/models");
 
-// Definindo os middlewares de request
+// Definição de middlewares, falta implementar posteriormente os de chat
 app.use(cors());
 app.use(express.json());
 app.use("/api/images", express.static("uploads"));

@@ -3,30 +3,25 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Mensagens extends Model {
+  class Mensagem extends Model {
    
     static associate(models) {
-      this.belongsToMany(models.Usuario, { through: "usuario_mensagens" });
-
-      // this.belongsToMany(models.Usuario, { through: "usuario_mensagens" });
+      this.belongsTo(models.Chat, { foreignKey: "chat_id" });
+      this.belongsTo(models.Usuario, { foreignKey: "usuario_id" });
     }
   };
-  Mensagens.init({
-    data:{
-      type: DataTypes.DATE,
-      allowNull:false
-    },
-    hora:{
-     type: DataTypes.DATE,
-     allowNull:false
-    },
-    conteudo: {
+  Mensagem.init({
+    text: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    date: {
+      type: DataTypes.DATE,
       allowNull:false
     }
   }, {
     sequelize,
-    modelName: 'Mensagens',
+    modelName: 'Mensagem',
   });
-  return Mensagens;
+  return Mensagem;
 };
