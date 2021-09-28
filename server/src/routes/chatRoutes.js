@@ -1,5 +1,5 @@
-const router = require("./authRoutes");
-const authentication = require("../middlewares/authMiddleware");
+// const router = require("./authRoutes");
+// const authentication = require("../middlewares/authMiddleware");
 
-router.get()
-router.post()
+// router.get()
+// router.post()

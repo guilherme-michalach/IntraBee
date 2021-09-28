@@ -8,12 +8,19 @@ module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     
     static associate(models) {
-      this.hasMany(models.Evento, { through: "usuario_eventos" });
-      this.hasMany(models.Apontamentos, { through: "usuario_apontamentos" });
-      this.hasMany(models.Grupos, { through: "usuario_grupos" });
-      this.hasMany(models.Mensagens, { through: "usuario_mensagens" });
+      this.belongsToMany(models.Evento, { through: "usuario_eventos" });
+      // this.hasMany(models.Apontamentos, { through: "usuario_apontamentos" });
+      this.belongsToMany(models.Grupos, { through: "usuario_grupos" });
+      this.belongsToMany(models.Mensagens, { through: "usuario_mensagens" });
       this.hasMany(models.Chats, { foreignKey: "id_usuario1" });
-      this.hasMany(models.Chats, { foreignKey: "id_usuario2" });
+      // this.hasMany(models.Chats, { foreignKey: "id_usuario2" });
+
+      // this.hasMany(models.Evento, { through: "usuario_eventos" });
+      // this.hasMany(models.Apontamentos, { through: "usuario_apontamentos" });
+      // this.hasMany(models.Grupos, { through: "usuario_grupos" });
+      // this.hasMany(models.Mensagens, { through: "usuario_mensagens" });
+      // this.hasMany(models.Chats, { foreignKey: "id_usuario1" });
+      // this.hasMany(models.Chats, { foreignKey: "id_usuario2" });
     }
 
     senhaValida(senha) {

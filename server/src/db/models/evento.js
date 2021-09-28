@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   class Evento extends Model {
     
     static associate(models) {
+      this.belongsTo(models.Usuario, { through: "usuario_eventos" });
+
       // this.belongsToMany(models.Usuario, { through: "usuario_eventos" });
     }
   };

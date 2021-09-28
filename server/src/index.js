@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 // Definindo as rotas
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/chat", require("./routes/chatRoutes"));
+// app.use("/api/chat", require("./routes/chatRoutes"));
 
 // Definindo o middleware de tratamento de erros
 app.use(require("./middlewares/errorMiddleware"));
