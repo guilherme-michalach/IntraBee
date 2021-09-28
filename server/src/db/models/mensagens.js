@@ -6,26 +6,22 @@ module.exports = (sequelize, DataTypes) => {
   class Mensagem extends Model {
    
     static associate(models) {
-      this.belongsToMany(models.Usuario, { through: "usuario_mensagens" });
+      this.belongsTo(models.Chat, { foreignKey: "chat_id" });
+      this.belongsTo(models.Usuario, { foreignKey: "usuario_id" });
     }
   };
   Mensagem.init({
-    data:{
-      type: DataTypes.DATE,
-      allowNull:false
-    },
-    hora:{
-     type: DataTypes.DATE,
-     allowNull:false
-    },
-    conteudo: {
+    text: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    date: {
+      type: DataTypes.DATE,
       allowNull:false
     }
   }, {
     sequelize,
     modelName: 'Mensagem',
-  
   });
   return Mensagem;
 };

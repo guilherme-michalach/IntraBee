@@ -6,13 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   class Chat extends Model {
   
     static associate(models) {
-      this.belongsToMany(models.Usuario, { foreignKey: "id_usuario1" });
-      this.belongsToMany(models.Usuario, { foreignKey: "id_usuario2" });
-      this.belongsToMany(models.Usuario, { foreignKey: "id_grupos" });
-      this.hasMany(models.Grupos, { through: "chats_grupos" })
+      this.hasMany(models.Mensagem, { foreignKey: "chat_id" });
+      this.belongsToMany(models.Usuario, { through: "chats_usuarios", as: "usuarios" });
+      this.belongsToMany(models.Grupo, { through: "chats_grupos" });
+
     }
   };
-  Chat.init({}, {
+  Chat.init({
+    name: DataTypes.STRING
+  }, {
     sequelize,
     modelName: 'Chat',
   });

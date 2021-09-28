@@ -7,11 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     
     static associate(models) {
       this.belongsToMany(models.Evento, { through: "usuario_evento" });
-      this.hasMany(models.Apontamento, { through: "usuario_apontamentos" });
+      this.hasOne(models.Apontamento, { through: "usuario_apontamentos" });
       this.belongsToMany(models.Grupo, { through: "usuario_grupos" });
-      this.belongsToMany(models.Mensagem, { through: "usuario_mensagens" });
-      this.hasMany(models.Chat, { foreignKey: "id_usuario1" });
-      this.hasMany(models.Chat, { foreignKey: "id_usuario2" });
+      this.belongsToMany(models.Chat, { through: "chats_usuarios", as: "chats" });
+      this.hasMany(models.Mensagem, { foreignKey: "user_id" });
     }
   };
   Usuario.init({
@@ -21,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      unique: true
     },
     telefone: {
       type: DataTypes.STRING,
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     isAdmin:{
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    }
+    },
   }, { 
     sequelize,
     modelName: 'Usuario',
