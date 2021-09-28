@@ -1,8 +1,8 @@
 const createHttpError = require("http-errors");
-const { User } = require("../db/models");
+const { Usuario } = require("../db/models");
 const jwt = require("jsonwebtoken");
 
-function createAccessToken() {
+function createAccessToken(sub) {
     const token = jwt.sign(
         { sub },
         process.env.TOKEN_SECRET,
@@ -16,21 +16,21 @@ async function login(req, res, next) {
     try {
         const { email, password } = req.body;
 
-        const registeredUser = await User.findOne({ where: { email } });
+        const registeredUser = await Usuario.findOne({ where: { email } });
 
         if (!registeredUser) {
             throw new createHttpError(401, "E-mail ou senha inválidos");
         }
 
-        const isPasswordValid = registeredUser.isPasswordValid(password);
+        const isPasswordValid = registeredUser.senhaValida(password);
 
         if (!isPasswordValid) {
             throw new createHttpError(401, "E-mail ou senha inválidos");
         }
 
-        const accesToken = createAccessToken(registeredUser.id);
+        const accessToken = createAccessToken(registeredUser.id);
 
-        res.json(accesToken)
+        res.json(accessToken)
     } catch (error) {
         console.log(error);
         next(error);

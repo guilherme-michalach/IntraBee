@@ -1,7 +1,9 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+
+const { Model } = require('sequelize');
+
+const bcrypt = require("bcrypt");
+
 module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     
@@ -12,8 +14,25 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.Chat, { through: "chats_usuarios", as: "chats" });
       this.hasMany(models.Mensagem, { foreignKey: "user_id" });
     }
+
+    senhaValida(senha) {
+      return bcrypt.compareSync(senha, this.senha);
+    }    
+
+    toJSON() {
+      return {
+        ...this.get(),
+        senha: undefined
+      }
+    }
+
   };
   Usuario.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
+    },
     nome:{
       type: DataTypes.STRING,
       allowNull:false
@@ -29,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     cargo:{
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: true
     },
     isAdmin:{
       type: DataTypes.BOOLEAN,

@@ -1,8 +1,9 @@
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { Text } from "react-native";
 
-export default function HomeScreen () {}
+export function HomeScreen () {
+    return (
+        <><Text>oi</Text></>
+    )
+}
 
-const styles = StyleSheet.create({
-
-})

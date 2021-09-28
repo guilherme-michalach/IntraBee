@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     try {
         const payload = jwt.verify(token, process.env.TOKEN_SECRET);
 
-        res.locals.userID = payload.sub;
+        res.locals.userId = payload.sub;
 
         next();
     } catch (error) {
