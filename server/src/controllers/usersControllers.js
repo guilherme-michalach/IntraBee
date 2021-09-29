@@ -62,7 +62,6 @@ async function changePassword(req, res, next) {
     const { senha } = req.body;
 
     try {
-        // const user = await Usuario.findOne({ where: { id: userId } });
         const user = await Usuario.findOne({ where: { id: userId }});
 
         if (!user) {
