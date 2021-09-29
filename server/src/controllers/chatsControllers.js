@@ -1,4 +1,4 @@
-const { Chat, Usuario, sequelize } = require("../db/models");
+const { Chats, Usuario, sequelize } = require("../db/models");
 const createHttpError = require("http-errors");
 const { QueryTypes } = require("sequelize");
 
@@ -14,7 +14,7 @@ async function createChat (req, res, next) {
             throw new createHttpError(404, "Usuários não cadastrados!");
         };
 
-        const chat = await Chat.create({ name });
+        const chat = await Chats.create({ name });
 
         await chat.addUsers(registeredUsers);
 
@@ -40,7 +40,7 @@ async function getChats (req, res, next) {
             FROM 
                 chats c
             INNER JOIN 
-                users_chats uc
+                chats_usuarios uc
             ON
                 uc.chat_id = c.id
             INNER JOIN
@@ -62,7 +62,7 @@ async function getChats (req, res, next) {
                 FROM
                     usuarios u
                 INNER JOIN
-                    users_chats uc
+                    chats_usuarios uc
                 ON
                     uc.user_id = u.id
                 WHERE
