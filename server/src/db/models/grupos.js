@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       this.belongsToMany(models.Usuario, { through: "usuario_grupos" });
-      this.belongsToMany(models.Chat, { through: "chats_grupos" });
+      this.belongsToMany(models.Chats, { through: "chats_grupos" });
     }
     
   };

@@ -1,4 +1,4 @@
-const { Chat, Usuario } = require("../db/models");
+const { Chats, Usuario } = require("../db/models");
 const createHttpError = require("http-errors");
 
 async function createChat (req, res, next) {
@@ -11,7 +11,7 @@ async function createChat (req, res, next) {
             throw new createHttpError(404, "Usuários não cadastrados!");
         };
 
-        const chat = await Chat.create({ name });
+        const chat = await Chats.create({ name });
 
         await chat.addUsers(registeredUsers);
 

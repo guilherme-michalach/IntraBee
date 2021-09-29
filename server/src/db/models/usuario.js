@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.Evento, { through: "usuario_evento" });
       this.hasOne(models.Apontamento, { through: "usuario_apontamentos" });
       this.belongsToMany(models.Grupo, { through: "usuario_grupos" });
-      this.belongsToMany(models.Chat, { through: "chats_usuarios", as: "chats" });
+      this.belongsToMany(models.Chats, { through: "chats_usuarios", as: "chats" });
       this.hasMany(models.Mensagem, { foreignKey: "user_id" });
     }
 
@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
 
   };
   Usuario.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
+    },
     nome:{
       type: DataTypes.STRING,
       allowNull:false

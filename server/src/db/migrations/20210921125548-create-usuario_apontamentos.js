@@ -5,7 +5,7 @@ module.exports = {
       usuario_id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model:"usuarios",
           key:"id"

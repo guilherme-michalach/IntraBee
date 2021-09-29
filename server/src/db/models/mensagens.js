@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Mensagem extends Model {
    
     static associate(models) {
-      this.belongsTo(models.Chat, { foreignKey: "chat_id" });
+      this.belongsTo(models.Chats, { foreignKey: "chat_id" });
       this.belongsTo(models.Usuario, { foreignKey: "usuario_id" });
     }
   };
