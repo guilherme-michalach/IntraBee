@@ -6,7 +6,7 @@ import size from "../theme/fonts";
 export function Button({text, ...rest}) {
     return (
         <TouchableOpacity 
-            style={[styles.button, rest.disabled ? { backgroundColor: "#ccc" }: {}]} 
+            style={[styles.button, rest.disabled ? { backgroundColor: "#f7c954" }: {}]} 
             activeOpacity={.8} 
             {...rest}>
             <Text style={styles.buttonText}>{text}</Text>
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,        
     },
     buttonText: {
-        color: "white",
+        color: "black",
         textAlign: "center",
         fontSize: size.button,
     }

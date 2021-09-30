@@ -15,7 +15,7 @@ const initialState = {
     password: "",
     isPasswordValid: false,    
     isLoginValid: false,
-    isLoading: false,       
+    isLoading: false,                                                          
 }
 
 export function SignInScreen ({ navigation }) {
@@ -56,7 +56,7 @@ export function SignInScreen ({ navigation }) {
             <ValidationInput 
                 value={state.email}
                 onChangeText={text => handleEmailChange(text, setState)}
-                placeholder="Seu e-mail"
+                placeholder="Se u e-mail"
                 labelText="E-mail"
                 keyboardType="email-address"
                 isValid={state.isEmailValid} />
