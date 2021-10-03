@@ -1,24 +1,36 @@
 const { Server } = require("socket.io");
 
-const io = new Server({ cors: { origin: "http://localhost:3000" } });
+const io = new Server({ cors: { origin: "*" } });
 
-const messages = [];
+let users = [];
 
 io.on("connection", (socket) => {
-    console.log("User connected");
+    const userId = socket.handshake.auth.userId;
 
-    socket.on("disconnect", () => {
-        console.log("User disconnected");
+    console.log(`User connected, the ID is: ${userId}`);
+    const userAlreadyConnected = users.find(user => user === userId)
+    
+    if (!userAlreadyConnected) {
+        users.push(userId);
+    }
+
+    console.log(users);
+
+    socket.on("join chats", chatsIds => {
+        chatsIds.forEach(chat => socket.join(`chat: ${chat}`));
+        console.log(socket.rooms);
     });
 
     socket.on("send message", message => {
-        socket.broadcast.emit("send message", message);
-        messages.push(message);
+       console.log(message);
+       io.to(`chat: ${message.chat_id}`).emit("new message", message);
     });
 
-    io.emit("recover messages", messages);
+    socket.on("disconnect", () => {
+        console.log(`User with the ID ${userId} disconnected`);
+        users = users.filter(user => user !== userId);
+        console.log(users);
+    });
 });
 
 io.listen(8080);
-
-// exemplo socket
