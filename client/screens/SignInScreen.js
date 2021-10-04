@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Button } from "../components/Button";
-import { ValidationInput } from "../components/ValidationInput";
-import { MaterialIcons } from '@expo/vector-icons';
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import colors from "../theme/colors";
-import { handleEmailChange, handlePasswordChange } from "../utils/commonValidations";
-import { useAuth } from "../contexts/AuthContext";
-import { Loader } from "../components/Loader";
-import { showErrorMessage } from "../utils/errorHandlers";
+import { EvilIcons } from '@expo/vector-icons';
 
+<<<<<<< HEAD
 const initialState = {
     email: "",
     isEmailValid: false,    
@@ -76,17 +71,86 @@ export function SignInScreen ({ navigation }) {
                     text="Login" 
                     onPress={handleSignIn}
                     disabled={!state.isLoginValid}/>
+=======
+export default function SignInScreen () {
+    const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>
+                IntraBee
+            </Text>
+            <Text style={styles.label}>
+                E-mail
+            </Text> 
+                <TextInput placeholder="Digite seu E-mail" style={styles.input} />
+            <Text style={styles.label}>
+                Senha
+            </Text>
+            <View style={styles.textHide}>
+                <TextInput secureTextEntry={isPasswordVisible} placeholder="Digite sua senha" style={[styles.input, styles.inputSecure]} />
+                <TouchableOpacity style={styles.visibleButton} onPress={() => setIsPasswordVisible(false)}>
+                    <EvilIcons name="eye" size={24} color="black" />
+                </TouchableOpacity>
+>>>>>>> 67104f1bd37f35988652f8c68378f207477533a8
             </View>
-        </KeyboardAvoidingView>
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>
+                    Login
+                </Text>
+            </TouchableOpacity>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: colors.backgroundColor,
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 10
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: colors.backgroundColor,
+        padding: 30
     },
-});
+    label: {
+        fontSize: 18,
+        marginTop: 10,
+    },
+    input: {
+        fontSize: 16,
+        borderWidth: 1,
+        // borderColor: "",
+        padding: 10,
+    },
+    button: {
+        backgroundColor: "grey",
+        borderRadius: 12,
+        padding: 15,
+        marginTop: 30
+    },
+    buttonText: {
+        textAlign: "center",
+        color: "white",
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    title: {
+
+    },
+    logo: {
+
+    },
+    textHide: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        // borderColor:
+    },
+    inputSecure: {
+        flex: 1,
+        borderWidth: 0
+    },
+    visibleButton: {
+        width: 40,
+        justifyContent: "center",
+        alignItems:"center"
+    }
+})
