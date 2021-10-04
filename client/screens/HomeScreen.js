@@ -5,79 +5,125 @@ import colors from "../theme/colors";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from "../contexts/AuthContext";
+import { EvilIcons } from '@expo/vector-icons';
 
 export function HomeScreen () {
     const { authActions } = useAuth();
 
-    const currentUser = { id: 1, name: "teste", email: "teste@email.com" }
+    const currentUser = { id: 1, name: "teste", email: "teste@email.com" };
     
     const [chats, setChats] = useState([
-        [
+      [
+        {
+          "id": 2,
+          "name": "Grupo 1",
+          "users": [
             {
-              "id": 4,
-              "name": "Grupo 2",
-              "users": [
-                {
-                  "name": "teste",
-                  "email": "teste@email.com"
-                },
-                {
-                  "name": "teste",
-                  "email": "teste20@email.com"
-                },
-                {
-                  "name": "teste",
-                  "email": "teste4@email.com"
-                }
-              ]
+              "id": 1,
+              "name": "teste",
+              "email": "teste@email.com"
+            }
+          ],
+          "lastMessage": null
+        },
+        {
+          "id": 3,
+          "name": "Grupo 2",
+          "users": [
+            {
+              "id": 1,
+              "name": "teste",
+              "email": "teste@email.com"
+            },
+            {
+              "id": 3,
+              "name": "teste",
+              "email": "teste20@email.com"
+            }
+          ],
+          "lastMessage": null
+        },
+        {
+          "id": 4,
+          "name": "Grupo 2",
+          "users": [
+            {
+              "id": 1,
+              "name": "teste",
+              "email": "teste@email.com"
+            },
+            {
+              "id": 3,
+              "name": "teste",
+              "email": "teste20@email.com"
             },
             {
               "id": 5,
-              "name": "Grupo 2",
-              "users": [
-                {
-                  "name": "teste",
-                  "email": "teste@email.com"
-                },
-                {
-                  "name": "teste",
-                  "email": "teste4@email.com"
-                }
-              ]
+              "name": "teste",
+              "email": "teste4@email.com"
+            }
+          ],
+          "lastMessage": {
+            "id": 7,
+            "message": "Mensagem 2",
+            "createdAt": "2021-09-30T20:17:23.293Z",
+            "updatedAt": "2021-09-30T20:17:23.293Z",
+            "chat_id": 4,
+            "user_id": 5
+          }
+        },
+        {
+          "id": 5,
+          "name": "Grupo 2",
+          "users": [
+            {
+              "id": 1,
+              "name": "teste",
+              "email": "teste@email.com"
             },
             {
-              "id": 6,
-              "name": "Grupo 2",
-              "users": [
-                {
-                  "name": "teste",
-                  "email": "teste@email.com"
-                },
-                {
-                  "name": "teste",
-                  "email": "teste4@email.com"
-                }
-              ]
+              "id": 5,
+              "name": "teste",
+              "email": "teste4@email.com"
             }
-          ]
+          ],
+          "lastMessage": null
+        },
+        {
+          "id": 6,
+          "name": "Grupo 2",
+          "users": [
+            {
+              "id": 1,
+              "name": "teste",
+              "email": "teste@email.com"
+            },
+            {
+              "id": 5,
+              "name": "teste",
+              "email": "teste4@email.com"
+            }
+          ],
+          "lastMessage": null
+        }
+      ]
     ]);
 
     function renderChat({ item }) {
-        // const chatName = item.name ? 
-        //     item.name : 
-        //     item.users[0].id === currentUser.id ? 
-        //         item.users[1].name :
-        //         item.users[0].name;
+        const chatName = item.name ? 
+            item.name : 
+            item.users[0].id === currentUser.id ? 
+                item.users[1].name :
+                item.users[0].name;
 
         return (
             <Chat 
-                // chatName={chatName}
-                // lastMessage={item.lastMessage.message} 
-                // date={item.lastMessage.createdAt}
+                chatName={chatName}
+                lastMessage={item.lastMessage.message} 
+                date={item.lastMessage.createdAt}
             />
         )
     }
-
 
     return(
         <View style={styles.container}>
@@ -96,11 +142,14 @@ export function HomeScreen () {
                 renderItem={renderChat}
                 keyExtractor={item => "" + item.id}
             />
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.addButton}>
+                <EvilIcons name="plus" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
         </View>
     );
 }
-
-
  
 const styles = StyleSheet.create({
 
@@ -122,9 +171,21 @@ const styles = StyleSheet.create({
         // backgroundColor:,
         fontSize: 24,
         fontWeight: "bold",
-
     },
     headerTitleContainer: {
         flex:1
-    }
+    },
+    buttonContainer: {
+      position: "absolute",
+      bottom: 10,
+      right: 10
+    },
+    addButton: {
+      height: 60,
+      width: 60,
+      justifyContent: "center",
+      alignItems: "center",
+      // backgroundColor,
+    },
+
 })
