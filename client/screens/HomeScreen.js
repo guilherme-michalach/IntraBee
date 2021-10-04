@@ -7,6 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 export function HomeScreen () {
+    const { authActions } = useAuth();
+
     const currentUser = { id: 1, name: "teste", email: "teste@email.com" }
     
     const [chats, setChats] = useState([
