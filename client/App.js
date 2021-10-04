@@ -1,9 +1,11 @@
 import React from 'react';
-import { HomeScreen } from './screens/HomeScreen';
-import SignInScreen from './screens/SignInScreen';
+import { AuthProvider } from './contexts/AuthContext';
+import { Routes } from './';
 
 export default function App() {
   return (
-    <HomeScreen />
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }

@@ -5,7 +5,7 @@ import colors from "../theme/colors";
 export function SplashScreen() {
     return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" color={colors.primary} />
+            <ActivityIndicator size="large" color={"black"} />
         </View>
     );
 }
