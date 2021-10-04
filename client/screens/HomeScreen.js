@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
+import { useAuth } from "../contexts/AuthContext";
 
 export function HomeScreen () {
+    const { authActions } = useAuth();
+
     const currentUser = { id: 1, name: "teste", email: "teste@email.com" }
     
     const [chats, setChats] = useState([
