@@ -4,7 +4,7 @@ import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import { useAuth } from "../contexts/AuthContext";
 
 export function HomeScreen () {
     const { authActions } = useAuth();

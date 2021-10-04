@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import { useAuth } from "../contexts/AuthContext";
@@ -26,7 +26,7 @@ export default function SignInScreen () {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
-                Insira seus dados abaixo
+                IntraBee
             </Text>
             <Text style={styles.label}>
                 E-mail
@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign:"center",
-        fontSize: 30
-
+        fontSize: 32,
+        marginBottom: 60
     },
     logo: {
 
