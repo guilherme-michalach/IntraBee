@@ -1,4 +1,4 @@
-const { Chat, User, sequelize } = require("../db/models");
+const { Chat, User, Message, sequelize } = require("../db/models");
 const createHttpError = require("http-errors");
 const { QueryTypes } = require("sequelize");
 
@@ -56,6 +56,7 @@ async function getChats (req, res, next) {
         for (let chat of chats) {
             const users = await sequelize.query(`
                 SELECT
+                    u.id,
                     u.name,
                     u.email
                 FROM
@@ -71,7 +72,14 @@ async function getChats (req, res, next) {
                 type: QueryTypes.SELECT 
             });
 
+            const lastMessage = await Message.findOne({ 
+                where: { chat_id: chat.id },
+                order: [["createdAt", "DESC"]],
+                limit: 1
+            });
+
             chat.users = users;
+            chat.lastMessage = lastMessage;
         }
 
         res.json(chats);

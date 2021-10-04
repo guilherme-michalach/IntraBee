@@ -1,8 +1,8 @@
 import React from "react";
+import { api } from "../services/api";
 import * as SecureStore from "expo-secure-store";
 
 const { useContext, createContext, useReducer, useEffect } = require("react");
-const { api } = require("../services/api");
 const AuthContext = createContext();
 
 const initialState = {
@@ -18,21 +18,20 @@ function reducer (prevState, action) {
                 isLoading: false,
                 accessToken: action.payload
             }
-            break;
         case "SIGN_IN":
             return {
                 ...prevState,
                 accessToken: action.payload
             }
-            break;
         case "SIGN_OUT":
             return {
                 ...prevState,
                 accessToken: null
             }
-            break;
     }
 }
+
+export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider ({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -42,14 +41,14 @@ export function AuthProvider ({ children }) {
             let accessToken;
 
             try {
-                const accessToken = SecureStore.getItemAsync("access-token");
+                accessToken = await SecureStore.getItemAsync("access-token");
                 api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
             } catch (error) {
                 console.log(error);
             }
 
             dispatch({ type: "RESTORE_TOKEN", payload: accessToken });
-        }
+        };
 
         getAccessToken();
     }, []);
@@ -83,4 +82,3 @@ export function AuthProvider ({ children }) {
     );
 };
 
-export const useAuth = () => useContext(AuthContext);
