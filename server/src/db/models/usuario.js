@@ -8,19 +8,11 @@ module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     
     static associate(models) {
-      this.belongsToMany(models.Evento, { through: "usuario_eventos" });
-      // this.hasMany(models.Apontamentos, { through: "usuario_apontamentos" });
-      this.belongsToMany(models.Grupos, { through: "usuario_grupos" });
-      this.belongsToMany(models.Mensagens, { through: "usuario_mensagens" });
-      this.hasMany(models.Chats, { foreignKey: "id_usuario1" });
-      // this.hasMany(models.Chats, { foreignKey: "id_usuario2" });
-
-      // this.hasMany(models.Evento, { through: "usuario_eventos" });
-      // this.hasMany(models.Apontamentos, { through: "usuario_apontamentos" });
-      // this.hasMany(models.Grupos, { through: "usuario_grupos" });
-      // this.hasMany(models.Mensagens, { through: "usuario_mensagens" });
-      // this.hasMany(models.Chats, { foreignKey: "id_usuario1" });
-      // this.hasMany(models.Chats, { foreignKey: "id_usuario2" });
+      this.belongsToMany(models.Evento, { through: "usuario_evento" });
+      this.hasOne(models.Apontamento, { through: "usuario_apontamentos" });
+      this.belongsToMany(models.Grupo, { through: "usuario_grupos" });
+      this.belongsToMany(models.Chats, { through: "chats_usuarios", as: "chats" });
+      this.hasMany(models.Mensagem, { foreignKey: "user_id" });
     }
 
     senhaValida(senha) {
@@ -45,17 +37,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull:false
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      unique: true
-    },
     senha: {
       type: DataTypes.STRING,
       allowNull: false,
       set(senha) {
         this.setDataValue("senha", bcrypt.hashSync(senha, 10));
-      }
+    } },
+    email: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      unique: true
     },
     telefone: {
       type: DataTypes.STRING,
@@ -68,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     isAdmin:{
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    }
+    },
   }, { 
     sequelize,
     modelName: 'Usuario',

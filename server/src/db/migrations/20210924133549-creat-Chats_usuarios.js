@@ -1,28 +1,28 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('usuario_eventos', {
-      usuario_id: {
+    await queryInterface.createTable('chatss_usuarios', {
+      chat_id: {
         allowNull: false,        
-        primaryKey: true,
+        primaryKey: true,        
+        type: Sequelize.INTEGER,
+        references: {
+          model: "chats",
+          key: "id"
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+      },
+      user_id: {
+        allowNull: false,        
+        primaryKey: true,    
         type: Sequelize.UUID,
         references: {
           model: "usuarios",
           key: "id"
         },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
-      },
-      eventos_id: {
-        allowNull: false,        
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-        references: {
-          model: "eventos",
-          key: "id"
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       created_at: {
         allowNull: false,
@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('usuario_grupo');
+    await queryInterface.dropTable('chatss_usuarios');
   }
 };
