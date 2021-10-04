@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 export function HomeScreen () {
     const currentUser = { id: 1, name: "teste", email: "teste@email.com" }
@@ -95,7 +98,11 @@ export function HomeScreen () {
     );
 }
 
+
+ 
 const styles = StyleSheet.create({
+
+  
     container: {
         flex: 1,
         backgroundColor: colors.backgroundColor,
@@ -116,6 +123,6 @@ const styles = StyleSheet.create({
 
     },
     headerTitleContainer: {
-        flex: 1
+        flex:1
     }
 })

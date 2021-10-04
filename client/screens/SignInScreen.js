@@ -9,7 +9,7 @@ export default function SignInScreen () {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
-                IntraBee
+                Insira seus dados abaixo
             </Text>
             <Text style={styles.label}>
                 E-mail
@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     title: {
+        textAlign:"center",
+        fontSize: 30
 
     },
     logo: {
