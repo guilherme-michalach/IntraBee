@@ -135,7 +135,7 @@ export function HomeScreen () {
 
                 </View>
                 <Text>Drawer</Text>
-                {/* <TouchableOpacity></TouchableOpacity> */}
+                <TouchableOpacity onPress={() => authActions.signOut()}><Text>Logoff</Text></TouchableOpacity>
             </View>
             <FlatList 
                 data={chats}
@@ -144,7 +144,7 @@ export function HomeScreen () {
             />
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.addButton}>
-                <EvilIcons name="plus" size={24} color="black" />
+                <EvilIcons name="plus" size={66} color="black" />
               </TouchableOpacity>
             </View>
         </View>
@@ -185,6 +185,8 @@ const styles = StyleSheet.create({
       width: 60,
       justifyContent: "center",
       alignItems: "center",
+      marginRight: 10,
+      marginBottom: 10
       // backgroundColor,
     },
 

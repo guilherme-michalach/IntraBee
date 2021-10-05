@@ -7,9 +7,9 @@ import { HomeScreen } from './screens/HomeScreen';
 
 export default function App() {
   return (
-<ChatScreen />
-    // <AuthProvider>
-    //   <Routes />
-    // </AuthProvider>
+/* <ChatScreen /> */
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }
