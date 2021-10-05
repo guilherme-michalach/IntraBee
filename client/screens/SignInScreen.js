@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "reac
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import { useAuth } from "../contexts/AuthContext";
+import SplashScreen from "./SplashScreen";
 
 export default function SignInScreen () {
     const { authActions } = useAuth();
@@ -10,17 +11,25 @@ export default function SignInScreen () {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     async function handleSignIn () {
         if (!email.trim() || !password.trim()) {
             Alert.alert("Preencha os campos adequadamente!");
         }
 
+        setIsLoading(true);
+
         try {
             await authActions.signIn(email, password);
         } catch (error) {
             Alert.alert("Não foi possível realizar login.");
+            setIsLoading(false);
         }
+    }
+
+    if (isLoading) {
+        return <SplashScreen />
     }
 
     return (

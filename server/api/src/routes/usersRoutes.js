@@ -9,7 +9,7 @@ router.post("/", usersControllers.createUser);
 
 // Obter informações de um usuário
 
-router.get("/", authentication, usersControllers.getUser);
+router.get("/me", authentication, usersControllers.getUser);
 
 // Mudar senha de acesso do usuário
 

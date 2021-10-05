@@ -1,126 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from "../contexts/AuthContext";
 import { EvilIcons } from '@expo/vector-icons';
 
-export function HomeScreen () {
+export function HomeScreen ({ navigation }) {
     const { authActions } = useAuth();
 
-    const currentUser = { id: 1, name: "teste", email: "teste@email.com" };
-    
-    const [chats, setChats] = useState([
-      [
-        {
-          "id": 2,
-          "name": "Grupo 1",
-          "users": [
-            {
-              "id": 1,
-              "name": "teste",
-              "email": "teste@email.com"
-            }
-          ],
-          "lastMessage": null
-        },
-        {
-          "id": 3,
-          "name": "Grupo 2",
-          "users": [
-            {
-              "id": 1,
-              "name": "teste",
-              "email": "teste@email.com"
-            },
-            {
-              "id": 3,
-              "name": "teste",
-              "email": "teste20@email.com"
-            }
-          ],
-          "lastMessage": null
-        },
-        {
-          "id": 4,
-          "name": "Grupo 2",
-          "users": [
-            {
-              "id": 1,
-              "name": "teste",
-              "email": "teste@email.com"
-            },
-            {
-              "id": 3,
-              "name": "teste",
-              "email": "teste20@email.com"
-            },
-            {
-              "id": 5,
-              "name": "teste",
-              "email": "teste4@email.com"
-            }
-          ],
-          "lastMessage": {
-            "id": 7,
-            "message": "Mensagem 2",
-            "createdAt": "2021-09-30T20:17:23.293Z",
-            "updatedAt": "2021-09-30T20:17:23.293Z",
-            "chat_id": 4,
-            "user_id": 5
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const [chats, setChats] = useState([]);
+
+    useEffect(() => {
+      async function getUser() {
+        try {
+          const user = (await api.get("/users/me")).data;
+
+          setCurrentUser(user);
+        } catch (error) {
+          if (error.response.status === 401) {
+            authActions.signOut();
           }
-        },
-        {
-          "id": 5,
-          "name": "Grupo 2",
-          "users": [
-            {
-              "id": 1,
-              "name": "teste",
-              "email": "teste@email.com"
-            },
-            {
-              "id": 5,
-              "name": "teste",
-              "email": "teste4@email.com"
-            }
-          ],
-          "lastMessage": null
-        },
-        {
-          "id": 6,
-          "name": "Grupo 2",
-          "users": [
-            {
-              "id": 1,
-              "name": "teste",
-              "email": "teste@email.com"
-            },
-            {
-              "id": 5,
-              "name": "teste",
-              "email": "teste4@email.com"
-            }
-          ],
-          "lastMessage": null
         }
-      ]
-    ]);
+      }
+
+      async function getChats() {
+        try {
+          const chat = (await api.get("/chats")).data;
+
+          setChats(chat);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      getUser();
+      getChats();
+    }, []);
 
     function renderChat({ item }) {
         const chatName = item.name ? 
             item.name : 
-            item.users[0].id === currentUser.id ? 
-                item.users[1].name :
-                item.users[0].name;
+            item.users[0]?.id === currentUser?.id ? 
+            item.users[1]?.name :
+            item.user[0]?.name;
 
         return (
             <Chat 
                 chatName={chatName}
                 lastMessage={item.lastMessage.message} 
                 date={item.lastMessage.createdAt}
+                openChat={() => navigation.push("Chat", { chatId: item.id, currentUser })}
             />
         )
     }

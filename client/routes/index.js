@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { HomeScreen } from "../screens/HomeScreen";
 import SignInScreen from "../screens/SignInScreen";
 import SplashScreen from "../screens/SplashScreen";
+import { AppRoutes } from "./AppRoutes";
 
 export function Routes () {
     const { accessToken, isLoading } = useAuth();
@@ -13,7 +14,7 @@ export function Routes () {
                 isLoading ? 
                 <SplashScreen /> :
                 accessToken ?
-                <HomeScreen /> :
+                <AppRoutes /> :
                 <SignInScreen />
             }
         </>

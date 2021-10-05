@@ -1,39 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Message } from "../components/Message";
 import colors from "../theme/colors";
 import { Feather } from '@expo/vector-icons';
 
-export function ChatScreen () {
-    const currentUser = { id: 1, name: "teste", email: "teste@email.com" };
-
+export function ChatScreen ({ navigation, route }) {
+    const currentUser = route.params.currentUser;
     const flatRef = useRef();
-
     const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
 
-    const [messages, setMessages] = useState([
-            {
-              "id": 6,
-              "message": "Mensagem 1",
-              "userId": 5,
-              "name": "teste",
-              "createdAt": "2021-09-30T20:11:51.456Z"
-            },
-            {
-              "id": 7,
-              "message": "Mensagem 2",
-              "userId": 5,
-              "name": "teste",
-              "createdAt": "2021-09-30T20:17:23.293Z"
-            },
-            {
-              "id": 8,
-              "message": "Mensagem teste",
-              "userId": 1,
-              "name": "teste",
-              "createdAt": "2021-10-04T19:33:46.436Z"
+    useEffect(() => {
+        async function getMessages () {
+            try {
+                const messages = (await api.get(`/messages/${route.params?.chatId}`)).data;
+                setMessages(messages);
+            } catch (error) {
+                console.log(error);
             }
-    ]);
+        };
+
+        getMessages();
+    }, []);
 
     function sendMessage () {
         if (!message) return;
@@ -56,9 +44,10 @@ export function ChatScreen () {
             <FlatList
                 ref={flatRef}
                 onLayout={() => flatRef.current.scrollToEnd()}
+                onContentSizeChange={() => flatRef.current.scrollToEnd()}
                 data={messages}
                 renderItem={renderMessage}
-                keyExtractor={item => "" + item_id}
+                keyExtractor={item => "" + item.id}
             />
             <View style={styles.containerInput}>
                 <TextInput 
