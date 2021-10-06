@@ -52,7 +52,7 @@ export function ChatScreen ({ navigation, route }) {
     }
 
     function renderMessage ({ item }) {
-        const self = item.user_id === currentUser.id;
+        const self = item.userId === currentUser.id;
 
         return (
             <Message name={item.name} message={item.message} self={self} />
