@@ -28,6 +28,11 @@ export default function SignInScreen () {
         }
     }
 
+    function handleNavigateSignUpScreen () {
+        setState(initialState);
+        navigation.push("SignUp");
+    }
+
     if (isLoading) {
         return <SplashScreen />
     }
@@ -61,6 +66,9 @@ export default function SignInScreen () {
                     <EvilIcons name="eye" size={24} color="black" />
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity onPress={handleNavigateSignUpScreen}>
+                <Text>Não tem conta ainda? Cadastre-se</Text>
+            </TouchableOpacity>   
             <TouchableOpacity style={styles.button} onPress={handleSignIn}>
                 <Text style={styles.buttonText}>
                     Login
@@ -74,7 +82,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: colors.backgroundColor,
+        backgroundColor: 'rgb(255,250,205)',
         padding: 30
     },
     label: {
@@ -96,13 +104,14 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: "center",
         color: "white",
-        fontSize: 20,
-        fontWeight: "bold"
+        fontSize: 18,
+        fontFamily: "monospace",
     },
     title: {
         textAlign:"center",
         fontSize: 32,
-        marginBottom: 60
+        marginBottom: 60,
+        fontFamily: "monospace"
     },
     logo: {
 
