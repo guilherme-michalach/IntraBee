@@ -4,6 +4,7 @@ import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import { useAuth } from "../contexts/AuthContext";
 import SplashScreen from "./SplashScreen";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function SignInScreen () {
     const { authActions } = useAuth();
@@ -39,9 +40,10 @@ export default function SignInScreen () {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>
+             <Text style={styles.title}>
                 IntraBee
             </Text>
+            <MaterialCommunityIcons style={styles.bee} name="bee" size={100} color="black" />
             <Text style={styles.label}>
                 E-mail
             </Text> 
@@ -66,7 +68,7 @@ export default function SignInScreen () {
                     <EvilIcons name="eye" size={24} color="black" />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={handleNavigateSignUpScreen}>
+            <TouchableOpacity style={styles.register} onPress={handleNavigateSignUpScreen}>
                 <Text>Não tem conta ainda? Cadastre-se</Text>
             </TouchableOpacity>   
             <TouchableOpacity style={styles.button} onPress={handleSignIn}>
@@ -85,46 +87,55 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(255,250,205)',
         padding: 30
     },
+    bee: {
+        textAlign: "center",
+        marginBottom:70
+    },
+     register: {
+         textAlign: "center",
+         padding:10
+
+     },
     label: {
         fontSize: 18,
         marginTop: 10,
     },
     input: {
         fontSize: 16,
-        borderWidth: 1,
-        // borderColor: "",
+        borderBottomWidth: 1,
+     borderColor: "black",
         padding: 10,
     },
     button: {
-        backgroundColor: "grey",
+        backgroundColor:  'rgb(192,192,192)',
         borderRadius: 12,
         padding: 15,
         marginTop: 30
     },
     buttonText: {
         textAlign: "center",
-        color: "white",
-        fontSize: 18,
-        fontFamily: "monospace",
+        color: "black",
+        fontSize: 20,
+        fontWeight: "bold"
     },
     title: {
-        textAlign:"center",
-        fontSize: 32,
-        marginBottom: 60,
-        fontFamily: "monospace"
-    },
-    logo: {
-
+        textAlign: "center",
+        marginTop: 5,
+        fontSize: 40,
+        fontFamily: "monospace",
+        paddingBottom:10
+        
+    
     },
     textHide: {
         flexDirection: "row",
         alignItems: "center",
-        borderWidth: 1,
+        borderBottomWidth: 1,
         // borderColor:
     },
     inputSecure: {
         flex: 1,
-        borderWidth: 0
+        borderBottomWidth: 0
     },
     visibleButton: {
         width: 40,
