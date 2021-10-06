@@ -1,33 +1,24 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
-import LinearGradient from 'react-native-linear-gradient';
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 export function SignUpScreen() {
-    return (
-        <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
-            <Text style={styles.buttonText}>
-                Sign in with Facebook
-            </Text>
-        </LinearGradient>
-    )
-}
-
-export function SinUpScreen() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 
-    return (
-        //<View style={styles.linearGradient}>
-        <View colrors={['#4c669f', '#3b5998', '#192f6a']} style={styles.container}>
+    return ( 
+        
+        
+        <View style={styles.container}>
+            
+            <Text style={styles.name}>
+            Intra Bee
+            </Text>
+            <MaterialCommunityIcons style={styles.bee} name="bee" size={100} color="black" />
             <Text style={styles.title}>
                 Insira os dados abaixo:
             </Text>
-            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
-                <Text style={styles.buttonText}>
-                    Sign in with Facebook
-  </Text>
-            </LinearGradient>
             <Text style={styles.label}>
                 Nome
             </Text>
@@ -51,7 +42,7 @@ export function SinUpScreen() {
                 </Text>
             </TouchableOpacity>
         </View>
-        //</View>
+        
     );
 }
 
@@ -62,62 +53,63 @@ const styles = StyleSheet.create({
         backgroundColor: colors.backgroundColor,
         padding: 30
     },
+    bee: {
+        textAlign: "center"
+    },
     label: {
         fontSize: 18,
         marginTop: 10,
+        color: "black",
+     
     },
     input: {
         fontSize: 16,
-        borderWidth: 1,
-        // borderColor: "",
+        borderBottomWidth: 1,
+        borderColor: 'black',
         padding: 10,
+        
     },
     button: {
-        backgroundColor: "grey",
+        backgroundColor:  'rgb(192,192,192)',
         borderRadius: 12,
         padding: 15,
         marginTop: 30
     },
     buttonText: {
         textAlign: "center",
-        color: "white",
+        color: "black",
         fontSize: 20,
         fontWeight: "bold"
     },
     title: {
-
+        textAlign: "center",
+        marginTop: 20,
+        fontSize: 25,
+        fontFamily: "monospace",
+        paddingBottom:20
     },
-    logo: {
-
+    name: {
+        fontSize: 60,
+        textAlign: "center",
+        marginTop:10,
+        fontFamily: "Roboto"       
     },
     textHide: {
         flexDirection: "row",
         alignItems: "center",
-        borderWidth: 1,
-        // borderColor:
+        borderBottomWidth: 1,
+        borderColor:"rgb(47,79,79)",
     },
     inputSecure: {
         flex: 1,
-        borderWidth: 0
+        borderBottomWidth: 0
     },
     visibleButton: {
         width: 40,
         justifyContent: "center",
         alignItems: "center"
     },
-    linearGradient: {
-        flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 5
-    },
-    //  linearGradient: {
-    //      heigth: 45,
-    //      width: 100,
-    //      marginTop: 15,
-    //      borderRadius: 5,
-    //      backgroundColorTop: "rgba(255,255,255, 0)", 
-    //      backgroundColorBottom:"rgba(255,255,255, 1)"
-    //  },
+    
+   
 });
 
