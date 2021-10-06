@@ -8,6 +8,7 @@ import { socket } from "../services/chat";
 
 export function ChatScreen ({ navigation, route }) {
     const currentUser = route.params.currentUser;
+    // ver com e sem interrogação o params
     const flatRef = useRef();
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);

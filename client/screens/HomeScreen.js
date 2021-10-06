@@ -56,8 +56,8 @@ export function HomeScreen ({ navigation }) {
         return (
             <Chat 
                 chatName={chatName}
-                // lastMessage={item.lastMessage.message} 
-                // date={item.lastMessage.createdAt}
+                lastMessage={item.lastMessage?.message} 
+                date={item.lastMessage.createdAt}
                 openChat={() => navigation.push("Chat", { chatId: item.id, currentUser, name: chatName })}
             />
         )
@@ -70,10 +70,11 @@ export function HomeScreen ({ navigation }) {
                     <Text style={styles.headerTitle}>
                         IntraBee
                     </Text>
-
                 </View>
                 <Text>Drawer</Text>
-                <TouchableOpacity onPress={() => authActions.signOut()}><Text>Logoff</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => authActions.signOut()}>
+                  <Text>Logoff</Text>
+                </TouchableOpacity>
             </View>
             <FlatList 
                 data={chats}
@@ -104,7 +105,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     headerTitle: {
-        // backgroundColor:,
         fontSize: 24,
         fontWeight: "bold",
     },
@@ -123,6 +123,5 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginRight: 10,
       marginBottom: 10
-      // backgroundColor,
     }
 })
