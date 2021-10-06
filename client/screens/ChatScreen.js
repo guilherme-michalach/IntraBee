@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import { Message } from "../components/Message";
 import colors from "../theme/colors";
 import { Feather } from '@expo/vector-icons';
 import { api } from "../services/api";
+import { socket } from "../services/chat";
 
 export function ChatScreen ({ navigation, route }) {
     const currentUser = route.params.currentUser;
@@ -21,7 +22,15 @@ export function ChatScreen ({ navigation, route }) {
             }
         };
 
+        socket.on("new message", newMessage => {
+            if (newMessage.chat_id === route.params?.chatId) {
+                setMessage(prevMessages => [...prevMessages, newMessage]);
+            }
+        });
+
         getMessages();
+
+        return () => socket.off("new message");
     }, []);
 
     async function sendMessage () {
@@ -33,7 +42,7 @@ export function ChatScreen ({ navigation, route }) {
                 chatId: route.params?.chatId
             })).data;
 
-            setMessages(prevMessages => [...prevMessages, newMessage]);
+            socket.emit("send message", newMessage);
         } catch (error) {
             console.log(error);
         }

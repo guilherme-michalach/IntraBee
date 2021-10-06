@@ -58,7 +58,7 @@ export function HomeScreen ({ navigation }) {
                 chatName={chatName}
                 // lastMessage={item.lastMessage.message} 
                 // date={item.lastMessage.createdAt}
-                openChat={() => navigation.push("Chat", { chatId: item.id, currentUser })}
+                openChat={() => navigation.push("Chat", { chatId: item.id, currentUser, name: chatName })}
             />
         )
     }
