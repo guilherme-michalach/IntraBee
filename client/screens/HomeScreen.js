@@ -4,18 +4,21 @@ import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
 import { useAuth } from "../contexts/AuthContext";
 import { EvilIcons } from '@expo/vector-icons';
+import { api } from "../services/api";
+import { socket } from "../services/chat";
 
 export function HomeScreen ({ navigation }) {
     const { authActions } = useAuth();
-
     const [currentUser, setCurrentUser] = useState(null);
-
     const [chats, setChats] = useState([]);
 
     useEffect(() => {
       async function getUser() {
         try {
           const user = (await api.get("/users/me")).data;
+
+          socket.connect();
+          socket.auth = { userId: user.id };
 
           setCurrentUser(user);
         } catch (error) {
@@ -27,9 +30,13 @@ export function HomeScreen ({ navigation }) {
 
       async function getChats() {
         try {
-          const chat = (await api.get("/chats")).data;
+          const chats = (await api.get("/chats")).data;
 
-          setChats(chat);
+          const chatsIds = chats.map(chat => chat.id);
+
+          socket.emit("join chats", chatsIds);
+
+          setChats(chats);
         } catch (error) {
           console.log(error);
         }
@@ -44,13 +51,13 @@ export function HomeScreen ({ navigation }) {
             item.name : 
             item.users[0]?.id === currentUser?.id ? 
             item.users[1]?.name :
-            item.user[0]?.name;
+            item.users[0]?.name;
 
         return (
             <Chat 
                 chatName={chatName}
-                lastMessage={item.lastMessage.message} 
-                date={item.lastMessage.createdAt}
+                // lastMessage={item.lastMessage.message} 
+                // date={item.lastMessage.createdAt}
                 openChat={() => navigation.push("Chat", { chatId: item.id, currentUser })}
             />
         )
@@ -83,8 +90,6 @@ export function HomeScreen ({ navigation }) {
 }
  
 const styles = StyleSheet.create({
-
-  
     container: {
         flex: 1,
         backgroundColor: colors.backgroundColor,
@@ -119,6 +124,5 @@ const styles = StyleSheet.create({
       marginRight: 10,
       marginBottom: 10
       // backgroundColor,
-    },
-
+    }
 })

@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect, useReducer, useContext, createContext } from "react";
 import { api } from "../services/api";
 import * as SecureStore from "expo-secure-store";
 
-const { useContext, createContext, useReducer, useEffect } = require("react");
 const AuthContext = createContext();
 
 const initialState = {
     isLoading: true,
     accessToken: null
-}
+};
 
 function reducer (prevState, action) {
     switch (action.type) {

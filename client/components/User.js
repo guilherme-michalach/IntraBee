@@ -9,7 +9,7 @@ export function User ({ name }) {
             <EvilIcons style={styles.icon} name="user" size={50} color="black" />
             <Text style={styles.user}>{name}</Text>
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

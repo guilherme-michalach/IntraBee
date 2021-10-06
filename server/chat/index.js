@@ -1,6 +1,6 @@
 const { Server } = require("socket.io");
 
-const io = new Server({ cors: { origin: "*" } });
+const io = new Server({ cors: { origin: "http://192.168.1.2/3000" } });
 
 let users = [];
 

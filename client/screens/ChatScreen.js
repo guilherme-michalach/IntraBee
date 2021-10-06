@@ -3,6 +3,7 @@ import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, Vie
 import { Message } from "../components/Message";
 import colors from "../theme/colors";
 import { Feather } from '@expo/vector-icons';
+import { api } from "../services/api";
 
 export function ChatScreen ({ navigation, route }) {
     const currentUser = route.params.currentUser;
@@ -23,10 +24,19 @@ export function ChatScreen ({ navigation, route }) {
         getMessages();
     }, []);
 
-    function sendMessage () {
+    async function sendMessage () {
         if (!message) return;
 
-        setMessages(prevMessages => [...prevMessages, message]);
+        try {
+            const newMessage = (await api.post("/messages", {
+                message,
+                chatId: route.params?.chatId
+            })).data;
+
+            setMessages(prevMessages => [...prevMessages, newMessage]);
+        } catch (error) {
+            console.log(error);
+        }
 
         setMessage("");
     }
@@ -36,8 +46,8 @@ export function ChatScreen ({ navigation, route }) {
 
         return (
             <Message name={item.name} message={item.message} self={self} />
-        )
-    }
+        );
+    };
     
     return(
         <View style={styles.container}>
