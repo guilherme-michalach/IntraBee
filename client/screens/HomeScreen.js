@@ -47,45 +47,48 @@ export function HomeScreen ({ navigation }) {
     }, []);
 
     function renderChat({ item }) {
-        const chatName = item.name ? 
-            item.name : 
-            item.users[0]?.id === currentUser?.id ? 
-            item.users[1]?.name :
-            item.users[0]?.name;
+      const chatName = item.name ? 
+        item.name : 
+        item.users[0]?.id === currentUser?.id ? 
+        item.users[1]?.name :
+        item.users[0]?.name;
 
-        return (
-            <Chat 
-                chatName={chatName}
-                // lastMessage={item.lastMessage.message} 
-                // date={item.lastMessage.createdAt}
-                openChat={() => navigation.push("Chat", { chatId: item.id, currentUser, name: chatName })}
-            />
-        )
+      
+
+      return (
+        <Chat 
+            chatName={chatName}
+            lastMessage={item.lastMessage?.message} 
+            date={item.lastMessage?.createdAt}
+            openChat={() => navigation.push("Chat", { chatId: item.id, currentUser, name: chatName })}
+        />
+      )
     }
 
     return(
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={styles.headerTitleContainer}>
-                    <Text style={styles.headerTitle}>
-                        IntraBee
-                    </Text>
-
-                </View>
-                <Text>Drawer</Text>
-                <TouchableOpacity onPress={() => authActions.signOut()}><Text>Logoff</Text></TouchableOpacity>
-            </View>
-            <FlatList 
-                data={chats}
-                renderItem={renderChat}
-                keyExtractor={item => "" + item.id}
-            />
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.addButton}>
-                <EvilIcons name="plus" size={66} color="black" />
+      <View style={styles.container}>
+          <View style={styles.header}>
+              <View style={styles.headerTitleContainer}>
+                  <Text style={styles.headerTitle}>
+                      IntraBee
+                  </Text>
+              </View>
+              <Text>Drawer</Text>
+              <TouchableOpacity onPress={() => authActions.signOut()}>
+                <Text>Logoff</Text>
               </TouchableOpacity>
-            </View>
-        </View>
+          </View>
+          <FlatList 
+              data={chats}
+              renderItem={renderChat}
+              keyExtractor={item => "" + item.id}
+          />
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.addButton}>
+              <EvilIcons name="plus" size={66} color="black" />
+            </TouchableOpacity>
+          </View>
+      </View>
     );
 }
  
@@ -104,7 +107,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     headerTitle: {
-        // backgroundColor:,
         fontSize: 24,
         fontWeight: "bold",
     },
@@ -123,6 +125,5 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginRight: 10,
       marginBottom: 10
-      // backgroundColor,
     }
 })

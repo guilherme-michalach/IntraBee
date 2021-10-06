@@ -57,7 +57,7 @@ export function AuthProvider ({ children }) {
             try {
                 const accessToken = (await api.post("/auth/login", { email, password })).data;
 
-                await SecureStore.setItemAsync("access-token", accessToken);
+                // await SecureStore.setItemAsync("access-token", accessToken);
                 api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
 
                 dispatch({ type: "SIGN_IN", payload: accessToken });
