@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
      register: {
         textAlign:"center",
-         padding:10
+         padding:15
 
      },
     label: {
