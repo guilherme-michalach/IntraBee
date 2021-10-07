@@ -1,21 +1,24 @@
 import React from "react"
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import colors from "../theme/colors";
-import { Ionicons } from '@expo/vector-icons';
+import { EvilIcons } from '@expo/vector-icons';
+import iconSet from "@expo/vector-icons/build/Fontisto";
 
 
 export default function ProfileScreen () {
 
     return (
         <View style={styles.container}>
-            <Ionicons name="person-circle-outline" size={24} color="black" />
+            <View style={styles.icon}>
+            <EvilIcons name="user" size={250} color="black" />
+            </View>
             <Text style={styles.title}>
-                IntraBee
+                Perfil
             </Text>
-            <Text style={style.label}>
+            <Text style={styles.label}>
                 Nome de Usuário
             </Text>
-                <TextInput placeholder= "--Nome do usuário--" style={styles.input}/>
+                <TextInput placeholder= "Nome do usuário" style={styles.input}/>
             <Text style={styles.label}>
                 E-mail
             </Text> 
@@ -34,19 +37,30 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         backgroundColor: colors.backgroundColor,
-        padding: 30
+        padding: 40
+    },
+    icon: {
+        flex: 1,
+        padding: 40,
+        marginBottom: 10,
+        justifyContent: 'center'
     },
     label: {
         fontSize: 18,
-        marginTop: 10,
-        color: "black",
-     
+        marginTop: 60,
+        color: "black"
+    },
+    input: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderBottomWidth: 1,
+        borderColor:"rgb(47,79,79)",
     },
     button: {
-        backgroundColor:  'rgb(252, 252, 76)',
+        backgroundColor:  'rgb(192, 192, 192)',
         borderRadius: 12,
         padding: 15,
-        marginTop: 30
+        marginTop: 125
     },
     buttonText: {
         textAlign: "center",
@@ -56,10 +70,9 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        marginTop: 20,
+        marginTop: 0,
         fontSize: 25,
-        fontFamily: "monospace",
-        paddingBottom:20
+        paddingBottom:40
     },
     visibleButton: {
         width: 40,
