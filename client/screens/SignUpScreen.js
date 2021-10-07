@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         padding: 30
     },
     label: {
-        fontSize: 18,
+        fontSize: 18, 
         marginTop: 10,
     },
     input: {
