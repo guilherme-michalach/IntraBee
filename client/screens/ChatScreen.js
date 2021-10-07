@@ -8,6 +8,7 @@ import { socket } from "../services/chat";
 
 export function ChatScreen ({ navigation, route }) {
     const currentUser = route.params.currentUser;
+    // ver com e sem interrogação o params
     const flatRef = useRef();
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
@@ -51,7 +52,7 @@ export function ChatScreen ({ navigation, route }) {
     }
 
     function renderMessage ({ item }) {
-        const self = item.user_id === currentUser.id;
+        const self = item.userId === currentUser.id;
 
         return (
             <Message name={item.name} message={item.message} self={self} />

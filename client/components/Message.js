@@ -6,7 +6,7 @@ export function Message({ message, date, self }) {
     const formattedDate = moment(date).format("DD/MM/YYYY HH:MM:SS");
 
     return (
-    <View style={[styles.container, self ? { alignSelf: "flex-end" } : { alignSelf: "flex-start" } ]}> 
+    <View style={[styles.container, self ? { alignSelf: "flex-end" } : { alignSelf: "flex-start" }]}> 
         <Text style={styles.message}>{message}</Text>
         <Text style={styles.date}>{formattedDate}</Text>
     </View>
