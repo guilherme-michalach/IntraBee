@@ -2,12 +2,14 @@ import React, { useRef, useState, useEffect } from "react";
 import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import { Message } from "../components/Message";
 import colors from "../theme/colors";
-import { Feather } from '@expo/vector-icons';
+// import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 
 export function ChatScreen ({ navigation, route }) {
-    const currentUser = route.params.currentUser;
+    const currentUser = route.params?.currentUser;
     // ver com e sem interrogação o params
     const flatRef = useRef();
     const [message, setMessage] = useState("");
@@ -33,6 +35,10 @@ export function ChatScreen ({ navigation, route }) {
 
         return () => socket.off("new message");
     }, []);
+
+    useEffect(() => {
+        console.log(messages);
+    }, [messages]);
 
     async function sendMessage () {
         if (!message) return;
@@ -70,15 +76,26 @@ export function ChatScreen ({ navigation, route }) {
                 keyExtractor={item => "" + item.id}
             />
             <View style={styles.containerInput}>
+                <View style={styles.inputOption}>
                 <TextInput 
                     style={styles.input} 
-                    placeholder="Digite sua mensagem" 
+                    placeholder="Digite sua mensagem"
                     value={message}
                     onChangeText={setMessage}
                 />
-                <TouchableOpacity style={styles.send} onPress={sendMessage}>
-                    <Feather name="send" size={24} color="black" />
+                <TouchableOpacity style={styles.micInput}> 
+                    <Ionicons name="mic" size={30} color="black" />
                 </TouchableOpacity>
+                </View>    
+                <View style={styles.buttons}>
+                    <TouchableOpacity style={styles.send}>
+                        <AntDesign name="paperclip" size={30} color="black" style={styles.clip} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.send} onPress={sendMessage}>
+                        {/* <Feather name="send" size={24} color="black" /> */}
+                        <AntDesign name="rightcircleo" size={30} color="black" />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -88,21 +105,55 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.backgroundColor,
-        marginTop: StatusBar.currentHeight,
+        // marginTop: StatusBar.currentHeight,
     },
     containerInput: {
         flexDirection: "row",
-        backgroundColor: "grey"
+        paddingTop: 3,
+        alignItems: "center",
+        marginBottom: 6,
     },
-    input: {
+    buttons: {
+        flexDirection: "row",
+        borderRadius: 44,
+        backgroundColor: "white",
+        padding: 2, 
+        marginRight: 6
+    },
+    inputOption: {
+        flex: 1,
+        flexDirection: "row",
+        height: 38,
         paddingLeft: 10,
         flex: 1,
-        fontSize: 22
+        fontSize: 22,
+        backgroundColor: "white",
+        borderRadius: 44,
+        padding: 2,
+        marginHorizontal: 6    
+    },
+    input: {
+        height: 38,
+        paddingLeft: 10,
+        flex: 1,
+        fontSize: 18,
+        textAlign: "center",
+        backgroundColor: "white",
+        borderRadius: 44,
+        padding: 2,
+        marginHorizontal: 6
+    },
+    micInput: {
+        marginRight: 4
     },
     send: {
-        width: 44,
-        height: 44,
+        height: 38,
+        marginRight: 8,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        paddingLeft: 4
+    },
+    clip: {
+        marginRight: 8
     }
 })
