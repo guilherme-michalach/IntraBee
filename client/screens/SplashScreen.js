@@ -2,10 +2,10 @@ import React from "react";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import colors from "../theme/colors";
 
-export function SplashScreen() {
+export default function SplashScreen() {
     return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" color={colors.primary} />
+            <ActivityIndicator size="large" color={"black"} />
         </View>
     );
 }

@@ -1,4 +1,4 @@
-const { Chat, User, sequelize } = require("../db/models");
+const { Chat, User, Message, sequelize } = require("../db/models");
 const createHttpError = require("http-errors");
 const { QueryTypes } = require("sequelize");
 
@@ -28,17 +28,17 @@ async function createChat (req, res, next) {
     }
 }
 
-async function getChats (req, res, next) {
+async function getChats(req, res, next) {
     const userId = res.locals.userId;
 
-    try {
+    try {         
         const chats = await sequelize.query(`
-            SELECT
+            SELECT 
                 c.id,
                 c.name
             FROM 
                 chats c
-            INNER JOIN 
+            INNER JOIN
                 users_chats uc
             ON
                 uc.chat_id = c.id
@@ -48,14 +48,15 @@ async function getChats (req, res, next) {
                 u.id = uc.user_id
             WHERE
                 u.id = ?;
-        `, { 
+        `,{ 
             replacements: [userId],
             type: QueryTypes.SELECT 
-        });
+        });        
 
         for (let chat of chats) {
             const users = await sequelize.query(`
-                SELECT
+                SELECT 
+                    u.id,
                     u.name,
                     u.email
                 FROM
@@ -66,14 +67,20 @@ async function getChats (req, res, next) {
                     uc.user_id = u.id
                 WHERE
                     uc.chat_id = ?;
-            `, { 
+            `,{ 
                 replacements: [chat.id],
                 type: QueryTypes.SELECT 
             });
+        
+            const lastMessage = await Message.findOne({ 
+                where: { chat_id: chat.id },
+                order: [["createdAt", "DESC"]],
+                limit: 1
+            });
 
             chat.users = users;
+            chat.lastMessage = lastMessage;
         }
-
         res.json(chats);
     } catch (error) {
         console.log(error);

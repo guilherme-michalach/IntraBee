@@ -1,20 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { EvilIcons } from '@expo/vector-icons';
 import moment from "moment";
 
-export function Chat({ chatName, lastMessage, date }) {
+export function Chat({ chatName, lastMessage, date, openChat }) {
     const formattedDate = moment(date).format("DD/MM/YYYY");
 
     return (
-        <View style={styles.container}>
-            <EvilIcons style={styles.icon} name="user" size={50} color="black" />
-            <View style={styles.containerMessage}>
-                <Text style={styles.user}>{chatName}</Text>
-                <Text style={styles.lastMessage}>fazer last msg bd</Text>
-            </View>
-            <Text>{formattedDate}</Text>
-        </View>
+        <TouchableOpacity style={styles.container} onPress={openChat}>
+                <EvilIcons style={styles.icon} name="user" size={50} color="black" />
+                <View style={styles.containerMessage}>
+                    <Text style={styles.user}>{chatName}</Text>
+                    <Text numberOfLines={1} style={styles.lastMessage}>{lastMessage}</Text>
+                </View>
+                <Text>{formattedDate}</Text>
+        </TouchableOpacity>
     )
 };
 

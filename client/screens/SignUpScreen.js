@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 
-export default function SignUpScreen () {
+export function SignUpScreen () {
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 
     return (
@@ -56,35 +56,56 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "grey",
+    bee: {
+        textAlign: "center"
+    },
+    input: {
+        fontSize: 16,
+        borderBottomWidth: 1,
+        borderColor: 'black',
+        padding: 10,   
+    },
+    button: {
+        backgroundColor:  'rgb(192,192,192)',
         borderRadius: 12,
         padding: 15,
         marginTop: 30
     },
     buttonText: {
         textAlign: "center",
-        color: "white",
+        color: "black",
         fontSize: 20,
         fontWeight: "bold"
     },
     title: {
-
     },
     logo: {
-
+        textAlign: "center",
+        marginTop: 20,
+        fontSize: 25,
+        fontFamily: "monospace",
+        paddingBottom:20
+    },
+    name: {
+        fontSize: 60,
+        textAlign: "center",
+        marginTop:10,
+        fontFamily: "Roboto"       
     },
     textHide: {
         flexDirection: "row",
         alignItems: "center",
         borderWidth: 1,
-        // borderColor:
     },
     inputSecure: {
         flex: 1,
         borderWidth: 0
+        borderBottomWidth: 1,
+        borderColor:"rgb(47,79,79)",
     },
     visibleButton: {
         width: 40,
         justifyContent: "center",
         alignItems:"center"
-    }
-})
+    },
+});
