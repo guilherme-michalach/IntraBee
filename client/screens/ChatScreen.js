@@ -10,10 +10,8 @@ import { socket } from "../services/chat";
 
 export function ChatScreen ({ navigation, route }) {
     const currentUser = route.params?.currentUser;
-    console.log(currentUser)
-    // ver com e sem interrogação o params
     const flatRef = useRef();
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
@@ -37,10 +35,6 @@ export function ChatScreen ({ navigation, route }) {
         return () => socket.off("new message");
     }, []);
 
-    // useEffect(() => {
-    //     console.log(messages);
-    // }, [messages]);
-
     async function sendMessage () {
         if (!message) return;
 
@@ -49,7 +43,7 @@ export function ChatScreen ({ navigation, route }) {
                 message,
                 chatId: route.params?.chatId
             })).data;
-
+            
             socket.emit("send message", newMessage);
         } catch (error) {
             console.log(error);
@@ -59,8 +53,8 @@ export function ChatScreen ({ navigation, route }) {
     }
 
     function renderMessage ({ item }) {
-        const self = item.userId === currentUser.id;
-
+        const self = item.user_id === currentUser.id;
+        console.log(item.user_id)
         return (
             <Message name={item.name} message={item.message} self={self} />
         );
@@ -90,7 +84,6 @@ export function ChatScreen ({ navigation, route }) {
                 </View>    
                 <View style={styles.buttons}>
                     <TouchableOpacity style={styles.send} onPress={sendMessage}>
-                        {/* <Feather name="send" size={24} color="black" /> */}
                         <AntDesign name="rightcircleo" size={38} color="black" />
                     </TouchableOpacity>
                 </View>
