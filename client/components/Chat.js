@@ -11,7 +11,7 @@ export function Chat({ chatName, lastMessage, date, openChat }) {
                 <EvilIcons style={styles.icon} name="user" size={50} color="black" />
                 <View style={styles.containerMessage}>
                     <Text style={styles.user}>{chatName}</Text>
-                    <Text style={styles.lastMessage}>{lastMessage}</Text>
+                    <Text numberOfLines={1} style={styles.lastMessage}>{lastMessage}</Text>
                 </View>
                 <Text>{formattedDate}</Text>
         </TouchableOpacity>

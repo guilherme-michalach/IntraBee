@@ -15,17 +15,21 @@ export function Message({ message, date, self }) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: 6,
+        paddingHorizontal: 18,
         alignItems: "center",
-        borderBottomColor: "black",
+        justifyContent: "center",
+        borderColor: "white",
         borderWidth: 1,
         borderRadius: 10,
-        margin: 10
+        margin: 5,
+        backgroundColor: "white"
     },
     message: {
         fontSize: 16,
     },
     date: {
         fontSize: 12,
+        alignSelf: "flex-end"
     }
 })

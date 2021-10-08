@@ -1,32 +1,24 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-export function SignUpScreen() {
+export function SignUpScreen () {
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 
-    return ( 
-        
-        
+    return (
         <View style={styles.container}>
-            
-            <Text style={styles.name}>
-            Intra Bee
-            </Text>
-            <MaterialCommunityIcons style={styles.bee} name="bee" size={100} color="black" />
             <Text style={styles.title}>
-                Insira os dados abaixo:
+                IntraBee
             </Text>
-            <Text style={styles.label}>
+            <Text style={style.label}>
                 Nome
             </Text>
-            <TextInput placeholder="Digite seu nome completo" style={styles.input} />
+                <TextInput placeholder= "Digite seu nome completo" style={styles.input}/>
             <Text style={styles.label}>
                 E-mail
-            </Text>
-            <TextInput placeholder="Digite seu E-mail" style={styles.input} />
+            </Text> 
+                <TextInput placeholder="Digite seu E-mail" style={styles.input} />
             <Text style={styles.label}>
                 Senha
             </Text>
@@ -42,7 +34,6 @@ export function SignUpScreen() {
                 </Text>
             </TouchableOpacity>
         </View>
-        
     );
 }
 
@@ -53,21 +44,26 @@ const styles = StyleSheet.create({
         backgroundColor: colors.backgroundColor,
         padding: 30
     },
+    label: {
+        fontSize: 18, 
+        marginTop: 10,
+    },
+    input: {
+        fontSize: 16,
+        borderWidth: 1,
+        // borderColor: "",
+        padding: 10,
+    },
+    button: {
+        backgroundColor: "grey",
     bee: {
         textAlign: "center"
-    },
-    label: {
-        fontSize: 18,
-        marginTop: 10,
-        color: "black",
-     
     },
     input: {
         fontSize: 16,
         borderBottomWidth: 1,
         borderColor: 'black',
-        padding: 10,
-        
+        padding: 10,   
     },
     button: {
         backgroundColor:  'rgb(192,192,192)',
@@ -82,6 +78,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     title: {
+    },
+    logo: {
         textAlign: "center",
         marginTop: 20,
         fontSize: 25,
@@ -97,19 +95,17 @@ const styles = StyleSheet.create({
     textHide: {
         flexDirection: "row",
         alignItems: "center",
-        borderBottomWidth: 1,
-        borderColor:"rgb(47,79,79)",
+        borderWidth: 1,
     },
     inputSecure: {
         flex: 1,
-        borderBottomWidth: 0
+        borderWidth: 0
+        borderBottomWidth: 1,
+        borderColor:"rgb(47,79,79)",
     },
     visibleButton: {
         width: 40,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems:"center"
     },
-    
-   
 });
-
