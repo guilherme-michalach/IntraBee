@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, TextInput,  TouchableOpacity, View } from "react-native";
 import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
 import { useAuth } from "../contexts/AuthContext";
@@ -7,7 +7,7 @@ import { EvilIcons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 
-export function HomeScreen ({ navigation }) {
+   export function HomeScreen ({ navigation }) {
     const { authActions } = useAuth();
     const [currentUser, setCurrentUser] = useState(null);
     const [chats, setChats] = useState([]);
@@ -53,8 +53,6 @@ export function HomeScreen ({ navigation }) {
         item.users[1]?.name :
         item.users[0]?.name;
 
-      
-
       return (
         <Chat 
             chatName={chatName}
@@ -64,7 +62,11 @@ export function HomeScreen ({ navigation }) {
         />
       )
     }
-
+    
+    function handleChatCreation() {
+      navigation.push("CreateChats")
+    }
+    
     return(
       <View style={styles.container}>
           <View style={styles.header}>
@@ -84,12 +86,13 @@ export function HomeScreen ({ navigation }) {
               keyExtractor={item => "" + item.id}
           />
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.addButton}>
+            <TouchableOpacity style={styles.addButton} onPress={handleChatCreation}>
               <EvilIcons name="plus" size={66} color="black" />
             </TouchableOpacity>
           </View>
       </View>
     );
+    
 }
  
 const styles = StyleSheet.create({
@@ -100,15 +103,16 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: colors.header,
-        padding: 10,
-        paddingHorizontal: 30,
-        paddingVertical: 10,
+        padding: 20,
+        paddingHorizontal: 35,
+        paddingVertical: 20,
         flexDirection: "row",
         alignItems: "center"
     },
     headerTitle: {
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: "bold",
+        textAlign:"center"
     },
     headerTitleContainer: {
         flex:1

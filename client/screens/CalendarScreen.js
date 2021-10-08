@@ -1,7 +1,6 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
-import 'react-day-picker/lib/style.css';
 
 import 'moment/locale/ja';
 import 'moment/locale/ar';

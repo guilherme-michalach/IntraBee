@@ -4,7 +4,7 @@ const colors = {
     check: "#3CF042",
     backgroundColor: 'rgb(255,250,205)',
     error: "#EB2007",
-    header: "#fff700"
+    header: 'rgb(192,192,192)'
 }
 
 export default colors;
