@@ -10,9 +10,10 @@ import { socket } from "../services/chat";
 
 export function ChatScreen ({ navigation, route }) {
     const currentUser = route.params?.currentUser;
+    console.log(currentUser)
     // ver com e sem interrogação o params
     const flatRef = useRef();
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
@@ -27,7 +28,7 @@ export function ChatScreen ({ navigation, route }) {
 
         socket.on("new message", newMessage => {
             if (newMessage.chat_id === route.params?.chatId) {
-                setMessage(prevMessages => [...prevMessages, newMessage]);
+                setMessages(prevMessages => [...prevMessages, newMessage]);
             }
         });
 
@@ -36,9 +37,9 @@ export function ChatScreen ({ navigation, route }) {
         return () => socket.off("new message");
     }, []);
 
-    useEffect(() => {
-        console.log(messages);
-    }, [messages]);
+    // useEffect(() => {
+    //     console.log(messages);
+    // }, [messages]);
 
     async function sendMessage () {
         if (!message) return;
@@ -88,12 +89,9 @@ export function ChatScreen ({ navigation, route }) {
                 </TouchableOpacity>
                 </View>    
                 <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.send}>
-                        <AntDesign name="paperclip" size={30} color="black" style={styles.clip} />
-                    </TouchableOpacity>
                     <TouchableOpacity style={styles.send} onPress={sendMessage}>
                         {/* <Feather name="send" size={24} color="black" /> */}
-                        <AntDesign name="rightcircleo" size={30} color="black" />
+                        <AntDesign name="rightcircleo" size={38} color="black" />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -115,10 +113,10 @@ const styles = StyleSheet.create({
     },
     buttons: {
         flexDirection: "row",
-        borderRadius: 44,
+        borderRadius: 50,
         backgroundColor: "white",
         padding: 2, 
-        marginRight: 6
+        marginRight: 8
     },
     inputOption: {
         flex: 1,
@@ -137,7 +135,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         flex: 1,
         fontSize: 18,
-        textAlign: "center",
+        // textAlign: "center",
         backgroundColor: "white",
         borderRadius: 44,
         padding: 2,
@@ -147,11 +145,13 @@ const styles = StyleSheet.create({
         marginRight: 4
     },
     send: {
-        height: 38,
-        marginRight: 8,
+        // height: 38,
+        // width: 38,
+        margin: 2,
         justifyContent: "center",
         alignItems: "center",
-        paddingLeft: 4
+        alignContent: "center",
+        // paddingLeft: 4
     },
     clip: {
         marginRight: 8

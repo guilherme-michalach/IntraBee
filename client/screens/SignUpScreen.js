@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 
-export function SignUpScreen () {
+export default function SignUpScreen () {
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 
     return (
@@ -19,6 +19,10 @@ export function SignUpScreen () {
                 E-mail
             </Text> 
                 <TextInput placeholder="Digite seu E-mail" style={styles.input} />
+            <Text style={style.label}>
+                Telefone
+            </Text>
+                <TextInput placeholder= "Digite seu telefone" style={styles.input}/>
             <Text style={styles.label}>
                 Senha
             </Text>
@@ -51,11 +55,11 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 16,
         borderWidth: 1,
-        // borderColor: "",
         padding: 10,
     },
     button: {
         backgroundColor: "grey",
+    },
     bee: {
         textAlign: "center"
     },
@@ -78,6 +82,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     title: {
+        color: "black"
     },
     logo: {
         textAlign: "center",
@@ -99,7 +104,7 @@ const styles = StyleSheet.create({
     },
     inputSecure: {
         flex: 1,
-        borderWidth: 0
+        borderWidth: 0,
         borderBottomWidth: 1,
         borderColor:"rgb(47,79,79)",
     },

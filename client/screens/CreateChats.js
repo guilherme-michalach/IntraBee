@@ -19,10 +19,11 @@ export function CreateChats () {
 
     return(
         <View style={styles.container}>
-            <TouchableOpacity >
-                <EvilIcons style={styles.createGroupButton} name="plus" size={24} color="black" />
-                <Text style={styles.createGroupText}>Criar grupo</Text>
-            </TouchableOpacity>
+            <View style={styles.addButton}>
+                <TouchableOpacity >
+                    <EvilIcons style={styles.createGroupButton} name="plus" size={60} color="black" />
+                </TouchableOpacity>
+            </View>
             <FlatList 
                 renderItem={renderUser}
                 keyExtractor={item => "" + item.id}
@@ -37,15 +38,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.backgroundColor,
-        marginTop: StatusBar.currentHeight,
+        // marginTop: StatusBar.currentHeight,
     },
     createGroupButton: {
-        flexDirection: "row",
-        padding: 20,
-        backgroundColor: "orange"
+        height: 60,
+        width: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 10,
+        marginBottom: 10
     },
-    createGroupText: {
-        fontSize: 20,
-        paddingLeft: 20
-    }
+    addButton: {
+        position: "absolute",
+        bottom: 10,
+        right: 10
+      },
 })

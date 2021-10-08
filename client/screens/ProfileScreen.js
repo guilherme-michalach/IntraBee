@@ -2,8 +2,6 @@ import React from "react"
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
-import iconSet from "@expo/vector-icons/build/Fontisto";
-
 
 export default function ProfileScreen () {
 
@@ -41,9 +39,9 @@ const styles = StyleSheet.create({
     },
     icon: {
         flex: 1,
-        padding: 40,
         marginBottom: 10,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: "center"
     },
     label: {
         fontSize: 18,
@@ -54,13 +52,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: 1,
-        borderColor:"rgb(47,79,79)",
     },
     button: {
         backgroundColor:  'rgb(192, 192, 192)',
         borderRadius: 12,
         padding: 15,
-        marginTop: 125
+        marginTop: 125,
+        marginBottom: 10
     },
     buttonText: {
         textAlign: "center",
@@ -70,15 +68,11 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        marginTop: 0,
         fontSize: 25,
-        paddingBottom:40
     },
     visibleButton: {
         width: 40,
         justifyContent: "center",
         alignItems: "center"
     },
-    
-   
 });

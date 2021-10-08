@@ -103,8 +103,10 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 16,
         borderBottomWidth: 1,
-     borderColor: "black",
+        borderColor: "black",
         padding: 10,
+        paddingStart:5,
+        paddingVertical:0
     },
     button: {
         backgroundColor:  'rgb(192,192,192)',
@@ -124,8 +126,6 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontFamily: "monospace",
         paddingBottom:10
-        
-    
     },
     textHide: {
         flexDirection: "row",

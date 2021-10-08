@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { HomeScreen } from "../screens/HomeScreen";
 import { ChatScreen } from "../screens/ChatScreen";
 import { CreateChats } from "../screens/CreateChats";
-import { ChatTitle } from "../components/ChatTitle";
 import { HeaderBackButton } from '@react-navigation/elements';
 
 const Stack = createNativeStackNavigator();
@@ -26,10 +25,13 @@ export function AppRoutes () {
                     name="Chat"
                     component={ChatScreen}
                     options={({ navigation, route }) => ({
-                    title: route.params.title,
-                    headerLeft: () => <HeaderBackButton tintColor="white" onPress={() => navigation.push("Home")} />
+                    headerLeft: () => <HeaderBackButton tintColor="black" onPress={() => navigation.push("Home")} />
                     })} 
                 />
+                {/* <Stack.Screen 
+                    name="Config"
+                    component = {ConfigScreen}
+                /> */}
                 {/* isConnected={route.params.isConnected} */}
                 <Stack.Screen name="CreateChats" component={CreateChats} />
             </Stack.Navigator>
