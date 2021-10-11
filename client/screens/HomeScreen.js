@@ -6,6 +6,9 @@ import { useAuth } from "../contexts/AuthContext";
 import { EvilIcons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
+import { Octicons } from '@expo/vector-icons';
+import { Button } from 'react-native-paper';
+
 
    export function HomeScreen ({ navigation }) {
     const { authActions } = useAuth();
@@ -67,18 +70,21 @@ import { socket } from "../services/chat";
       navigation.push("CreateChats")
     }
     
+      
+    
+   
+   
     return(
       <View style={styles.container}>
           <View style={styles.header}>
               <View style={styles.headerTitleContainer}>
                   <Text style={styles.headerTitle}>
-                      IntraBee
+                IntraBee
                   </Text>
-              </View>
-              <Text>Drawer</Text>
-              <TouchableOpacity onPress={() => authActions.signOut()}>
-                <Text>Logoff</Text>
-              </TouchableOpacity>
+                 </View> 
+                <Text>
+                  <Octicons style={styles.options} name="three-bars" size={24} color="black" />
+                </Text>
           </View>
           <FlatList 
               data={chats}
@@ -88,6 +94,10 @@ import { socket } from "../services/chat";
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.addButton} onPress={handleChatCreation}>
               <EvilIcons name="plus" size={66} color="black" />
+              <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
+    Press me
+  </Button>
+    
             </TouchableOpacity>
           </View>
       </View>
@@ -109,10 +119,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
+   
     headerTitle: {
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: "bold",
-        textAlign:"center"
+        textAlign:"left"
     },
     headerTitleContainer: {
         flex:1
@@ -129,5 +140,9 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginRight: 10,
       marginBottom: 10
+    },
+    options:{
+      
+      
     }
 })

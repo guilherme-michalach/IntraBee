@@ -24,8 +24,7 @@ export default function HomeMenuScreen() {
         >
             <Drawer.Screen name="Conversas" component={HomeScreen} />
             <Drawer.Screen name="Perfil" component={ProfileScreen} />
-            <Drawer.Screen name="Agenda" component={CalendarScreen} />
-              
+            <Drawer.Screen name="Agenda" component={CalendarScreen} />            
             {/* <Drawer.Screen name="Sair" component={HomeScreen} options={() => authActions.signOut()} /> */}
             {/* <TouchableOpacity onPress={() => authActions.signOut()}>           */}
         </Drawer.Navigator>
