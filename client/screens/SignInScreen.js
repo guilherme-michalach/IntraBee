@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
         marginBottom:70
     },
      register: {
-         textAlign: "center",
-         padding:10
+        textAlign:"center",
+         padding:15
 
      },
     label: {

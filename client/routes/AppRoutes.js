@@ -5,8 +5,27 @@ import { HomeScreen } from "../screens/HomeScreen";
 import { ChatScreen } from "../screens/ChatScreen";
 import { CreateChats } from "../screens/CreateChats";
 import { HeaderBackButton } from '@react-navigation/elements';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+export default function HomeMenuScreen() {
+    return (
+        <Drawer.Navigator 
+            initialRouteName="Home"
+            screenOptions={{ headerShown: false }}
+            drawerContent={props => <Menu {...props} />}
+            defaultStatus="open"
+        >
+            <Drawer.Screen name="Conversas" component={HomeScreen} />
+            <Drawer.Screen name="Perfil" component={ProfileScreen} />
+            <Drawer.Screen name="Agenda" component={CalendarScreen} />            
+            {/* <Drawer.Screen name="Sair" component={HomeScreen} options={() => authActions.signOut()} /> */}
+            {/* <TouchableOpacity onPress={() => authActions.signOut()}>           */}
+        </Drawer.Navigator>
+    );
+}
 
 export function AppRoutes () {
     return (
