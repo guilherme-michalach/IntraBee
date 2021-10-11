@@ -6,8 +6,9 @@ import { useAuth } from "../contexts/AuthContext";
 import SplashScreen from "./SplashScreen";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function SignInScreen () {
+export default function SignInScreen ({ navigation }) {
     const { authActions } = useAuth();
+    console.log(navigation);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,11 +28,6 @@ export default function SignInScreen () {
             Alert.alert("Não foi possível realizar login.");
             setIsLoading(false);
         }
-    }
-
-    function handleNavigateSignUpScreen () {
-        setState(initialState);
-        navigation.push("SignUp");
     }
 
     if (isLoading) {
@@ -68,7 +64,7 @@ export default function SignInScreen () {
                     <EvilIcons name="eye" size={24} color="black" />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.register} onPress={handleNavigateSignUpScreen}>
+            <TouchableOpacity style={styles.register} onPress={() => navigation.push("SignUp")}>
                 <Text>Não tem conta ainda? Cadastre-se</Text>
             </TouchableOpacity>   
             <TouchableOpacity style={styles.button} onPress={handleSignIn}>

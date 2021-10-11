@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Modal, Pressable } from 'react-native';
 
-export function ConfigScreen() {
+export function ConfigScreen({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (

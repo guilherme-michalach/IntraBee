@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Pressable } from "react-native";
 import { Message } from "../components/Message";
 import colors from "../theme/colors";
-// import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { api } from "../services/api";
@@ -43,7 +42,7 @@ export function ChatScreen ({ navigation, route }) {
                 message,
                 chatId: route.params?.chatId
             })).data;
-            
+
             socket.emit("send message", newMessage);
         } catch (error) {
             console.log(error);
@@ -53,8 +52,8 @@ export function ChatScreen ({ navigation, route }) {
     }
 
     function renderMessage ({ item }) {
-        const self = item.user_id === currentUser.id;
-        console.log(item.user_id)
+        const self = item.user_id === currentUser.id || item.userId === currentUser.id;
+
         return (
             <Message name={item.name} message={item.message} self={self} />
         );
@@ -96,7 +95,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.backgroundColor,
-        // marginTop: StatusBar.currentHeight,
     },
     containerInput: {
         flexDirection: "row",
@@ -128,7 +126,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         flex: 1,
         fontSize: 18,
-        // textAlign: "center",
         backgroundColor: "white",
         borderRadius: 44,
         padding: 2,
@@ -138,13 +135,10 @@ const styles = StyleSheet.create({
         marginRight: 4
     },
     send: {
-        // height: 38,
-        // width: 38,
         margin: 2,
         justifyContent: "center",
         alignItems: "center",
         alignContent: "center",
-        // paddingLeft: 4
     },
     clip: {
         marginRight: 8
