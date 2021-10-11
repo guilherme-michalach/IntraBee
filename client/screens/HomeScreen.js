@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, TextInput,  TouchableOpacity, View } from "react-native";
 import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
 import { useAuth } from "../contexts/AuthContext";
 import { EvilIcons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
+import { Octicons } from '@expo/vector-icons';
+import { Button } from 'react-native-paper';
 
-export function HomeScreen ({ navigation }) {
+
+   export function HomeScreen ({ navigation }) {
     const { authActions } = useAuth();
     const [currentUser, setCurrentUser] = useState(null);
     const [chats, setChats] = useState([]);
@@ -53,8 +56,6 @@ export function HomeScreen ({ navigation }) {
         item.users[1]?.name :
         item.users[0]?.name;
 
-      
-
       return (
         <Chat 
             chatName={chatName}
@@ -64,19 +65,26 @@ export function HomeScreen ({ navigation }) {
         />
       )
     }
-
+    
+    function handleChatCreation() {
+      navigation.push("CreateChats")
+    }
+    
+      
+    
+   
+   
     return(
       <View style={styles.container}>
           <View style={styles.header}>
               <View style={styles.headerTitleContainer}>
                   <Text style={styles.headerTitle}>
-                      IntraBee
+                IntraBee
                   </Text>
-              </View>
-              <Text>Drawer</Text>
-              <TouchableOpacity onPress={() => authActions.signOut()}>
-                <Text>Logoff</Text>
-              </TouchableOpacity>
+                 </View> 
+                <Text>
+                  <Octicons style={styles.options} name="three-bars" size={24} color="black" />
+                </Text>
           </View>
           <FlatList 
               data={chats}
@@ -84,12 +92,17 @@ export function HomeScreen ({ navigation }) {
               keyExtractor={item => "" + item.id}
           />
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.addButton}>
+            <TouchableOpacity style={styles.addButton} onPress={handleChatCreation}>
               <EvilIcons name="plus" size={66} color="black" />
+              <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
+    Press me
+  </Button>
+    
             </TouchableOpacity>
           </View>
       </View>
     );
+    
 }
  
 const styles = StyleSheet.create({
@@ -100,15 +113,17 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: colors.header,
-        padding: 10,
-        paddingHorizontal: 30,
-        paddingVertical: 10,
+        padding: 20,
+        paddingHorizontal: 35,
+        paddingVertical: 20,
         flexDirection: "row",
         alignItems: "center"
     },
+   
     headerTitle: {
-        fontSize: 24,
+        fontSize: 25,
         fontWeight: "bold",
+        textAlign:"left"
     },
     headerTitleContainer: {
         flex:1
@@ -125,5 +140,9 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginRight: 10,
       marginBottom: 10
+    },
+    options:{
+      
+      
     }
 })

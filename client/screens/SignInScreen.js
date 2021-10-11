@@ -68,8 +68,8 @@ export default function SignInScreen () {
                     <EvilIcons name="eye" size={24} color="black" />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.register} onPress={handleNavigateSignUpScreen}>
-                <Text>Não tem conta ainda? Cadastre-se</Text>
+            <TouchableOpacity  onPress={handleNavigateSignUpScreen}>
+                <Text style={styles.register}>Não tem conta ainda? Cadastre-se</Text>
             </TouchableOpacity>   
             <TouchableOpacity style={styles.button} onPress={handleSignIn}>
                 <Text style={styles.buttonText}>
@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
         marginBottom:70
     },
      register: {
-         textAlign: "center",
-         padding:10
+        textAlign:"center",
+         padding:15
 
      },
     label: {
