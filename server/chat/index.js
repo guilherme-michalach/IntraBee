@@ -1,6 +1,6 @@
 const { Server } = require("socket.io");
 
-const io = new Server({ cors: { origin: "http://192.168.1.2/3000" } });
+const io = new Server({ cors: { origin: "http://c815-177-200-213-98.ngrok.io" } });
 
 let users = [];
 
