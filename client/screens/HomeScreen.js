@@ -7,10 +7,9 @@ import { EvilIcons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 import { Octicons } from '@expo/vector-icons';
-import { Button } from 'react-native-paper';
 
 
-   export function HomeScreen ({ navigation }) {
+ export function HomeScreen ({ navigation }) {
     const { authActions } = useAuth();
     const [currentUser, setCurrentUser] = useState(null);
     const [chats, setChats] = useState([]);
@@ -94,9 +93,7 @@ import { Button } from 'react-native-paper';
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.addButton} onPress={handleChatCreation}>
               <EvilIcons name="plus" size={66} color="black" />
-              <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
-    Press me
-  </Button>
+              
     
             </TouchableOpacity>
           </View>

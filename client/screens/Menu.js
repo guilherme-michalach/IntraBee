@@ -27,12 +27,15 @@ export function Menu({ navigation, ...rest }) {
         </View>
       </View>
       
-      <DrawerItem icon={({}) =><Entypo name="chat" size={24} color="black" />}
+      <DrawerItem icon={({}) =><Entypo name="chat" size={24} color="blue" />}
       label ="Conversas" onPress={() => navigation.navigate('Conversas')}/>
-      <DrawerItem icon={({}) => <MaterialCommunityIcons name="face-profile" size={24} color="black" />}
+
+      <DrawerItem icon={({}) => <MaterialCommunityIcons name="face-profile" size={24} color="blue" />}
       label ="Perfil" onPress={() => navigation.navigate('Perfil')}/>
+
       <DrawerItem icon={({}) =><FontAwesome name="calendar" size={24} color="black" />}
        label ="Agenda" onPress={() => navigation.navigate('Agenda')}/>
+       
       <DrawerItem icon={({}) =><Entypo name="log-out" size={24} color="black" />}
       label="Sair" onPress={() => authActions.signOut()} />
     

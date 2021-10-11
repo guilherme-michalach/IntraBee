@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 
-export default function ProfileScreen () {
+export function ProfileScreen () {
 
     return (
         <View style={styles.container}>
