@@ -4,7 +4,7 @@ import { User } from "../components/User";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 
-export function CreateChats () {
+export function CreateChats ({ navigation }) {
     const [users, setUsers] = useState([
        { id: 1, name: "teste", email: "teste@email.com" },
        { id: 2, name: "teste", email: "teste2@email.com" },
