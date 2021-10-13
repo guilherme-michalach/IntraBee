@@ -71,7 +71,9 @@ export function AuthProvider ({ children }) {
             api.defaults.headers["Authorization"] = null;
 
             dispatch({ type: "SIGN_OUT" });
-        }
+        },
+        signUp: async (email, password) => {}
+        // acrescentar aqui e no reducer? perguntar pro professor pra confirmar o padrão
     }
 
     return (

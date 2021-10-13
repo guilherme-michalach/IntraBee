@@ -4,7 +4,11 @@ import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 
 export default function SignUpScreen ({ navigation }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     return (
         <View style={styles.container}>
