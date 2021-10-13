@@ -11,18 +11,7 @@ export function AuthRoutes() {
     return(
         <NavigationContainer>
             <Stack.Navigator 
-                // initialRouteName = "SignIn"
-                // screenOptions={{
-                //     headerStyle: {
-                //         backgroundColor: colors.primary
-                //     },
-                //     headerTintColor: "#fff",
-                //     headerTitleStyle: {
-                //         fontWeight: "bold",
-                //         fontSize: 44
-                //     },
-                //     headerTitleAlign: "center"
-                // }}
+                initialRouteName = "SignIn"
             >
                 <Stack.Screen
                     name = "SignIn"

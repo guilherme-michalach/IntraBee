@@ -8,7 +8,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function SignInScreen ({ navigation }) {
     const { authActions } = useAuth();
-    console.log(navigation);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -35,7 +34,7 @@ export default function SignInScreen ({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} >
              <Text style={styles.title}>
                 IntraBee
             </Text>
