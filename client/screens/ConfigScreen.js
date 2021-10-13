@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Modal, Pressable } from 'react-native';
 
 export function ConfigScreen({ navigation }) {
-    const [modalVisible, setModalVisible] = useState(false);
+    // const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <View style={styles.container}>
@@ -14,18 +14,18 @@ export function ConfigScreen({ navigation }) {
                     Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                 }}
-                >
+                > 
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.titleModal}>Mudar a senha</Text>
-                            <TextInput style={styles.modalText} placeholder="Digite a sua senha antiga"></TextInput>
-                            <TextInput style={styles.modalText} placeholder="Digite a sua senha nova"></TextInput>
+                            <Text style={styles.titleModal}>Alterar senha</Text>
+                            <TextInput style={styles.modalText} placeholder="Digite a senha antiga"></TextInput>
+                            <TextInput style={styles.modalText} placeholder="Digite a nova senha"></TextInput>
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() => setModalVisible(!modalVisible)}
                                 >
-                                    <Text style={styles.textStyle}>Fechar</Text>
+                                    <Text style={styles.textStyle}>Concluir</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
@@ -42,15 +42,15 @@ export function ConfigScreen({ navigation }) {
                     onPress={() => setModalVisible(true)}
                 >
                     <Text style={styles.buttonText}>
-                        Mudar senha
+                        Alterar senha
                     </Text>
                 </Pressable>
             </View>
-            <TouchableOpacity style={styles.button}>
+            {/* <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
                     Darkmode
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
 
     );
