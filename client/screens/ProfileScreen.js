@@ -1,15 +1,48 @@
-import React from "react"
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react"
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
+import * as ImagePicker from "expo-image-picker";
+import { useAuth } from "../contexts/AuthContext";
 
-export function ProfileScreen () {
+export function ProfileScreen ({}) {
+const { authActions } = useAuth();
+  const [ avatar, setAvatar ] = useState(null);
+
+  async function openImagePicker() {
+    const permissionsResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionsResult.granted === false) {
+      alert("É necessário conceder a permissão de acesso a galeria");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: "Images",
+      aspect: [4, 3],
+      quality: 1
+    });    
+
+    setAvatar(pickerResult.uri);
+  }
+  console.log(avatar);
 
     return (
         <View style={styles.container}>
-            <View style={styles.icon}>
+            <View style={styles.icon}></View>
+            <TouchableOpacity onPress={openImagePicker}>
+          {
+            avatar ?
+            <Image 
+              source={{ uri: avatar }} 
+              style={styles.avatar}
+            /> :
             <EvilIcons name="user" size={250} color="black" />
-            </View>
+          }
+          </TouchableOpacity>
+           
+            
+
             <Text style={styles.title}>
                 Perfil
             </Text>
@@ -75,4 +108,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    avatar: {
+        height: 100,
+        width: 100,
+   
+      }
 });

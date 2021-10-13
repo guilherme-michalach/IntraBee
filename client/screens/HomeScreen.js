@@ -7,6 +7,7 @@ import { EvilIcons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 import { Octicons } from '@expo/vector-icons';
+import { DrawerActions } from "@react-navigation/native";
 
 
  export function HomeScreen ({ navigation }) {
@@ -82,7 +83,9 @@ import { Octicons } from '@expo/vector-icons';
                   </Text>
                  </View> 
                 <Text>
-                  <Octicons style={styles.options} name="three-bars" size={24} color="black" />
+                <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer( 'DrawerNavigator')}>
+                  <Octicons style={styles.options} name="three-bars" size={30} color="black" />
+                  </TouchableOpacity>
                 </Text>
           </View>
           <FlatList 
@@ -93,9 +96,7 @@ import { Octicons } from '@expo/vector-icons';
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.addButton} onPress={handleChatCreation}>
               <EvilIcons name="plus" size={66} color="black" />
-              
-    
-            </TouchableOpacity>
+              </TouchableOpacity>
           </View>
       </View>
     );
@@ -110,9 +111,9 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: colors.header,
-        padding: 20,
+        // padding: 20,
         paddingHorizontal: 35,
-        paddingVertical: 20,
+        paddingVertical: 4,
         flexDirection: "row",
         alignItems: "center"
     },
