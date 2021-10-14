@@ -25,11 +25,11 @@ const { authActions } = useAuth();
 
     setAvatar(pickerResult.uri);
   }
-  console.log(avatar);
+  
 
     return (
         <View style={styles.container}>
-            <View style={styles.icon}></View>
+            <View style={styles.icon}>
             <TouchableOpacity onPress={openImagePicker}>
           {
             avatar ?
@@ -40,10 +40,9 @@ const { authActions } = useAuth();
             <EvilIcons name="user" size={250} color="black" />
           }
           </TouchableOpacity>
-           
+          </View>
             
-
-            <Text style={styles.title}>
+             <Text style={styles.title}>
                 Perfil
             </Text>
             <Text style={styles.label}>
@@ -90,8 +89,8 @@ const styles = StyleSheet.create({
         backgroundColor:  'rgb(192, 192, 192)',
         borderRadius: 12,
         padding: 15,
-        marginTop: 125,
-        marginBottom: 10
+        marginTop: 110,
+        marginBottom: 40
     },
     buttonText: {
         textAlign: "center",
@@ -109,8 +108,13 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     avatar: {
-        height: 100,
-        width: 100,
+        height: 200,
+        width: 200,
+        borderRadius:100,
+        textAlign:"center",
+        marginTop:80
+        
+
    
       }
 });

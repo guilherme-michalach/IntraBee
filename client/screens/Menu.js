@@ -30,11 +30,12 @@ export function Menu({ navigation, ...rest }) {
     setAvatar(pickerResult.uri);  
   }
 
-  console.log(avatar);
+ 
 
   return (
     <DrawerContentScrollView style={styles.drawer}{...rest}>
       <View style={styles.container}>
+        <View style={styles.image}>
         <TouchableOpacity onPress={openImagePicker}>
           {
             avatar ?
@@ -42,28 +43,28 @@ export function Menu({ navigation, ...rest }) {
               source={{ uri: avatar }} 
               style={styles.avatar}
             /> :
-            <FontAwesome style={styles.avatar} name="user-circle-o" size={50} color="blue" />
+            <FontAwesome style={styles.avatar} name="user-circle-o" size={70} color="black" />
           }
           
         </TouchableOpacity>
-
+        </View>
         <View style={styles.userArea}>
           <Text style={styles.name}>Teste</Text>
           <Text style={styles.email}>teste@email.com</Text>
         </View>
       </View>
       <View style={styles.itens}>
-        <DrawerItem icon={({ }) => <Entypo name="chat" size={24} color="blue" />}
+        <DrawerItem icon={({ }) => <Entypo name="chat" size={24} color="black" />}
 
           label="Conversas" onPress={() => navigation.navigate('Conversas')} />
 
-        <DrawerItem icon={({ }) => <MaterialCommunityIcons name="face-profile" size={24} color="blue" />}
+        <DrawerItem icon={({ }) => <MaterialCommunityIcons name="face-profile" size={24} color="black" />}
           label="Perfil" onPress={() => navigation.navigate('Perfil')} />
 
-        <DrawerItem icon={({ }) => <FontAwesome name="calendar" size={24} color="blue" backgroundColor="green" />}
+        <DrawerItem icon={({ }) => <FontAwesome name="calendar" size={24} color="black" />}
           label="Agenda" onPress={() => navigation.navigate('Agenda')} />
 
-        <DrawerItem icon={({ }) => <Entypo name="log-out" size={24} color="blue" />}
+        <DrawerItem icon={({ }) => <Entypo name="log-out" size={24} color="black" />}
           label="Sair" onPress={() => authActions.signOut()} />
       </View>
     </DrawerContentScrollView>
@@ -84,33 +85,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(192,192,192)',
 
   },
-  avatar: {
+    userArea: {
     marginLeft: 20,
-    marginTop: 20,
-    width: 50,
-    height: 50
-  },
-
-
-  userArea: {
-    marginTop: 10,
-    marginLeft: 20,
-    marginBottom: 10
+    marginBottom:15
   },
   name: {
-    color: "blue",
+  
+    color: "black",
     marginTop: 5,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold"
   },
   email: {
-    color: "blue",
+    color: "black",
     fontSize: 15
   },
   avatar: {
-    height: 30,
-    width: 30
-  }
+    height: 70,
+    width: 70,
+    borderRadius:35,
+    marginLeft: 20,
+    marginTop:20,
+    marginBottom:10
+
+  },
+   
+    
+  
 
 
 
