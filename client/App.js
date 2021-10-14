@@ -5,9 +5,8 @@ import { CalendarScreen } from './screens/CalendarScreen';
 
 export default function App() {
   return (  
-    <CalendarScreen></CalendarScreen>
-  //  <AuthProvider>
-  //    <Routes />
-  //  </AuthProvider>
+   <AuthProvider>
+     <Routes />
+   </AuthProvider>
   );
 }
