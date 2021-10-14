@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert,Switch, Modal, Pressable } from 'react-native';
 
 export function ConfigScreen({ navigation, route }) {
     const currentUser = route.params?.currentUser;
     console.log(currentUser)
     const [modalVisible, setModalVisible] = useState(false);
     const [password, setPassword] = useState("");
+    const [isEnabled, setIsEnabled] = useState(true);
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>
-                Configurações
-            </Text>
+              <View style={styles.container}>
+      <Switch
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={setIsEnabled}
+        value={isEnabled}
+      />
+    </View>
+            <Text style={styles.header}>
+             </Text>
             <View>
-                <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {
+              <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {
                     Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                 }}
@@ -56,27 +65,41 @@ export function ConfigScreen({ navigation, route }) {
             </View>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
-                    Darkmode
+                  Privacidade
+                </Text>
+            </TouchableOpacity> 
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>
+                    Ajuda
                 </Text>
             </TouchableOpacity>
+            
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>
+                Darkmode
+                </Text>
+            </TouchableOpacity>
+
+            
         </View>
+        
 
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        
+        alignItems: "center",
+        justifyContent: "center",
         flex: 1,
         padding: 30,
         textAlign: "center",
         backgroundColor: 'rgb(255,250,205)',
-    },
-    title: {
-        fontSize: 30,
-        marginTop: 5,
-        paddingBottom: 10,
-        textAlign: "center",
-        fontFamily: "monospace"
+    
+   
     },
     textStyle: {
         color: "black",
