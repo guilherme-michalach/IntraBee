@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Modal, Pressable } from 'react-native';
 
-export function ConfigScreen({ navigation }) {
+export function ConfigScreen({ navigation, route }) {
+    const currentUser = route.params?.currentUser;
+    console.log(currentUser)
     const [modalVisible, setModalVisible] = useState(false);
+    const [password, setPassword] = useState("");
 
     return (
         <View style={styles.container}>
@@ -18,8 +21,13 @@ export function ConfigScreen({ navigation }) {
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
                             <Text style={styles.titleModal}>Mudar a senha</Text>
-                            <TextInput style={styles.modalText} placeholder="Digite a sua senha antiga"></TextInput>
-                            <TextInput style={styles.modalText} placeholder="Digite a sua senha nova"></TextInput>
+                            {/* <TextInput style={styles.modalText} placeholder="Digite a sua senha antiga"></TextInput> */}
+                            <TextInput 
+                                style={styles.modalText} 
+                                placeholder="Digite a sua senha nova"
+                                value={password}
+                                onChangeText={setPassword}
+                            ></TextInput>
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
