@@ -6,7 +6,7 @@ export function User ({ name }) {
 
     return (
         <View style={styles.container}>
-            <EvilIcons style={styles.icon} name="user" size={50} color="black" />
+            <EvilIcons style={styles.icon} name="user" size={66} color="black" />
             <Text style={styles.user}>{name}</Text>
         </View>
     );
@@ -14,9 +14,9 @@ export function User ({ name }) {
 
 const styles = StyleSheet.create({
     container: {
+        alignItems: "center",
         flexDirection: "row",
-        padding: 10,
-        alignItems: "center"
+        padding: 5,
     },
     icon: {
        textAlignVertical: "center" 
@@ -25,8 +25,5 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontSize: 16,
         fontWeight: "bold"
-    },
-    lastMessage: {
-
     }
 })

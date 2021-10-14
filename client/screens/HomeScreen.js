@@ -92,6 +92,7 @@ import { DrawerActions } from "@react-navigation/native";
               data={chats}
               renderItem={renderChat}
               keyExtractor={item => "" + item.id}
+              style={styles.chats}
           />
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.addButton} onPress={handleChatCreation}>
@@ -118,7 +119,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
-   
+    chats: {
+      paddingVertical: 2,
+      paddingHorizontal: 3
+    },
     headerTitle: {
         fontSize: 25,
         fontWeight: "bold",

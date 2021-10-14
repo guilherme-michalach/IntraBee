@@ -8,12 +8,12 @@ export function Chat({ chatName, lastMessage, date, openChat }) {
 
     return (
         <TouchableOpacity style={styles.container} onPress={openChat}>
-                <EvilIcons style={styles.icon} name="user" size={50} color="black" />
+                <EvilIcons style={styles.icon} name="user" size={66} color="black" />
                 <View style={styles.containerMessage}>
                     <Text style={styles.user}>{chatName}</Text>
                     <Text numberOfLines={1} style={styles.lastMessage}>{lastMessage}</Text>
                 </View>
-                <Text>{formattedDate}</Text>
+                <Text style={styles.date}>{formattedDate}</Text>
         </TouchableOpacity>
     )
 };
@@ -21,19 +21,24 @@ export function Chat({ chatName, lastMessage, date, openChat }) {
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        padding: 10
+        padding: 5,
     },
     containerMessage: {
-        flex: 1
+        flex: 1,
+        textAlign: "center",
+        paddingVertical: 3,
+        paddingHorizontal: 3
     },
     icon: {
-       textAlignVertical: "center" 
+       textAlignVertical: "center"
     },
     user: {
         fontSize: 16,
         fontWeight: "bold"
     },
     lastMessage: {
-
+    },
+    date: {
+        paddingRight: 16
     }
 })

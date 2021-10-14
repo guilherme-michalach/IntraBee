@@ -4,60 +4,62 @@ import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../contexts/AuthContext";
+import { api } from "../services/api";
 
-export function ProfileScreen ({}) {
-const { authActions } = useAuth();
-  const [ avatar, setAvatar ] = useState(null);
+export function ProfileScreen ({ navigation, route }) {
+    const { authActions } = useAuth();
+    const currentUser = route.params?.currentUser;
+    // console.log(currentUser)
+    console.log(route)
+    const [ avatar, setAvatar ] = useState(null);
 
-  async function openImagePicker() {
-    const permissionsResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    async function openImagePicker() {
+        const permissionsResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if (permissionsResult.granted === false) {
-      alert("É necessário conceder a permissão de acesso a galeria");
-      return;
-    }
+        if (permissionsResult.granted === false) {
+            alert("É necessário conceder a permissão de acesso a galeria");
+            return;
+        }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: "Images",
-      aspect: [4, 3],
-      quality: 1
-    });    
+        const pickerResult = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: "Images",
+            aspect: [4, 3],
+            quality: 1
+        });    
 
     setAvatar(pickerResult.uri);
-  }
+    }
   
 
     return (
         <View style={styles.container}>
             <View style={styles.icon}>
             <TouchableOpacity onPress={openImagePicker}>
-          {
+        {
             avatar ?
             <Image 
-              source={{ uri: avatar }} 
-              style={styles.avatar}
+                source={{ uri: avatar }} 
+                style={styles.avatar}
             /> :
             <EvilIcons name="user" size={250} color="black" />
-          }
+        }
           </TouchableOpacity>
-          </View>
-            
+          </View>       
              <Text style={styles.title}>
                 Perfil
             </Text>
             <Text style={styles.label}>
                 Nome de Usuário
             </Text>
-                <TextInput placeholder= "Nome do usuário" style={styles.input}/>
+            {/* <Text >{currentUser.name}</Text> */}
             <Text style={styles.label}>
                 E-mail
             </Text> 
-                <TextInput placeholder="E-mail do usuário" style={styles.input} />
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>
-                    Editar informações
-                </Text>
-            </TouchableOpacity>
+            {/* <Text >{currentUser.email}</Text> */}
+            <Text style={styles.label}>
+                Telefone
+            </Text> 
+            {/* <Text >{currentUser.phone}</Text> */}
         </View>
     );
 }
@@ -70,15 +72,16 @@ const styles = StyleSheet.create({
         padding: 40
     },
     icon: {
-        flex: 1,
-        marginBottom: 10,
+        marginBottom: 15,
         justifyContent: 'center',
-        alignItems: "center"
+        alignItems: "center",
     },
     label: {
         fontSize: 18,
         marginTop: 60,
-        color: "black"
+        textAlign: "center",
+        color: "black",
+        // fontWeight: "bold",
     },
     input: {
         flexDirection: "row",
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontSize: 25,
+        fontSize: 28,
     },
     visibleButton: {
         width: 40,
@@ -113,8 +116,5 @@ const styles = StyleSheet.create({
         borderRadius:100,
         textAlign:"center",
         marginTop:80
-        
-
-   
       }
 });

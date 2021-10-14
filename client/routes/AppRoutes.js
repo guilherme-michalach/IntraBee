@@ -43,9 +43,9 @@ export function AppRoutes () {
                     headerLeft: () => <HeaderBackButton tintColor="black" onPress={() => navigation.push("Home")} />
                     })} 
                 />
-                <Stack.Screen name="Perfil" component={ProfileScreen}/>
+                <Stack.Screen name="Profile" component={ProfileScreen}/>
                 <Stack.Screen 
-                    name="Config"
+                    name="Configurações"
                     component = {ConfigScreen}
                     options={{ headerShown: true }}
                 />
