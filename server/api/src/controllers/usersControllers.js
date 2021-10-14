@@ -38,6 +38,17 @@ async function getUser(req, res, next) {
     }
 }
 
+async function getAllUsers(req, res, next) {
+    try {
+        const allUsers = await User.findAll();
+
+        return res.json(allUsers);
+    } catch (error) {
+        console.log(error);
+        next(error); 
+    }
+}
+
 async function deleteUser(req, res, next) {
     const { userId } = res.locals;
 
@@ -82,6 +93,7 @@ async function changePassword(req, res, next) {
 module.exports = {
     createUser,
     getUser,
+    getAllUsers,
     deleteUser,
     changePassword
 }

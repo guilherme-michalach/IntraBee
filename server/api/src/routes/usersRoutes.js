@@ -11,6 +11,10 @@ router.post("/", usersControllers.createUser);
 
 router.get("/me", authentication, usersControllers.getUser);
 
+// Obter informações de todos os usuários
+
+router.get("/all", authentication, usersControllers.getAllUsers)
+
 // Mudar senha de acesso do usuário
 
 router.put("/changePassword", authentication, usersControllers.changePassword);

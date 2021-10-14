@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { User } from "../components/User";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
+import { api } from "../services/api";
 
 export function CreateChats ({ navigation }) {
-    const [users, setUsers] = useState([
-       { id: 1, name: "teste", email: "teste@email.com" },
-       { id: 2, name: "teste", email: "teste2@email.com" },
-       { id: 4, name: "teste", email: "teste4@email.com" }
-    ]);
+    const [users, setUsers] = useState([]);
 
     function renderUser({ item }) {
         return (
@@ -17,24 +14,36 @@ export function CreateChats ({ navigation }) {
         )
     }
 
+    useEffect(() => {
+        async function getUsers () {
+            try {
+                const users = (await api.get(`/users/all`)).data;
+                setUsers(users);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getUsers();
+    });
+
     return(
         <View style={styles.container}>
             <View style={styles.addButton}>
                 <TouchableOpacity >
-                    <EvilIcons style={styles.createGroupButton} name="plus" size={60} color="black" />
+                    <EvilIcons style={styles.createGroupButton} name="plus" size={66} color="black" />
                 </TouchableOpacity>
             </View>
             <FlatList 
                 renderItem={renderUser}
                 keyExtractor={item => "" + item.id}
+                data={users}
             />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-
-  
     container: {
         flex: 1,
         backgroundColor: colors.backgroundColor,
