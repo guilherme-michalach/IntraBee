@@ -84,7 +84,7 @@ import { DrawerActions } from "@react-navigation/native";
                  </View> 
                 <Text>
                 <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer( 'DrawerNavigator')}>
-                  <Octicons style={styles.options} name="three-bars" size={30} color="black" />
+                  <Octicons style={styles.options} name="three-bars" size={36} color="black" />
                   </TouchableOpacity>
                 </Text>
           </View>
@@ -111,36 +111,40 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: colors.header,
-        // padding: 20,
-        paddingHorizontal: 35,
+        paddingLeft: 35,
+        paddingRight: 15,
         paddingVertical: 4,
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "space-between"
     },
    
     headerTitle: {
         fontSize: 25,
         fontWeight: "bold",
-        textAlign:"left"
+        textAlign:"left",
+        letterSpacing: 2.5,
+        // textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        // textShadowOffset: {width: 0.5, height: 0},
+        // textShadowRadius: 15
     },
     headerTitleContainer: {
-        flex:1
+        flex:1,
     },
     buttonContainer: {
       position: "absolute",
       bottom: 10,
-      right: 10
+      right: 20
     },
     addButton: {
       height: 60,
       width: 60,
       justifyContent: "center",
       alignItems: "center",
-      marginRight: 10,
+      marginRight: 0,
       marginBottom: 10
     },
     options:{
-      
-      
+   
     }
 })
