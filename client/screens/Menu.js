@@ -31,8 +31,6 @@ export function Menu({ navigation, ...rest }) {
     setAvatar(pickerResult.uri);  
   }
 
- 
-
   return (
     <DrawerContentScrollView style={styles.drawer}{...rest}>
       <View style={styles.container}>
@@ -40,18 +38,15 @@ export function Menu({ navigation, ...rest }) {
         <TouchableOpacity onPress={openImagePicker}>
           {
             avatar ?
-            <Image 
-              source={{ uri: avatar }} 
-              style={styles.avatar}
-            /> :
+            <Image source={{ uri: avatar }} style={styles.avatar} /> 
+              :
             <FontAwesome style={styles.avatar} name="user-circle-o" size={70} color="black" />
-          }
-          
+          }  
         </TouchableOpacity>
         </View>
         <View style={styles.userArea}>
-          <Text style={styles.name}>Teste</Text>
-          <Text style={styles.email}>teste@email.com</Text>
+          <Text style={styles.name}>{currentUser.name}</Text>
+          <Text style={styles.email}>{currentUser.email}</Text>
         </View>
       </View>
       <View style={styles.itens}>
@@ -67,11 +62,8 @@ export function Menu({ navigation, ...rest }) {
           label="Sair" onPress={() => authActions.signOut()} />
       </View>
     </DrawerContentScrollView>
-
-
   );
 }
-
 
 const styles = StyleSheet.create({
   drawer: {

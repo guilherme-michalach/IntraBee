@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, TextInput,  TouchableOpacity, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Chat } from "../components/Chat";
 import colors from "../theme/colors";
 import { useAuth } from "../contexts/AuthContext";
@@ -7,14 +7,13 @@ import { EvilIcons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 import { Octicons } from '@expo/vector-icons';
-import { DrawerActions } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 
  export function HomeScreen ({ navigation }) {
-    const { authActions } = useAuth();
-    // const [currentUser, setCurrentUser] = useState(null);
     const [chats, setChats] = useState([]);
     const { currentUser } = useUser();
+    const [filtered, setFiltered] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
       async function getChats() {
@@ -50,7 +49,50 @@ import { useUser } from "../contexts/UserContext";
         />
       )
     }
+
+    const ItemSeparatorView = () => {
+      return (
+        <View style={styles.searchList} />
+      )
+    }
     
+    const searchFilter = (text) => {
+      if(text) {
+        const newInfo = chats.filter((item) => {
+
+          const itemInfo = item.name.toUpperCase() ? item.name.toUpperCase() : "".toUpperCase();
+
+          if(item.name === undefined) itemInfo = item.name.toUpperCase()
+
+          const TextInfo = text.toUpperCase();
+
+          return itemInfo.indexOf(TextInfo) > -1;
+        })
+
+        setSearch(text);
+        setChats(newInfo);
+      } else {
+        async function getChats() {
+          try {
+            const chats = (await api.get("/chats")).data;
+  
+            const chatsIds = chats.map(chat => chat.id);
+  
+            socket.emit("join chats", chatsIds);
+  
+            setChats(chats);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+    
+          getChats();
+
+        setChats(chats);
+        setSearch("");
+      }
+    }
+
     function handleChatCreation() {
       navigation.push("CreateChats")
     }
@@ -69,10 +111,17 @@ import { useUser } from "../contexts/UserContext";
                   </TouchableOpacity>
                 </Text>
           </View>
+          <TextInput 
+            value={search}
+            onChangeText={(text) => searchFilter(text)}            
+            style={styles.searchBox}
+            placeholder={"Busca de usuários"}
+          />
           <FlatList 
               data={chats}
               renderItem={renderChat}
-              keyExtractor={item => "" + item.id}
+              keyExtractor={(item, index)=> "" + item.id + index.toString()}
+              ItemSeparatorComponent={ItemSeparatorView}
               style={styles.chats}
           />
           <View style={styles.buttonContainer}>

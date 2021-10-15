@@ -1,7 +1,5 @@
 import { Linking, Alert, Platform } from 'react-native';
 
-
-
 export const callNumber = phone => {
 console.log('callNumber ----> ', phone);
 let phoneNumber = phone;

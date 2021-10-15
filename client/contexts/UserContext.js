@@ -30,8 +30,6 @@ export function UserProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const auth = useAuth();
 
-    console.log(auth);
-
     useEffect(() => {        
         async function getUser() {
             let user;

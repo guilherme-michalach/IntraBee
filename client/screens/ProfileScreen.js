@@ -3,15 +3,12 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "reac
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
-import { useAuth } from "../contexts/AuthContext";
-import { api } from "../services/api";
 import { useUser } from "../contexts/UserContext";
 
 export function ProfileScreen ({ navigation, route }) {
-    const { authActions } = useAuth();
     const { currentUser } = useUser();
     const [ avatar, setAvatar ] = useState(null);
-    console.log(currentUser)
+
     async function openImagePicker() {
         const permissionsResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
