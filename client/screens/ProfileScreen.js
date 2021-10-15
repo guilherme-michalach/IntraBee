@@ -8,8 +8,8 @@ import { api } from "../services/api";
 
 export function ProfileScreen ({ navigation, route }) {
     const { authActions } = useAuth();
-    const currentUser = route.params?.currentUser;
-    // console.log(currentUser)
+     const currentUser = route.params?.currentUser;
+     console.log(currentUser)
     console.log(route)
     const [ avatar, setAvatar ] = useState(null);
 
