@@ -8,29 +8,15 @@ import { api } from "../services/api";
 import { socket } from "../services/chat";
 import { Octicons } from '@expo/vector-icons';
 import { DrawerActions } from "@react-navigation/native";
-
+import { useUser } from "../contexts/UserContext";
 
  export function HomeScreen ({ navigation }) {
     const { authActions } = useAuth();
-    const [currentUser, setCurrentUser] = useState(null);
+    // const [currentUser, setCurrentUser] = useState(null);
     const [chats, setChats] = useState([]);
+    const { currentUser } = useUser();
 
     useEffect(() => {
-      async function getUser() {
-        try {
-          const user = (await api.get("/users/me")).data;
-
-          socket.connect();
-          socket.auth = { userId: user.id };
-
-          setCurrentUser(user);
-        } catch (error) {
-          if (error.response.status === 401) {
-            authActions.signOut();
-          }
-        }
-      }
-
       async function getChats() {
         try {
           const chats = (await api.get("/chats")).data;
@@ -45,7 +31,6 @@ import { DrawerActions } from "@react-navigation/native";
         }
       }
 
-      getUser();
       getChats();
     }, []);
 
@@ -69,11 +54,7 @@ import { DrawerActions } from "@react-navigation/native";
     function handleChatCreation() {
       navigation.push("CreateChats")
     }
-    
-      
-    
-   
-   
+       
     return(
       <View style={styles.container}>
           <View style={styles.header}>

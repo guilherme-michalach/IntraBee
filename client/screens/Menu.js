@@ -7,10 +7,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAuth } from "../contexts/AuthContext";
 import { Entypo } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
-
+import { useUser } from "../contexts/UserContext";
 
 export function Menu({ navigation, ...rest }) {
   const { authActions } = useAuth();
+  const { currentUser } = useUser();
   const [ avatar, setAvatar ] = useState(null);
 
   async function openImagePicker() {
@@ -56,7 +57,7 @@ export function Menu({ navigation, ...rest }) {
       <View style={styles.itens}>
         <DrawerItem icon={({ }) => <Entypo name="chat" size={24} color="black" />}
           label="Conversas" onPress={() => navigation.navigate('Conversas')} />
-        <DrawerItem icon={({ }) => <MaterialCommunityIcons name="face-profile" size={24} color="black" />}
+        <DrawerItem icon={() => <MaterialCommunityIcons name="face-profile" size={24} color="black" />}
           label="Perfil" onPress={() => navigation.navigate('Perfil')} />
         <DrawerItem icon={({ }) => <FontAwesome name="calendar" size={24} color="black" />}
           label="Agenda" onPress={() => navigation.navigate('Agenda')} />
@@ -73,22 +74,18 @@ export function Menu({ navigation, ...rest }) {
 
 
 const styles = StyleSheet.create({
-
-
   drawer: {
     backgroundColor: 'rgb(255,250,205)'
   },
   container: {
     flex: 1,
     backgroundColor: 'rgb(192,192,192)',
-
   },
     userArea: {
     marginLeft: 20,
     marginBottom:15
   },
   name: {
-  
     color: "black",
     marginTop: 5,
     fontSize: 20,
@@ -102,19 +99,16 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     borderRadius:35,
-    marginLeft: 20,
+    // marginLeft: 20,
     marginTop:20,
     marginBottom:10
-
   },
-   
-    
-  
-
-
-
-
-
-
-
+  userArea: {
+    alignItems: "center",
+  },
+  image: {
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center"
+  },
 })
