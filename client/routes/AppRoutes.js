@@ -17,7 +17,7 @@ const Drawer = createDrawerNavigator();
 
 export default function MenuScreen() {
     return (
-        <Drawer.Navigator 
+        <Drawer.Navigator
             initialRouteName="Home"
             screenOptions={{ headerShown: false }}
             drawerContent={props => <Menu {...props} />}
@@ -25,29 +25,38 @@ export default function MenuScreen() {
         >
             <Drawer.Screen name="Conversas" component={HomeScreen} />
             <Drawer.Screen name="Perfil" component={ProfileScreen} />
-            <Drawer.Screen name="Agenda" component={CalendarScreen} />  
-            <Drawer.Screen name="Configurações" component={ConfigScreen} options={{ headerShown: true }}/>          
+            <Drawer.Screen name="Agenda" component={CalendarScreen} />
+            <Drawer.Screen name="Configurações" component={ConfigScreen} options={{ headerShown: true }} />
         </Drawer.Navigator>
     );
 }
 
-export function AppRoutes () {
+export function AppRoutes() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator
+                 //initialRouteName="Configurações"
+                screenOptions={{
+                    headerTintColor: "black",
+                    headerStyle: {
+                        backgroundColor:'rgb(192,192,192)',
+                        headerBackVisible: "false",
+                    }
+                }}
+            >
                 <Stack.Screen name="Home" component={MenuScreen} options={{ headerShown: false }} />
                 <Stack.Screen
                     name="Chat"
                     component={ChatScreen}
                     options={({ navigation, route }) => ({
-                    headerLeft: () => <HeaderBackButton tintColor="black" onPress={() => navigation.push("Home")} />
-                    })} 
+                        headerLeft: () => <HeaderBackButton tintColor="black" onPress={() => navigation.push("Home")} />
+                    })}
                 />
-                <Stack.Screen name="Profile" component={ProfileScreen}/>
-                <Stack.Screen 
+                <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen
                     name="Configurações"
-                    component = {ConfigScreen}
-                    options={{ headerShown: true }}
+                    component={ConfigScreen}
+                    
                 />
                 <Stack.Screen name="CreateChats" component={CreateChats} />
             </Stack.Navigator>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert,Switch, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Switch, Modal, Pressable } from 'react-native';
 
 export function ConfigScreen({ navigation, route }) {
     const currentUser = route.params?.currentUser;
@@ -10,19 +10,10 @@ export function ConfigScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-              <View style={styles.container}>
-      <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={setIsEnabled}
-        value={isEnabled}
-      />
-    </View>
             <Text style={styles.header}>
-             </Text>
+            </Text>
             <View>
-              <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {
+                <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {
                     Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                 }}
@@ -31,8 +22,8 @@ export function ConfigScreen({ navigation, route }) {
                         <View style={styles.modalView}>
                             <Text style={styles.titleModal}>Mudar a senha</Text>
                             {/* <TextInput style={styles.modalText} placeholder="Digite a sua senha antiga"></TextInput> */}
-                            <TextInput 
-                                style={styles.modalText} 
+                            <TextInput
+                                style={styles.modalText}
                                 placeholder="Digite a sua senha nova"
                                 value={password}
                                 onChangeText={setPassword}
@@ -65,41 +56,42 @@ export function ConfigScreen({ navigation, route }) {
             </View>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
-                  Privacidade
+                    Privacidade
                 </Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>
 
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
                     Ajuda
                 </Text>
             </TouchableOpacity>
-            
 
-            <TouchableOpacity style={styles.button}>
+
+            <View style={styles.darkModeContainer}>
                 <Text style={styles.buttonText}>
-                Darkmode
+                    Darkmode
                 </Text>
-            </TouchableOpacity>
+                <Switch
+                    trackColor={{ false: "black", true:'rgb(192,192,192)' }}
+                    thumbColor={isEnabled ? "black" : 'rgb(192,192,192)'}
+                    onValueChange={setIsEnabled}
+                    value={isEnabled}
+                />
 
-            
+            </View>
+
+
         </View>
-        
+
 
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        
-        alignItems: "center",
-        justifyContent: "center",
+    container: {  
         flex: 1,
-        padding: 30,
-        textAlign: "center",
+        padding:30,
         backgroundColor: 'rgb(255,250,205)',
-    
-   
     },
     textStyle: {
         color: "black",
@@ -157,5 +149,10 @@ const styles = StyleSheet.create({
             height: 2
         },
         shadowOpacity: 0.25,
+    },
+    darkModeContainer: {
+        flexDirection: "row",
+        padding: 20,
+        justifyContent: "center",
     }
 })
