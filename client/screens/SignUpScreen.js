@@ -17,17 +17,23 @@ export default function SignUpScreen ({ navigation }) {
 
     async function handleSignUp () {
         if(!name) return alert("Por favor insira seu nome!");
-        if(!email) return alert("Por favor insira seu e-mail!");
+        else if (name.length < 3) return alert("No mínimo são necessários três caracteres!");
+
+        // if(!email) return alert("Por favor insira seu e-mail!");
 
         if(!emailRegExp.test(email)) return alert("Por favor insira seu e-mail!");
 
+        if(!passwordRegExp.test(password)) return alert("Por favor insira uma senha com no mínimo 6 caracteres, sendo ao menos um deles um número e outro letra!")
+
         if(!password) return alert("Por favor insira sua senha!");
+        // else if(!password.length < 6) return alert("Por favor insira uma senha com no mínimo 6 caracteres!")
+
         if(!phone) return alert("Por favor insira seu telefone!");
+        else if (phone.length < 9) return alert("Por favor insira seu telefone!");
 
         setIsLoading(true);
 
         try {
-            // const createUser = (await api.post("users")).data;
             const createUser = (await api.post("users", {
                 name,
                 email,
@@ -35,9 +41,8 @@ export default function SignUpScreen ({ navigation }) {
                 password,
             })).data;
 
+            Alert.alert("Conta criada com sucesso!");
             navigation.push("SignIn")
-
-            // setIsLoading(false);
         } catch (error) {
             Alert.alert("Não foi possível realizar o cadastro.");
             setIsLoading(false);
@@ -79,9 +84,10 @@ export default function SignUpScreen ({ navigation }) {
                 Telefone
             </Text>
                 <TextInput 
-                    placeholder= "Digite seu telefone" 
+                    placeholder= "(99) 9999-99999" 
                     style={styles.input}
                     value={phone}
+                    maxLength={9}
                     onChangeText={setPhone}
                 />
             <Text style={styles.label}>
@@ -121,8 +127,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 18,
         marginTop: 10,
-        color: "black",
-     
+        color: "black",  
     },
     input: {
         fontSize: 16,

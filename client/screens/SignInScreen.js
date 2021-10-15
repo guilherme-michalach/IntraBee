@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
      register: {
         textAlign:"center",
          padding:15
-
      },
     label: {
         fontSize: 18,
@@ -127,7 +126,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: 1,
-        // borderColor:
     },
     inputSecure: {
         flex: 1,

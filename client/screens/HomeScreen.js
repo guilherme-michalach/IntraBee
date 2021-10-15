@@ -109,9 +109,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign:"left",
         letterSpacing: 2.5,
-        // textShadowColor: 'rgba(0, 0, 0, 0.75)',
-        // textShadowOffset: {width: 0.5, height: 0},
-        // textShadowRadius: 15
     },
     headerTitleContainer: {
         flex:1,
