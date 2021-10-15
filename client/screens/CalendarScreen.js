@@ -1,62 +1,60 @@
-import React from 'react';
-import DayPicker, { DateUtils } from 'react-day-picker';
-import MomentLocaleUtils from 'react-day-picker/moment';
+import React, { useState } from 'react';
+import { View, Button, Platform, StyleSheet, Text } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-import 'moment/locale/ja';
-import 'moment/locale/ar';
-import 'moment/locale/it';
-import 'moment/locale/pt-br';
+export function CalendarScreen() {
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [isPickerShow, setIsPickerShow] = useState(false);
 
-export class CalendarScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.handleDayClick = this.handleDayClick.bind(this);
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
 
-        this.state = {
-            locale: 'en',
-            selectedDays: []
-        };
-    }
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
 
-    handleSelectChange(e) {
-        this.setState({
-            locale: e.target.value,
-        });
-    }
+    const showDatepicker = () => {
+        showMode('date');
+    };
 
-    handleDayClick(day, { selected }) {
-        const selectedDays = this.state.selectedDays.concat();
-        if (selected) {
-            const selectedIndex = selectedDays.findIndex(selectedDay =>
-                DateUtils.isSameDay(selectedDay, day)
-            );
-            selectedDays.splice(selectedIndex, 1);
-        } else {
-            selectedDays.push(day);
-        }
-        this.setState({ selectedDays });
-    }
+    const showTimepicker = () => {
+        showMode('time');
+    };
 
-    render() {
-        return (
-            <div>
-                <p>
-                    <select onChange={this.handleSelectChange}>
-                        <option value="en">English</option>
-                        <option value="ja">Japanese</option>
-                        <option value="ar">Arabic</option>
-                        <option value="it">Italian</option>
-                        <option value="pt-br">Português Brasil</option>
-                    </select>
-                </p>
-                <DayPicker
-                    localeUtils={MomentLocaleUtils}
-                    locale={this.state.locale}
-                    selectedDays={this.state.selectedDays}
-                    onDayClick={this.handleDayClick}
+    const showPicker = () => {
+        setIsPickerShow(true);
+    };
+
+    return (
+        <View style={styles.container}>
+            <View>
+                <Button onPress={showDatepicker} title="Calendário" />
+            </View>
+            <View>
+                <Button onPress={showTimepicker} title="Relógio" />
+            </View>
+            {show && (
+                <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    mode={mode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={onChange}
                 />
-            </div>
-        );
+            )}
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 90
     }
-}
+})
