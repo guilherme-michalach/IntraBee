@@ -4,6 +4,7 @@ import SignInScreen from "../screens/SignInScreen";
 import SplashScreen from "../screens/SplashScreen";
 import { AppRoutes } from "./AppRoutes";
 import { AuthRoutes } from "./AuthRoutes";
+import { UserProvider } from "../contexts/UserContext";
 
 export function Routes () {
     const { accessToken, isLoading } = useAuth();
@@ -14,7 +15,9 @@ export function Routes () {
                 isLoading ? 
                 <SplashScreen /> :
                 accessToken ?
-                <AppRoutes /> :
+                <UserProvider>
+                    <AppRoutes /> 
+                </UserProvider> :
                 <AuthRoutes />
             }
         </>

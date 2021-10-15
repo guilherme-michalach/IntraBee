@@ -5,14 +5,13 @@ import { EvilIcons } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../contexts/AuthContext";
 import { api } from "../services/api";
+import { useUser } from "../contexts/UserContext";
 
 export function ProfileScreen ({ navigation, route }) {
     const { authActions } = useAuth();
-    const currentUser = route.params?.currentUser;
-    // console.log(currentUser)
-    console.log(route)
+    const { currentUser } = useUser();
     const [ avatar, setAvatar ] = useState(null);
-
+    console.log(currentUser)
     async function openImagePicker() {
         const permissionsResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -49,17 +48,17 @@ export function ProfileScreen ({ navigation, route }) {
                 Perfil
             </Text>
             <Text style={styles.label}>
-                Nome de Usuário
+                Nome de Usuário:
             </Text>
-            {/* <Text >{currentUser.name}</Text> */}
+            <Text style={styles.info}>{currentUser.name}</Text>
             <Text style={styles.label}>
-                E-mail
+                E-mail:
             </Text> 
-            {/* <Text >{currentUser.email}</Text> */}
+            <Text style={styles.info}>{currentUser.email}</Text>
             <Text style={styles.label}>
-                Telefone
+                Telefone:
             </Text> 
-            {/* <Text >{currentUser.phone}</Text> */}
+            <Text style={styles.info}>{currentUser.phone}</Text>
         </View>
     );
 }
@@ -116,5 +115,13 @@ const styles = StyleSheet.create({
         borderRadius:100,
         textAlign:"center",
         marginTop:80
-      }
+    },
+    info: {
+        textAlign: "center",
+        justifyContent: 'center',
+        alignItems: "center",
+        color: "black",
+        fontSize: 18,
+        marginTop: 10
+    }
 });
