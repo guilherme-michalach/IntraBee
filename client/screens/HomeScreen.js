@@ -11,17 +11,15 @@ import { useUser } from "../contexts/UserContext";
 
  export function HomeScreen ({ navigation }) {
     const [chats, setChats] = useState([]);
-    const { currentUser } = useUser();
-    const [filtered, setFiltered] = useState([]);
+    const [filteredChats, setFilteredChats] = useState([]);
+    const { currentUser } = useUser();    
     const [search, setSearch] = useState("");
 
     useEffect(() => {
       async function getChats() {
         try {
           const chats = (await api.get("/chats")).data;
-
           const chatsIds = chats.map(chat => chat.id);
-
           socket.emit("join chats", chatsIds);
 
           setChats(chats);
@@ -29,7 +27,6 @@ import { useUser } from "../contexts/UserContext";
           console.log(error);
         }
       }
-
       getChats();
     }, []);
 
@@ -57,40 +54,22 @@ import { useUser } from "../contexts/UserContext";
     }
     
     const searchFilter = (text) => {
+      let newInfo = [];
       if(text) {
-        const newInfo = chats.filter((item) => {
-
-          const itemInfo = item.name.toUpperCase() ? item.name.toUpperCase() : "".toUpperCase();
-
-          if(item.name === undefined) itemInfo = item.users.toUpperCase()
-
-          const TextInfo = text.toUpperCase();
-
-          return itemInfo.indexOf(TextInfo) > -1;
+        newInfo = chats.filter((item) => {                    
+          const chatName = item.name ? 
+            item.name : 
+            item.users[0]?.id === currentUser?.id ? 
+            item.users[1]?.name :
+            item.users[0]?.name;
+          
+          return chatName.toLowerCase().includes(text.toLowerCase());
         })
-
-        setSearch(text);
-        setChats(newInfo);
-      } else {
-        async function getChats() {
-          try {
-            const chats = (await api.get("/chats")).data;
-  
-            const chatsIds = chats.map(chat => chat.id);
-  
-            socket.emit("join chats", chatsIds);
-  
-            setChats(chats);
-          } catch (error) {
-            console.log(error);
-          }
-        }
-    
-          getChats();
-
-        setChats(chats);
-        setSearch("");
+        setFilteredChats(newInfo);       
       }
+      getChats();
+
+      setSearch(text);
     }
 
     function handleChatCreation() {
@@ -106,7 +85,7 @@ import { useUser } from "../contexts/UserContext";
                   </Text>
                  </View> 
                 <Text>
-                <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer( 'DrawerNavigator')}>
+                <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
                   <Octicons style={styles.options} name="three-bars" size={36} color="black" />
                   </TouchableOpacity>
                 </Text>
@@ -117,13 +96,23 @@ import { useUser } from "../contexts/UserContext";
             style={styles.searchBox}
             placeholder={"Busca de usuários"}
           />
-          <FlatList 
-              data={chats}
+          {
+            filteredChats.length > 0 ?
+            <FlatList 
+              data={filteredChats}
               renderItem={renderChat}
               keyExtractor={(item, index)=> "" + item.id + index.toString()}
               ItemSeparatorComponent={ItemSeparatorView}
               style={styles.chats}
-          />
+            />  :
+            <FlatList 
+                data={chats}
+                renderItem={renderChat}
+                keyExtractor={(item, index)=> "" + item.id + index.toString()}
+                ItemSeparatorComponent={ItemSeparatorView}
+                style={styles.chats}
+            />
+          }        
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.addButton} onPress={handleChatCreation}>
               <EvilIcons name="plus" size={66} color="black" />

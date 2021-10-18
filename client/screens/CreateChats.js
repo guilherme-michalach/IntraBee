@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { User } from "../components/User";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
@@ -11,11 +11,14 @@ export function CreateChats ({ navigation }) {
     const currentUserId = currentUser.id;
 
     const [users, setUsers] = useState([]);
-    const [selectUser, selectedUsers] = useState([]);
+    const [selectUser, selectedUser] = useState([]);
+    const [selectedUsers, seSelectedUsers] = useState([]);
+
+    // Criar uma função que verifica se o usuário ja esta no vetor selectedUsers
 
     function renderUser({ item }) {
         return (
-            <User name={item.name} />
+            <User name={item.name} onPress={() => createChat([item.id])}  />
         )
     }
 
@@ -23,24 +26,19 @@ export function CreateChats ({ navigation }) {
         async function getUsers () {
             try {
                 const users = (await api.get(`/users/all`)).data;
-                setUsers(users);
-                
+                setUsers(users);     
             } catch (error) {
                 console.log(error);
             }
         };
-
         getUsers();
+    }, []);
 
-    });
-
-    async function createChat () {
-        selectUser(users)
-
+    async function createChat([users]) {
         try {
             const chat = (await api.post(`/chats`, {
                 name: "",
-                users: [currentUserId, selectUser]
+                users: [currentUserId, ...users]
             })).data;
 
         } catch (error) {
@@ -59,8 +57,13 @@ export function CreateChats ({ navigation }) {
                 renderItem={renderUser}
                 keyExtractor={item => "" + item.id}
                 data={users}
-                onPress={selectUser}
             />
+            {
+                selectedUsers.length > 0 &&
+                <TouchableOpacity onPress={() => createChat(selectedUsers)}>
+                    <Text>Criar grupo</Text>
+                </TouchableOpacity>
+            }
         </View>
     );
 }

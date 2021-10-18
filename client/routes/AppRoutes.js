@@ -10,6 +10,7 @@ import { Menu } from "../screens/Menu";
 import { HeaderBackButton } from '@react-navigation/elements';
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { ConfigScreen } from "../screens/ConfigScreen";
+import { CallScreen } from "../screens/CallScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -24,6 +25,7 @@ export default function MenuScreen() {
         >
             <Drawer.Screen name="Conversas" component={HomeScreen} />
             <Drawer.Screen name="Perfil" component={ProfileScreen} />
+            <Drawer.Screen name="Chamadas" component={CallScreen} />
             <Drawer.Screen name="Agenda" component={CalendarScreen} />
             <Drawer.Screen name="Configurações" component={ConfigScreen} options={{ headerShown: true }} />
         </Drawer.Navigator>

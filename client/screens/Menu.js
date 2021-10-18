@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
-import { Linking, View, Text, Touchable, StyleSheet, Image } from "react-native";
+import { View, Text, Touchable, StyleSheet, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAuth } from "../contexts/AuthContext";
 import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
 import { useUser } from "../contexts/UserContext";
 import colors from "../theme/colors";
@@ -51,10 +52,13 @@ export function Menu({ navigation, ...rest }) {
         </View>
       </View>
       <View style={styles.itens}>
-        <DrawerItem icon={({ }) => <Entypo name="chat" size={24} color="black" />}
-          label="Conversas" onPress={() => navigation.navigate('Conversas')} />
+
         <DrawerItem icon={() => <MaterialCommunityIcons name="face-profile" size={24} color="black" />}
           label="Perfil" onPress={() => navigation.navigate('Perfil')} />
+        <DrawerItem icon={({ }) => <Entypo name="chat" size={24} color="black" />}
+          label="Conversas" onPress={() => navigation.navigate('Conversas')} />
+        <DrawerItem icon={({ }) => <Ionicons name="call" size={24} color="black" />}
+          label="Chamadas" onPress={() => navigation.navigate('Chamadas')} />
         <DrawerItem icon={({ }) => <FontAwesome name="calendar" size={24} color="black" />}
           label="Agenda" onPress={() => navigation.navigate('Agenda')} />
         <DrawerItem icon={({ }) => <Entypo name="tools" size={24} color="black" />}
