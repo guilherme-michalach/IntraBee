@@ -13,14 +13,14 @@ export function ConfigScreen({ navigation, route }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-            <View style={styles.headerTitleContainer}>
-                <Text style={styles.headerTitle}>
-                IntraBee
-                </Text>
-            </View> 
+                <View style={styles.headerTitleContainer}>
+                    <Text style={styles.headerTitle}>
+                        IntraBee
+                    </Text>
+                </View> 
             <Text>
                 <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
-                <Octicons style={styles.options} name="three-bars" size={36} color="black" />
+                    <Octicons style={styles.options} name="three-bars" size={36} color="black" />
                 </TouchableOpacity>
             </Text>
         </View>
@@ -32,25 +32,25 @@ export function ConfigScreen({ navigation, route }) {
                 <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {
                     Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible) }} >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.titleModal}>Mudar a senha</Text>
-                            <TextInput
-                                style={styles.modalText}
-                                placeholder="Digite a sua senha nova"
-                                value={password}
-                                onChangeText={setPassword} >
-                            </TextInput>
-                            <View style={styles.viewButton}>
-                                <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.textStyle}>Fechar</Text>
-                                </Pressable>
-                                <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.textStyle}>Enviar</Text>
-                                </Pressable>
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Text style={styles.titleModal}>Mudar a senha</Text>
+                                <TextInput
+                                    style={styles.modalText}
+                                    placeholder="Digite a sua senha nova"
+                                    value={password}
+                                    onChangeText={setPassword} >
+                                </TextInput>
+                                <View style={styles.viewButton}>
+                                    <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+                                        <Text style={styles.textStyle}>Fechar</Text>
+                                    </Pressable>
+                                    <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+                                        <Text style={styles.textStyle}>Enviar</Text>
+                                    </Pressable>
+                                </View>
                             </View>
                         </View>
-                    </View>
                 </Modal>
                 <Pressable style={[styles.button, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
                     <Text style={styles.buttonText}>

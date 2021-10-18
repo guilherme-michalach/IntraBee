@@ -61,7 +61,8 @@ export function AddUpdateTodo(props) {
                         >
                             Editar todo
                         </Button>
-                    :   <Button 
+                    :  
+                        <Button 
                             icon="plus" 
                             mode="contained"
                             loading={loading}

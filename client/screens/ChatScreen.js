@@ -27,7 +27,6 @@ export function ChatScreen ({ navigation, route }) {
                 setMessages(prevMessages => [...prevMessages, newMessage]);
             }
         });
-
         getMessages();
 
         return () => socket.off("new message");

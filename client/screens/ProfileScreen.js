@@ -54,9 +54,7 @@ export function ProfileScreen ({ navigation, route }) {
         }
           </TouchableOpacity>
           </View>       
-             <Text style={styles.title}>
-                {currentUser.name}
-            </Text>
+             <Text style={styles.title}>{currentUser.name}</Text>
             <Text style={styles.label}>
                 E-mail:
             </Text> 
