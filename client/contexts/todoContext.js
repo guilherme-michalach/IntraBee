@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useReducer } from "react";
-import { SplashScreen } from "../screens/SplashScreen";
+import SplashScreen from "../screens/SplashScreen";
 import { api } from "../services/api";
 import { useAuth } from "./AuthContext";
 
@@ -76,7 +76,7 @@ export function TodoProvider({ children }) {
         }
 
         getTodos();        
-    }, [auth.state.accessToken]);
+    }, [auth.accessToken]);
 
     function handleAuthError(err) {
         if (err.response?.status === 401) {

@@ -49,7 +49,7 @@ export function AddUpdateTodo(props) {
                 style={styles.closeButton} 
                 onPress={props.closeModal}
             />
-                <TextInput mode="outlined" label="Tarefa" value={task} onChangeText={setTask} />
+                <TextInput label="Tarefa" value={task} onChangeText={setTask}/>
                 <DatePicker date={expirationDate} setDate={setExpirationDate} />
                 { props.todo
                     ?   <Button 

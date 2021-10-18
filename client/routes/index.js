@@ -5,6 +5,7 @@ import SplashScreen from "../screens/SplashScreen";
 import { AppRoutes } from "./AppRoutes";
 import { AuthRoutes } from "./AuthRoutes";
 import { UserProvider } from "../contexts/UserContext";
+import { TodoProvider } from "../contexts/TodoContext";
 
 export function Routes () {
     const { accessToken, isLoading } = useAuth();
@@ -16,7 +17,9 @@ export function Routes () {
                 <SplashScreen /> :
                 accessToken ?
                 <UserProvider>
-                    <AppRoutes /> 
+                    <TodoProvider>
+                    <AppRoutes />
+                    </TodoProvider> 
                 </UserProvider> :
                 <AuthRoutes />
             }

@@ -3,6 +3,7 @@ import { Platform, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Fontisto } from '@expo/vector-icons';
 import moment from 'moment';
+import colors from '../theme/colors';
 
 export function DatePicker(props) {
     const [date, setDate] = useState(props.date);        
@@ -55,7 +56,7 @@ export function DatePicker(props) {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: "#f5f5f5",
+        backgroundColor: colors.backgroundColor,
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: 'center',
@@ -67,6 +68,6 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     buttonText: {
-        color: "#666"
+        color: colors.backgroundColor
     }
 });

@@ -6,6 +6,7 @@ import 'moment/locale/pt-br';
 import { FontAwesome } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import { useTodo } from "../contexts/TodoContext";
+import colors from "../theme/colors";
 
 export function Todo(props) {    
     const checkboxStatus = props.completedAt ? "checked" : "unchecked";
@@ -52,7 +53,7 @@ export function Todo(props) {
                 <IconButton 
                     icon="pencil"
                     style={styles.editButton}
-                    color="#fff"
+                    color={colors.secundary}
                     onPress={props.editTodo}
                 />
             </View>
@@ -62,28 +63,29 @@ export function Todo(props) {
 
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: "#fff",
-        borderBottomWidth: 1,
-        borderColor: "#ddd",
+        backgroundColor: colors.header,
         flexDirection: "row",
         justifyContent: "space-evenly",
-        alignItems: "center"
+        alignItems: "center",
+        padding: 10,
+        marginBottom: 10
     },
     title: {
         fontSize: 16,
         fontWeight: "bold"
     },  
     editButton: {
-        backgroundColor: "white",        
+        backgroundColor: colors.backgroundColor,        
     },
     left: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: colors.error,
         flexDirection: 'row',
         alignItems: 'center'
     },
     excludeIcon: {
-        marginLeft: 10
+        marginLeft: 10,
+        color: colors.backgroundColor
     },
     excludeText: {
         color: '#FFF',

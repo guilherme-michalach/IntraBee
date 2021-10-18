@@ -5,8 +5,10 @@ import { api } from "../services/api";
 import { Alert, Platform } from 'react-native';
 import { CallUser } from "../components/CallUser";
 import { Octicons } from '@expo/vector-icons';
+import { useUser } from "../contexts/UserContext";
 
 export function CallScreen ({ navigation, route }) {
+  const { currentUser } = useUser(); 
   const [users, setUsers] = useState([]);
 
   function renderUser({ item }) {
@@ -19,7 +21,14 @@ export function CallScreen ({ navigation, route }) {
       async function getUsers () {
           try {
               const users = (await api.get(`/users/all`)).data;
-              setUsers(users);     
+              setUsers(users);   
+              
+              // for (userIndex of users) {
+              //   if (users[userIndex].id !== currentUser.id) {
+              //     setUsers(users);   
+              //   }
+              // }
+
           } catch (error) {
               console.log(error);
           }

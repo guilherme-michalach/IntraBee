@@ -67,6 +67,17 @@ export function HomeScreen ({ navigation }) {
       })
       setFilteredChats(newInfo);       
     }
+    async function getChats() {
+      try {
+        const chats = (await api.get("/chats")).data;
+        const chatsIds = chats.map(chat => chat.id);
+        socket.emit("join chats", chatsIds);
+
+        setChats(chats);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     getChats();
 
     setSearch(text);

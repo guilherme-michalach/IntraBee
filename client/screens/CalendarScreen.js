@@ -54,7 +54,8 @@ export function CalendarScreen({ navigation }) {
                             editTodo={() => showUpdateModal({...item})}                      
                         />
                     )}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => "" + item.id}
+                    style={styles.limiter}
                 />                           
             </View>
             <TouchableOpacity style={styles.addButtons} onPress={() => setShowModal(true)} >
@@ -116,4 +117,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: "center"        
     },
+    limiter: {
+        paddingHorizontal: 20,
+    }
 });
