@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, TouchableOpacity, View, Linking } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View, Linking, StatusBar, Text } from "react-native";
 import colors from "../theme/colors";
 import { api } from "../services/api";
 import { Alert, Platform } from 'react-native';
 import { CallUser } from "../components/CallUser";
+import { Octicons } from '@expo/vector-icons';
 
 export function CallScreen ({ navigation, route }) {
   const [users, setUsers] = useState([]);
-  const [selectUser, selectedUsers] = useState([]);
 
   function renderUser({ item }) {
       return (
-          <CallUser name={item.name} />
+          <CallUser name={item.name} openCall={callUser}/>
       )
   }
 
@@ -30,6 +30,7 @@ export function CallScreen ({ navigation, route }) {
   function callUser () {
     try {
       // const openURL
+      console.log("error");
     } catch (error) {
       console.log(error);
     }
@@ -37,11 +38,22 @@ export function CallScreen ({ navigation, route }) {
 
   return(
     <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.headerTitleContainer}>
+          <Text style={styles.headerTitle}>
+            IntraBee
+          </Text>
+        </View> 
+        <Text>
+          <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
+            <Octicons style={styles.options} name="three-bars" size={36} color="black" />
+          </TouchableOpacity>
+        </Text>
+      </View>
         <FlatList 
             renderItem={renderUser}
             keyExtractor={item => "" + item.id}
             data={users}
-            onPress={callUser}
         />
     </View>
   );
@@ -51,12 +63,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.backgroundColor,
-  },
-  callButton: {
-    position: "absolute",
-    bottom: 10,
-    right: 10
-  }
+    marginTop: StatusBar.currentHeight,
+},
+header: {
+    backgroundColor: colors.header,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingVertical: 4,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+},
+headerTitle: {
+    fontSize: 25,
+    fontWeight: "bold",
+    textAlign:"left",
+    letterSpacing: 2.5,
+},
+headerTitleContainer: {
+    flex:1,
+},
+addButton: {
+  height: 60,
+  width: 60,
+  justifyContent: "center",
+  alignItems: "center",
+  marginRight: 0,
+  marginBottom: 10
+},
+options:{
+},
+
 })
 
 // export const callNumber = phone => {

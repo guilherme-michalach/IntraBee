@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.Chat, { through: "users_chats", as: "chats" });
       this.hasMany(models.Message, { foreignKey: "user_id" });
+      this.hasMany(models.Todo, { foreignKey: "user_id", as: "todos" });
     }
 
     isPasswordValid(password) {

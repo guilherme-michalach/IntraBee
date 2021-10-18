@@ -27,14 +27,17 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: "center",
         paddingVertical: 3,
-        paddingHorizontal: 3
+        paddingHorizontal: 3,
+        justifyContent: "center",
     },
     icon: {
        textAlignVertical: "center"
     },
     user: {
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        justifyContent: "center",
+        textAlign: "left",
     },
     lastMessage: {
     },

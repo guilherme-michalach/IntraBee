@@ -46,6 +46,8 @@ export function AppRoutes() {
                 />
                 <Stack.Screen name="Profile" component={ProfileScreen} />
                 <Stack.Screen name="Configurações" component={ConfigScreen}/>
+                <Stack.Screen name="Call" component={CallScreen} />
+                <Stack.Screen name="Calendar" component={CalendarScreen}/>
                 <Stack.Screen name="Iniciar nova conversa" component={CreateChats} />
             </Stack.Navigator>
         </NavigationContainer>

@@ -4,7 +4,7 @@ const colors = {
     check: "#3CF042",
     backgroundColor: '#e6e5e3',
     error: "#EB2007",
-    header: 'rgb(192,192,192)',
+    header: '#C0C0C0',
     button: "#000000"
 }
 

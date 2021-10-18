@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
 import { useUser } from "../contexts/UserContext";
 import colors from "../theme/colors";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export function Menu({ navigation, ...rest }) {
   const { authActions } = useAuth();
@@ -72,11 +73,11 @@ export function Menu({ navigation, ...rest }) {
 
 const styles = StyleSheet.create({
   drawer: {
-    backgroundColor: colors.backgroundColor
+    backgroundColor: colors.header
   },
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundColor,
+    backgroundColor: colors.header,
     marginBottom: 15
   },
     userArea: {

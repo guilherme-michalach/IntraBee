@@ -15,8 +15,6 @@ app.use(express.json());
 
 app.use(morgan("dev"));
 
-// app.use("/api/images", express.static("uploads"));
-
 // Definição as rotas
 
 app.use("/api/auth", require("./routes/authRoutes"));
@@ -26,6 +24,8 @@ app.use("/api/users", require("./routes/usersRoutes"));
 app.use("/api/chats", require("./routes/chatsRoutes"));
 
 app.use("/api/messages", require("./routes/messagesRoutes"));
+
+app.use("/api/todos", require("./routes/todosRoutes"));
 
 // Definição do middleware de tratamento de erros
 

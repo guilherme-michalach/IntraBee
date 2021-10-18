@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Platform, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Platform, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Fontisto } from '@expo/vector-icons';
 import moment from 'moment';
-import { theme } from "react-native-paper";
 
 export function DatePicker(props) {
     const [date, setDate] = useState(props.date);        
