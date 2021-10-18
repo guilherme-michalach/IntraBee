@@ -42,12 +42,8 @@ export function ProfileScreen ({ navigation, route }) {
           </TouchableOpacity>
           </View>       
              <Text style={styles.title}>
-                Perfil
+                {currentUser.name}
             </Text>
-            <Text style={styles.label}>
-                Nome de Usuário:
-            </Text>
-            <Text style={styles.info}>{currentUser.name}</Text>
             <Text style={styles.label}>
                 E-mail:
             </Text> 
@@ -74,7 +70,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 18,
-        marginTop: 60,
+        marginTop: 80,
         textAlign: "center",
         color: "black",
     },

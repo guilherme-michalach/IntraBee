@@ -7,12 +7,12 @@ export function Message({ name, message, date, self }) {
 
     return (
     <View style={[styles.container, self ? { alignSelf: "flex-end" } : { alignSelf: "flex-start" }]}> 
-        <View>
+        <View style={styles.top}>
             <Text style={styles.name}>{name}</Text>
+            <Text style={styles.date}>{formattedDate}</Text>
         </View>
         <View style={styles.messageComponents}>
             <Text style={styles.message}>{message}</Text>
-            <Text style={styles.date}>{formattedDate}</Text>
         </View>
     </View>
     );
@@ -21,8 +21,7 @@ export function Message({ name, message, date, self }) {
 const styles = StyleSheet.create({
     container: {
         padding: 6,
-        paddingHorizontal: 18,
-        // alignItems: "center",
+        paddingHorizontal: 8,
         justifyContent: "center",
         borderColor: "white",
         borderWidth: 1,
@@ -30,11 +29,13 @@ const styles = StyleSheet.create({
         margin: 5,
         backgroundColor: "white"
     },
+    top: {
+        flexDirection: "row",
+        alignContent: "space-between",
+        justifyContent: "space-between",
+        marginHorizontal: 5
+    },
     name: {
-        alignSelf: "flex-start",
-        alignItems: "flex-start",
-        alignContent: "flex-start",
-        justifyContent: "flex-start",
         fontWeight: "bold",
         fontSize: 14,
         paddingBottom: 4,
@@ -49,12 +50,12 @@ const styles = StyleSheet.create({
     message: {
         fontSize: 16,
         paddingBottom: 4,
-        // alignSelf: "center",
         paddingRight: 8,
     },
     date: {
-        fontSize: 12,
-        textAlignVertical: "center"
-        // alignSelf: "flex-end",
+        fontSize: 14,
+        paddingBottom: 4,
+        textAlign: "right",
+        marginLeft: 5
     }
 })

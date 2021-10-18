@@ -62,7 +62,7 @@ import { useUser } from "../contexts/UserContext";
 
           const itemInfo = item.name.toUpperCase() ? item.name.toUpperCase() : "".toUpperCase();
 
-          if(item.name === undefined) itemInfo = item.name.toUpperCase()
+          if(item.name === undefined) itemInfo = item.users.toUpperCase()
 
           const TextInfo = text.toUpperCase();
 
@@ -94,7 +94,7 @@ import { useUser } from "../contexts/UserContext";
     }
 
     function handleChatCreation() {
-      navigation.push("CreateChats")
+      navigation.push("Iniciar nova conversa")
     }
        
     return(
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: colors.header,
-        paddingLeft: 35,
+        paddingLeft: 15,
         paddingRight: 15,
         paddingVertical: 4,
         flexDirection: "row",
@@ -151,7 +151,6 @@ const styles = StyleSheet.create({
     },
     chats: {
       paddingVertical: 2,
-      paddingHorizontal: 3
     },
     headerTitle: {
         fontSize: 25,
@@ -177,5 +176,14 @@ const styles = StyleSheet.create({
     },
     options:{
    
+    },
+    searchBox: {
+      marginVertical: 10,
+      marginHorizontal: 20,
+      // paddingVertical: 5,
+      borderBottomWidth: 1,
+      borderColor: colors.button,
+      paddingStart: 10,
+      paddingVertical: 0
     }
 })

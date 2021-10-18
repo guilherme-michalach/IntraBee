@@ -7,7 +7,6 @@ import { CreateChats } from "../screens/CreateChats";
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import { CalendarScreen } from "../screens/CalendarScreen";
 import { Menu } from "../screens/Menu";
-import { api } from "../services/api";
 import { HeaderBackButton } from '@react-navigation/elements';
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { ConfigScreen } from "../screens/ConfigScreen";
@@ -34,16 +33,7 @@ export default function MenuScreen() {
 export function AppRoutes() {
     return (
         <NavigationContainer>
-            <Stack.Navigator
-                 //initialRouteName="Configurações"
-                screenOptions={{
-                    headerTintColor: "black",
-                    headerStyle: {
-                        backgroundColor:'rgb(192,192,192)',
-                        headerBackVisible: "false",
-                    }
-                }}
-            >
+            <Stack.Navigator>
                 <Stack.Screen name="Home" component={MenuScreen} options={{ headerShown: false }} />
                 <Stack.Screen
                     name="Chat"
@@ -53,12 +43,8 @@ export function AppRoutes() {
                     })}
                 />
                 <Stack.Screen name="Profile" component={ProfileScreen} />
-                <Stack.Screen
-                    name="Configurações"
-                    component={ConfigScreen}
-                    
-                />
-                <Stack.Screen name="CreateChats" component={CreateChats} />
+                <Stack.Screen name="Configurações" component={ConfigScreen}/>
+                <Stack.Screen name="Iniciar nova conversa" component={CreateChats} />
             </Stack.Navigator>
         </NavigationContainer>
     );

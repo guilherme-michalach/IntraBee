@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Switch, Modal, Pressable } from 'react-native';
+import colors from '../theme/colors';
 
 export function ConfigScreen({ navigation, route }) {
     const currentUser = route.params?.currentUser;
@@ -10,45 +11,36 @@ export function ConfigScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>
-            </Text>
             <View>
+                <TouchableOpacity style={styles.button}>
+                    <Text style={styles.buttonText}>
+                        Darkmode
+                    </Text>
+                </TouchableOpacity>
                 <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {
                     Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-                >
+                    setModalVisible(!modalVisible) }} >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
                             <Text style={styles.titleModal}>Mudar a senha</Text>
-                            {/* <TextInput style={styles.modalText} placeholder="Digite a sua senha antiga"></TextInput> */}
                             <TextInput
                                 style={styles.modalText}
                                 placeholder="Digite a sua senha nova"
                                 value={password}
-                                onChangeText={setPassword}
-                            ></TextInput>
+                                onChangeText={setPassword} >
+                            </TextInput>
                             <View style={styles.viewButton}>
-                                <Pressable
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => setModalVisible(!modalVisible)}
-                                >
+                                <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
                                     <Text style={styles.textStyle}>Fechar</Text>
                                 </Pressable>
-                                <Pressable
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => setModalVisible(!modalVisible)}
-                                >
+                                <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
                                     <Text style={styles.textStyle}>Enviar</Text>
                                 </Pressable>
                             </View>
                         </View>
                     </View>
                 </Modal>
-                <Pressable
-                    style={[styles.button, styles.buttonOpen]}
-                    onPress={() => setModalVisible(true)}
-                >
+                <Pressable style={[styles.button, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
                     <Text style={styles.buttonText}>
                         Mudar senha
                     </Text>
@@ -59,16 +51,13 @@ export function ConfigScreen({ navigation, route }) {
                     Privacidade
                 </Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
                     Ajuda
                 </Text>
             </TouchableOpacity>
-
-
-            <View style={styles.darkModeContainer}>
-                <Text style={styles.buttonText}>
+            {/* <View style={styles.darkModeContainer}>
+                <Text style={styles.text}>
                     Darkmode
                 </Text>
                 <Switch
@@ -77,21 +66,16 @@ export function ConfigScreen({ navigation, route }) {
                     onValueChange={setIsEnabled}
                     value={isEnabled}
                 />
-
-            </View>
-
-
+            </View> */}
         </View>
-
-
     );
 }
 
 const styles = StyleSheet.create({
     container: {  
         flex: 1,
-        padding:30,
-        backgroundColor: 'rgb(255,250,205)',
+        paddingHorizontal:30,
+        backgroundColor: colors.backgroundColor,
     },
     textStyle: {
         color: "black",
@@ -102,20 +86,26 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 25,
         borderRadius: 12,
-        backgroundColor: 'rgb(192,192,192)'
+        backgroundColor: colors.secundary
     },
     buttonOpen: {
-        backgroundColor: 'rgb(192,192,192)',
+        backgroundColor: colors.secundary
     },
     buttonClose: {
-        backgroundColor: 'rgb(192,192,192)',
+        backgroundColor: colors.secundary,
         margin: 20
     },
     buttonText: {
         fontSize: 20,
-        color: "black",
+        color: colors.primary,
         fontWeight: "bold",
         textAlign: "center",
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginHorizontal: 10
     },
     viewButton: {
         flexWrap: "wrap",
@@ -136,14 +126,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     modalView: {
-        margin: 20,
-        padding: 35,
+        margin: 30,
+        padding: 60,
         elevation: 5,
         shadowRadius: 4,
         borderRadius: 20,
         shadowColor: "#000",
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: colors.secundary,
         shadowOffset: {
             width: 0,
             height: 2

@@ -1,14 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { EvilIcons } from '@expo/vector-icons';
 
 export function User ({ name }) {
 
     return (
-        <View style={styles.container}>
-            <EvilIcons style={styles.icon} name="user" size={66} color="black" />
-            <Text style={styles.user}>{name}</Text>
-        </View>
+        <TouchableOpacity>
+            <View style={styles.container}>
+                <EvilIcons style={styles.icon} name="user" size={66} color="black" />
+                <Text style={styles.user}>{name}</Text>
+            </View>
+        </TouchableOpacity>
     );
 };
 

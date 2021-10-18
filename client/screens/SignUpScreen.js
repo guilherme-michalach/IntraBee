@@ -60,7 +60,7 @@ export default function SignUpScreen ({ navigation }) {
             </Text>
             <MaterialCommunityIcons style={styles.bee} name="bee" size={100} color="black" />
             <Text style={styles.title}>
-                Insira os dados abaixo:
+                Insira seus dados:
             </Text>
             <Text style={styles.label}>
                 Nome
@@ -132,25 +132,28 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 16,
         borderBottomWidth: 1,
-        borderColor: 'black',
+        borderColor: colors.button,
         padding: 10,
+        paddingStart: 1,
+        paddingVertical: 0,
+        marginVertical: 5
     },
     button: {
-        backgroundColor:  'rgb(192,192,192)',
+        backgroundColor: colors.secundary,
         borderRadius: 12,
         padding: 15,
         marginTop: 30
     },
     buttonText: {
         textAlign: "center",
-        color: "black",
+        color: colors.primary,
         fontSize: 20,
         fontWeight: "bold"
     },
     title: {
         textAlign: "center",
         marginTop: 20,
-        fontSize: 25,
+        fontSize: 22,
         fontFamily: "monospace",
         paddingBottom:20
     },
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: 1,
-        borderColor:"rgb(47,79,79)",
+        borderColor: "rgb(47,79,79)",
     },
     inputSecure: {
         flex: 1,

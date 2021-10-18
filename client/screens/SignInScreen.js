@@ -13,7 +13,7 @@ export default function SignInScreen ({ navigation }) {
     const [password, setPassword] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-
+    
     async function handleSignIn () {
         if (!email.trim() || !password.trim()) {
             Alert.alert("Preencha os campos adequadamente!");
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: 'rgb(255,250,205)',
+        backgroundColor: colors.backgroundColor,
         padding: 30
     },
     bee: {
@@ -88,30 +88,32 @@ const styles = StyleSheet.create({
     },
      register: {
         textAlign:"center",
-         padding:15
-     },
+        alignItems: "center",
+        padding: 15,
+        marginTop: 10
+    },
     label: {
         fontSize: 18,
-        marginTop: 10,
-        marginBottom: 8
+        marginVertical: 12
     },
     input: {
         fontSize: 16,
         borderBottomWidth: 1,
-        borderColor: "black",
+        borderColor: colors.button,
         padding: 10,
-        paddingStart:5,
-        paddingVertical:0
+        paddingStart: 1,
+        paddingVertical: 0,
+        marginBottom: 4
     },
     button: {
-        backgroundColor:  'rgb(192,192,192)',
+        backgroundColor:  colors.secundary,
         borderRadius: 12,
         padding: 15,
         marginTop: 30
     },
     buttonText: {
         textAlign: "center",
-        color: "black",
+        color: colors.primary,
         fontSize: 20,
         fontWeight: "bold"
     },

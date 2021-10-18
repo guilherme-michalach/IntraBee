@@ -8,6 +8,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Entypo } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
 import { useUser } from "../contexts/UserContext";
+import colors from "../theme/colors";
 
 export function Menu({ navigation, ...rest }) {
   const { authActions } = useAuth();
@@ -67,11 +68,12 @@ export function Menu({ navigation, ...rest }) {
 
 const styles = StyleSheet.create({
   drawer: {
-    backgroundColor: 'rgb(255,250,205)'
+    backgroundColor: colors.backgroundColor
   },
   container: {
     flex: 1,
-    backgroundColor: 'rgb(192,192,192)',
+    backgroundColor: colors.backgroundColor,
+    marginBottom: 15
   },
     userArea: {
     marginLeft: 20,

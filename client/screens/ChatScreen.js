@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Pressable } from "react-native";
+import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { Message } from "../components/Message";
 import colors from "../theme/colors";
 import { AntDesign } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 
@@ -43,6 +42,9 @@ export function ChatScreen ({ navigation, route }) {
                 chatId: route.params?.chatId
             })).data;
 
+            const getMessage = (await api.get(`/messages/${route.params?.chatId}`)).data;
+            setMessages(getMessage);
+
             socket.emit("send message", newMessage);
         } catch (error) {
             console.log(error);
@@ -70,17 +72,12 @@ export function ChatScreen ({ navigation, route }) {
                 keyExtractor={item => "" + item.id}
             />
             <View style={styles.containerInput}>
-                <View style={styles.inputOption}>
                 <TextInput 
                     style={styles.input} 
                     placeholder="Digite sua mensagem"
                     value={message}
                     onChangeText={setMessage}
                 />
-                <TouchableOpacity style={styles.micInput}> 
-                    <Ionicons name="mic" size={30} color="black" />
-                </TouchableOpacity>
-                </View>    
                 <View style={styles.buttons}>
                     <TouchableOpacity style={styles.send} onPress={sendMessage}>
                         <AntDesign name="rightcircleo" size={38} color="black" />
@@ -100,7 +97,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         paddingTop: 3,
         alignItems: "center",
-        marginBottom: 6,
+        marginBottom: 10,
     },
     buttons: {
         flexDirection: "row",
@@ -122,7 +119,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 6    
     },
     input: {
-        height: 38,
+        height: 44,
         paddingLeft: 10,
         flex: 1,
         fontSize: 18,
@@ -131,16 +128,7 @@ const styles = StyleSheet.create({
         padding: 2,
         marginHorizontal: 6
     },
-    micInput: {
-        marginRight: 4
-    },
     send: {
         margin: 2,
-        justifyContent: "center",
-        alignItems: "center",
-        alignContent: "center",
-    },
-    clip: {
-        marginRight: 8
     }
 })
