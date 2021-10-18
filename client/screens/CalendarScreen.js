@@ -1,60 +1,106 @@
-import React, { useState } from 'react';
-import { View, Button, Platform, StyleSheet, Text } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState } from "react";
+import { StyleSheet, Modal, View, Alert } from "react-native";
+import { Button, IconButton, TextInput, useTheme } from "react-native-paper";
+import { DatePicker } from "../components/DatePicker";
+import { useTodo } from "../contexts/todoContext";
+import { showErrorMessage } from "../utils/errorMessages";
 
-export function CalendarScreen() {
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
-    const [isPickerShow, setIsPickerShow] = useState(false);
+export function CalendarScreen(props) {    
+    const [task, setTask] = useState(props.todo?.task || "");
+    const [expirationDate, setExpirationDate] = useState(props.todo?.expirationDate ? new Date(props.todo.expirationDate) : new Date());    
+    const [loading, setLoading] = useState(false);
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setShow(Platform.OS === 'ios');
-        setDate(currentDate);
-    };
+    const { todoActions } = useTodo();
+    console.log(todoActions)
+    const { colors } = useTheme();
 
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
+    async function handleAddTodo() {
+        setLoading(true);
+        try {
+            todoActions.create(task, expirationDate);            
+            props.closeModal();
+        } catch (err) {            
+            showErrorMessage(err, "Falha", "Não foi possível adicionar o Todo.");
+            setLoading(false);
+        }
+    }
 
-    const showDatepicker = () => {
-        showMode('date');
-    };
-
-    const showTimepicker = () => {
-        showMode('time');
-    };
-
-    const showPicker = () => {
-        setIsPickerShow(true);
-    };
-
+    async function handleEditTodo() {
+        setLoading(true);
+        try {
+            todoActions.update({id: props.todo.id, task, expirationDate});            
+            props.closeModal();
+        } catch (err) {
+            showErrorMessage(err, "Falha", "Não foi possível adicionar o Todo.");
+            setLoading(false);
+        }
+    }
+       
     return (
-        <View style={styles.container}>
-            <View>
-                <Button onPress={showDatepicker} title="Calendário" />
-            </View>
-            <View>
-                <Button onPress={showTimepicker} title="Relógio" />
-            </View>
-            {show && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={mode}
-                    is24Hour={true}
-                    display="default"
-                    onChange={onChange}
+        <Modal 
+        visible={props.visible}
+        animationType="slide"
+        transparent={true}
+    >            
+       <View style={styles.centeredView}>                
+            <View style={styles.modalView}>
+            <IconButton 
+                    icon="close-circle" size={36} 
+                    color={colors.primary} 
+                    style={styles.closeButton} 
+                    onPress={props.closeModal}
                 />
-            )}
+                <TextInput mode="outlined" label="Tarefa" value={task} onChangeText={setTask} />
+                <DatePicker date={expirationDate} setDate={setExpirationDate} />
+                { props.todo
+                    ?   <Button 
+                            icon="pencil" 
+                            mode="contained"
+                            loading={loading}
+                            disabled={loading}
+                            onPress={handleEditTodo}
+                        >
+                            Editar 
+                        </Button>
+                    :   <Button 
+                            icon="plus" 
+                            mode="contained"
+                            loading={loading}
+                            disabled={loading}
+                            onPress={handleAddTodo}
+                        >
+                            Adicionar 
+                        </Button>
+                }                                
+            </View>            
         </View>
+    </Modal>
     );
-};
+}
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 90
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",            
+        backgroundColor: "#00000040",
+        padding: 10
+    },
+    modalView: {        
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 20,        
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    closeButton: {
+        alignItems: "flex-end",
+        alignSelf: "flex-end",        
+        margin: 0               
     }
-})
+});
