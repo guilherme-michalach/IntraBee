@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, Switch, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, StatusBar, View, Alert, Switch, Modal, Pressable } from 'react-native';
 import colors from '../theme/colors';
+import { Octicons } from '@expo/vector-icons';
 
 export function ConfigScreen({ navigation, route }) {
     const currentUser = route.params?.currentUser;
@@ -11,7 +12,18 @@ export function ConfigScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={styles.header}>
+            <View style={styles.headerTitleContainer}>
+                <Text style={styles.headerTitle}>
+                IntraBee
+                </Text>
+            </View> 
+            <Text>
+                <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
+                <Octicons style={styles.options} name="three-bars" size={36} color="black" />
+                </TouchableOpacity>
+            </Text>
+        </View>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>
                         Darkmode
@@ -45,7 +57,6 @@ export function ConfigScreen({ navigation, route }) {
                         Mudar senha
                     </Text>
                 </Pressable>
-            </View>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
                     Privacidade
@@ -56,26 +67,51 @@ export function ConfigScreen({ navigation, route }) {
                     Ajuda
                 </Text>
             </TouchableOpacity>
-            {/* <View style={styles.darkModeContainer}>
-                <Text style={styles.text}>
-                    Darkmode
-                </Text>
-                <Switch
-                    trackColor={{ false: "black", true:'rgb(192,192,192)' }}
-                    thumbColor={isEnabled ? "black" : 'rgb(192,192,192)'}
-                    onValueChange={setIsEnabled}
-                    value={isEnabled}
-                />
-            </View> */}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {  
+    container: {
         flex: 1,
-        paddingHorizontal:30,
         backgroundColor: colors.backgroundColor,
+        marginTop: StatusBar.currentHeight,
+    },
+    header: {
+        backgroundColor: colors.header,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingVertical: 4,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    headerTitle: {
+        fontSize: 25,
+        fontWeight: "bold",
+        textAlign:"left",
+        letterSpacing: 2.5,
+    },
+    headerTitleContainer: {
+        flex: 1,
+    },
+    buttonContainer: {
+      position: "absolute",
+      bottom: 10,
+      right: 20
+    },
+    addButtons: {
+        position: "absolute",
+        bottom: 30,
+        right: 20,
+    },
+    addButton: {
+        height: 60,
+        width: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 0,
+        marginBottom: 10
     },
     textStyle: {
         color: "black",
@@ -83,9 +119,10 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     button: {
-        padding: 10,
+        padding: 12,
         marginTop: 25,
-        borderRadius: 12,
+        marginHorizontal: 30,
+        borderRadius: 28,
         backgroundColor: colors.secundary
     },
     buttonOpen: {

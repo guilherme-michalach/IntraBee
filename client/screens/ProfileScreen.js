@@ -1,9 +1,10 @@
 import React, { useState } from "react"
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, StatusBar } from "react-native";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import * as ImagePicker from "expo-image-picker";
 import { useUser } from "../contexts/UserContext";
+import { Octicons } from '@expo/vector-icons';
 
 export function ProfileScreen ({ navigation, route }) {
     const { currentUser } = useUser();
@@ -29,6 +30,18 @@ export function ProfileScreen ({ navigation, route }) {
 
     return (
         <View style={styles.container}>
+            <View style={styles.header}>
+                <View style={styles.headerTitleContainer}>
+                    <Text style={styles.headerTitle}>
+                        IntraBee
+                    </Text>
+                </View> 
+                <Text>
+                    <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
+                        <Octicons style={styles.options} name="three-bars" size={36} color="black" />
+                    </TouchableOpacity>
+                </Text>
+            </View>
             <View style={styles.icon}>
             <TouchableOpacity onPress={openImagePicker}>
         {
@@ -59,18 +72,44 @@ export function ProfileScreen ({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
         backgroundColor: colors.backgroundColor,
-        padding: 40
+        marginTop: StatusBar.currentHeight,
+    },
+    header: {
+        backgroundColor: colors.header,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingVertical: 4,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    headerTitle: {
+        fontSize: 25,
+        fontWeight: "bold",
+        textAlign:"left",
+        letterSpacing: 2.5,
+    },
+    headerTitleContainer: {
+        flex:1,
+    },
+    addButton: {
+        height: 60,
+        width: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 0,
+        marginBottom: 10
     },
     icon: {
+        marginTop: 15,
         marginBottom: 15,
         justifyContent: 'center',
         alignItems: "center",
     },
     label: {
         fontSize: 18,
-        marginTop: 80,
+        marginTop: 70,
         textAlign: "center",
         color: "black",
     },

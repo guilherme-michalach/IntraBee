@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundColor,
     marginTop: StatusBar.currentHeight,
-},
-header: {
+  },
+  header: {
     backgroundColor: colors.header,
     paddingLeft: 15,
     paddingRight: 15,
@@ -73,26 +73,26 @@ header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between"
-},
-headerTitle: {
+  },
+  headerTitle: {
     fontSize: 25,
     fontWeight: "bold",
     textAlign:"left",
     letterSpacing: 2.5,
-},
-headerTitleContainer: {
+  },
+  headerTitleContainer: {
     flex:1,
-},
-addButton: {
-  height: 60,
-  width: 60,
-  justifyContent: "center",
-  alignItems: "center",
-  marginRight: 0,
-  marginBottom: 10
-},
-options:{
-},
+  },
+  addButton: {
+    height: 60,
+    width: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 0,
+    marginBottom: 10
+  },
+  options:{
+  },
 
 })
 

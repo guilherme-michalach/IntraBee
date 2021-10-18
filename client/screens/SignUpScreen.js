@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, ScrollView } from "react-native";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -54,63 +54,65 @@ export default function SignUpScreen ({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.name}>
-                IntraBee
-            </Text>
-            <MaterialCommunityIcons style={styles.bee} name="bee" size={100} color="black" />
-            <Text style={styles.title}>
-                Insira seus dados:
-            </Text>
-            <Text style={styles.label}>
-                Nome
-            </Text>
-                <TextInput 
-                    placeholder= "Digite seu nome completo" 
-                    style={styles.input}
-                    value={name}
-                    onChangeText={setName}
-                />
-            <Text style={styles.label}>
-                E-mail
-            </Text> 
-                <TextInput 
-                    placeholder="Digite seu E-mail" 
-                    style={styles.input} 
-                    value={email}
-                    onChangeText={setEmail}
-                />
-            <Text style={styles.label}>
-                Telefone
-            </Text>
-                <TextInput 
-                    placeholder= "(99) 9999-99999" 
-                    style={styles.input}
-                    value={phone}
-                    maxLength={9}
-                    onChangeText={setPhone}
-                />
-            <Text style={styles.label}>
-                Senha
-            </Text>
-            <View style={styles.textHide}>
-                <TextInput 
-                    secureTextEntry={isPasswordVisible} 
-                    placeholder="Digite sua senha" 
-                    style={[styles.input, styles.inputSecure]}
-                    value={password}
-                    onChangeText={setPassword}
-                />
-                <TouchableOpacity style={styles.visibleButton} onPress={() => setIsPasswordVisible(false)}>
-                    <EvilIcons name="eye" size={24} color="black" />
+        <ScrollView style={styles.scrollView}>
+            <View style={styles.container}>
+                <Text style={styles.name}>
+                    IntraBee
+                </Text>
+                <MaterialCommunityIcons style={styles.bee} name="bee" size={100} color="black" />
+                <Text style={styles.title}>
+                    Insira seus dados:
+                </Text>
+                <Text style={styles.label}>
+                    Nome
+                </Text>
+                    <TextInput 
+                        placeholder= "Digite seu nome completo" 
+                        style={styles.input}
+                        value={name}
+                        onChangeText={setName}
+                    />
+                <Text style={styles.label}>
+                    E-mail
+                </Text> 
+                    <TextInput 
+                        placeholder="Digite seu E-mail" 
+                        style={styles.input} 
+                        value={email}
+                        onChangeText={setEmail}
+                    />
+                <Text style={styles.label}>
+                    Telefone
+                </Text>
+                    <TextInput 
+                        placeholder= "(99) 9999-99999" 
+                        style={styles.input}
+                        value={phone}
+                        maxLength={9}
+                        onChangeText={setPhone}
+                    />
+                <Text style={styles.label}>
+                    Senha
+                </Text>
+                <View style={styles.textHide}>
+                    <TextInput 
+                        secureTextEntry={isPasswordVisible} 
+                        placeholder="Digite sua senha" 
+                        style={[styles.input, styles.inputSecure]}
+                        value={password}
+                        onChangeText={setPassword}
+                    />
+                    <TouchableOpacity style={styles.visibleButton} onPress={() => setIsPasswordVisible(false)}>
+                        <EvilIcons name="eye" size={24} color="black" />
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                    <Text style={styles.buttonText}>
+                        Cadastrar
+                    </Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                <Text style={styles.buttonText}>
-                    Cadastrar
-                </Text>
-            </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -120,6 +122,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: colors.backgroundColor,
         padding: 30
+    },
+    scrollView: {
+        flex: 1,
+        backgroundColor: colors.backgroundColor,
     },
     bee: {
         textAlign: "center"

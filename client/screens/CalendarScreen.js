@@ -1,106 +1,119 @@
 import React, { useState } from "react";
-import { StyleSheet, Modal, View, Alert } from "react-native";
-import { Button, IconButton, TextInput, useTheme } from "react-native-paper";
-import { DatePicker } from "../components/DatePicker";
-import { useTodo } from "../contexts/todoContext";
-import { showErrorMessage } from "../utils/errorMessages";
+import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Todo } from "../components/Todo";
+import { useTodo } from "../contexts/TodoContext";
+import { AddUpdateTodo } from "./AddUpdateTodoScreen";
+import colors from "../theme/colors";
+import { api } from "../services/api";
+import { Octicons } from '@expo/vector-icons';
+import { EvilIcons } from '@expo/vector-icons';
 
-export function CalendarScreen(props) {    
-    const [task, setTask] = useState(props.todo?.task || "");
-    const [expirationDate, setExpirationDate] = useState(props.todo?.expirationDate ? new Date(props.todo.expirationDate) : new Date());    
-    const [loading, setLoading] = useState(false);
+export function CalendarScreen({ navigation }) {
+    const { todos } = useTodo().state;    
+    const [showModal, setShowModal] = useState(false);
+    const [currentTodo, setCurrentTodo] = useState(null);    
 
-    const { todoActions } = useTodo();
-    console.log(todoActions)
-    const { colors } = useTheme();
-
-    async function handleAddTodo() {
-        setLoading(true);
-        try {
-            todoActions.create(task, expirationDate);            
-            props.closeModal();
-        } catch (err) {            
-            showErrorMessage(err, "Falha", "Não foi possível adicionar o Todo.");
-            setLoading(false);
-        }
+    function showUpdateModal(todo) {             
+        setCurrentTodo(todo);
+        setShowModal(true);
     }
 
-    async function handleEditTodo() {
-        setLoading(true);
-        try {
-            todoActions.update({id: props.todo.id, task, expirationDate});            
-            props.closeModal();
-        } catch (err) {
-            showErrorMessage(err, "Falha", "Não foi possível adicionar o Todo.");
-            setLoading(false);
-        }
+    function closeModal() {
+        setShowModal(false);
+        setCurrentTodo(null);
     }
-       
+
     return (
-        <Modal 
-        visible={props.visible}
-        animationType="slide"
-        transparent={true}
-    >            
-       <View style={styles.centeredView}>                
-            <View style={styles.modalView}>
-            <IconButton 
-                    icon="close-circle" size={36} 
-                    color={colors.primary} 
-                    style={styles.closeButton} 
-                    onPress={props.closeModal}
-                />
-                <TextInput mode="outlined" label="Tarefa" value={task} onChangeText={setTask} />
-                <DatePicker date={expirationDate} setDate={setExpirationDate} />
-                { props.todo
-                    ?   <Button 
-                            icon="pencil" 
-                            mode="contained"
-                            loading={loading}
-                            disabled={loading}
-                            onPress={handleEditTodo}
-                        >
-                            Editar 
-                        </Button>
-                    :   <Button 
-                            icon="plus" 
-                            mode="contained"
-                            loading={loading}
-                            disabled={loading}
-                            onPress={handleAddTodo}
-                        >
-                            Adicionar 
-                        </Button>
-                }                                
-            </View>            
+        <View style={styles.container}>
+            { showModal &&
+                <AddUpdateTodo 
+                    visible={true}                
+                    closeModal={closeModal}
+                    todo={currentTodo}
+                /> 
+            }
+            <View style={styles.header}>
+                <View style={styles.headerTitleContainer}>
+                    <Text style={styles.headerTitle}>
+                        IntraBee
+                    </Text>
+                </View> 
+                <Text>
+                <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
+                    <Octicons style={styles.options} name="three-bars" size={36} color="black" />
+                </TouchableOpacity>
+                </Text>
+            </View>      
+            <View style={styles.todoList}>                                    
+                <FlatList 
+                    ListEmptyComponent={<Text style={styles.emptyListText}>Você não possui nenhuma tarefa</Text>}             
+                    data={todos}
+                    renderItem={({ item }) => (
+                        <Todo 
+                            {...item}                                  
+                            editTodo={() => showUpdateModal({...item})}                      
+                        />
+                    )}
+                    keyExtractor={item => item.id}
+                />                           
+            </View>
+            <TouchableOpacity style={styles.addButtons} onPress={() => setShowModal(true)} >
+                <EvilIcons name="plus" size={66} color="black" />
+            </TouchableOpacity>
         </View>
-    </Modal>
     );
 }
 
 const styles = StyleSheet.create({
-    centeredView: {
+    container: {
         flex: 1,
-        justifyContent: "center",            
-        backgroundColor: "#00000040",
-        padding: 10
+        backgroundColor: colors.backgroundColor,
+        marginTop: StatusBar.currentHeight,
     },
-    modalView: {        
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 20,        
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
+    header: {
+        backgroundColor: colors.header,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingVertical: 4,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
-    closeButton: {
-        alignItems: "flex-end",
-        alignSelf: "flex-end",        
-        margin: 0               
-    }
+    headerTitle: {
+        fontSize: 25,
+        fontWeight: "bold",
+        textAlign:"left",
+        letterSpacing: 2.5,
+    },
+    headerTitleContainer: {
+        flex: 1,
+    },
+    buttonContainer: {
+      position: "absolute",
+      bottom: 10,
+      right: 20
+    },
+    addButtons: {
+        position: "absolute",
+        bottom: 30,
+        right: 20,
+    },
+    addButton: {
+        height: 60,
+        width: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 0,
+        marginBottom: 10
+    },
+    todoList: {
+        flex: 1,                
+        backgroundColor: colors.backgroundColor,
+        marginBottom: 80,
+        marginTop: 30                
+    },
+    emptyListText: {
+        fontSize: 18,
+        textAlign: "center"        
+    },
 });

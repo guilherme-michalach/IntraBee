@@ -81,12 +81,12 @@ export function HomeScreen ({ navigation }) {
         <View style={styles.header}>
             <View style={styles.headerTitleContainer}>
                 <Text style={styles.headerTitle}>
-              IntraBee
+                  IntraBee
                 </Text>
-                </View> 
+            </View> 
               <Text>
-              <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
-                <Octicons style={styles.options} name="three-bars" size={36} color="black" />
+                <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
+                  <Octicons style={styles.options} name="three-bars" size={36} color="black" />
                 </TouchableOpacity>
               </Text>
         </View>
