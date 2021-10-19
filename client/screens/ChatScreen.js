@@ -79,7 +79,7 @@ export function ChatScreen ({ navigation, route }) {
                 />
                 <View style={styles.buttons}>
                     <TouchableOpacity style={styles.send} onPress={sendMessage}>
-                        <AntDesign name="rightcircleo" size={38} color="black" />
+                        <AntDesign name="rightcircleo" size={38} color="#fcba47" />
                     </TouchableOpacity>
                 </View>
             </View>
