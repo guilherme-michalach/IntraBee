@@ -31,7 +31,7 @@ export default function MenuScreen() {
             <Drawer.Screen name="Perfil" component={ProfileScreen} />
             <Drawer.Screen name="Chamadas" component={CallScreen} />
             <Drawer.Screen name="Agenda" component={CalendarScreen} />
-            <Drawer.Screen name="NovasConversas" component={CreateChats} />
+            <Drawer.Screen name="Iniciar nova conversa" component={CreateChats} />
             <Drawer.Screen name="Configurações" component={ConfigScreen} options={{ headerShown: false }} />
         </Drawer.Navigator>
     );
@@ -40,15 +40,21 @@ export default function MenuScreen() {
 export function AppRoutes() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator
+            screenOptions={{
+        headerStyle: {
+          backgroundColor: '#fcba47',
+        },
+      }}
+    >
                 <Stack.Screen name="Home" component={MenuScreen} options={{ headerShown: false }}/>
                 <Stack.Screen
                     name="Chat"
                     component={ChatScreen}
-                    options={({ navigation, route }) => ({
+                    options={({ navigation, route ,})  => ({
                         headerLeft: () => <HeaderBackButton tintColor="black" onPress={() => navigation.push("Home")}/>
                     })}
-                />
+                   />
                 <Stack.Screen name="Profile" component={ProfileScreen} />
                 <Stack.Screen name="Configurações" component={ConfigScreen}/>
                 <Stack.Screen name="Call" component={CallScreen} />
