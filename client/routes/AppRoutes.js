@@ -1,3 +1,7 @@
+
+
+
+
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,7 +31,8 @@ export default function MenuScreen() {
             <Drawer.Screen name="Perfil" component={ProfileScreen} />
             <Drawer.Screen name="Chamadas" component={CallScreen} />
             <Drawer.Screen name="Agenda" component={CalendarScreen} />
-            <Drawer.Screen name="Configurações" component={ConfigScreen} options={{ headerShown: true }} />
+            <Drawer.Screen name="NovasConversas" component={CreateChats} />
+            <Drawer.Screen name="Configurações" component={ConfigScreen} options={{ headerShown: false }} />
         </Drawer.Navigator>
     );
 }
@@ -36,19 +41,19 @@ export function AppRoutes() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={MenuScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Home" component={MenuScreen} options={{ headerShown: false }}/>
                 <Stack.Screen
                     name="Chat"
                     component={ChatScreen}
                     options={({ navigation, route }) => ({
-                        headerLeft: () => <HeaderBackButton tintColor="black" onPress={() => navigation.push("Home")} />
+                        headerLeft: () => <HeaderBackButton tintColor="black" onPress={() => navigation.push("Home")}/>
                     })}
                 />
                 <Stack.Screen name="Profile" component={ProfileScreen} />
                 <Stack.Screen name="Configurações" component={ConfigScreen}/>
                 <Stack.Screen name="Call" component={CallScreen} />
                 <Stack.Screen name="Calendar" component={CalendarScreen}/>
-                <Stack.Screen name="Iniciar nova conversa" component={CreateChats} />
+                <Stack.Screen name="Iniciar nova conversa" component={CreateChats} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

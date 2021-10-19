@@ -2,13 +2,24 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, StatusBar, View, Alert, Switch, Modal, Pressable } from 'react-native';
 import colors from '../theme/colors';
 import { Octicons } from '@expo/vector-icons';
+import { api } from '../services/api';
 
 export function ConfigScreen({ navigation, route }) {
     const currentUser = route.params?.currentUser;
-    console.log(currentUser)
     const [modalVisible, setModalVisible] = useState(false);
     const [password, setPassword] = useState("");
     const [isEnabled, setIsEnabled] = useState(true);
+
+    async function changePassword (text) {
+        try {
+            const password = (await api.put("/users/changePassword"), {
+                password: text
+            }).data;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -18,12 +29,12 @@ export function ConfigScreen({ navigation, route }) {
                         IntraBee
                     </Text>
                 </View> 
-            <Text>
-                <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
-                    <Octicons style={styles.options} name="three-bars" size={36} color="black" />
-                </TouchableOpacity>
-            </Text>
-        </View>
+                <Text>
+                    <TouchableOpacity style={styles.addButton} onPress={() => navigation.openDrawer('DrawerNavigator')}>
+                        <Octicons style={styles.options} name="three-bars" size={36} color="black" />
+                    </TouchableOpacity>
+                </Text>
+            </View>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>
                         Darkmode
@@ -45,7 +56,7 @@ export function ConfigScreen({ navigation, route }) {
                                     <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
                                         <Text style={styles.textStyle}>Fechar</Text>
                                     </Pressable>
-                                    <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+                                    <Pressable style={[styles.button, styles.buttonClose]} onPress={(text) => changePassword(text)}>
                                         <Text style={styles.textStyle}>Enviar</Text>
                                     </Pressable>
                                 </View>

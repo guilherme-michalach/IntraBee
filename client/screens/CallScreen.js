@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2.5,
   },
   headerTitleContainer: {
-    flex:1,
+    flex: 1,
   },
   addButton: {
     height: 60,
