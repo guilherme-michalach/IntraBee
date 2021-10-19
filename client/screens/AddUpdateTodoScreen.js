@@ -59,7 +59,7 @@ export function AddUpdateTodo(props) {
                             disabled={loading}
                             onPress={handleEditTodo}
                         >
-                            Editar todo
+                            Editar tarefa
                         </Button>
                     :  
                         <Button 
@@ -70,7 +70,7 @@ export function AddUpdateTodo(props) {
                             color={colors.secundary}
                             onPress={handleAddTodo}
                         >
-                            Adicionar todo
+                            Adicionar tarefa
                         </Button>
                 }                                
             </View>            

@@ -17,7 +17,7 @@ module.exports = {
       },
       expiration_date: {
         type: Sequelize.DATE,
-        allowNull: true
+        allowNull: false
       },
       user_id: {
         type: Sequelize.INTEGER,

@@ -5,9 +5,14 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
 
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerDocument = require('./swagger.json');
+
 const PORT = process.env.PORT || 3001;
 
 // Definição de middlewares
+
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors());
 

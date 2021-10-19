@@ -4,7 +4,7 @@ import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { api } from "../services/api";
-import { emailRegExp, passwordRegExp } from "../utils/regExpValidations";
+import { emailRegExp, passwordRegExp, phoneRegExp } from "../utils/regExpValidations";
 import SplashScreen from "./SplashScreen";
 
 export default function SignUpScreen ({ navigation }) {
@@ -29,7 +29,8 @@ export default function SignUpScreen ({ navigation }) {
         // else if(!password.length < 6) return alert("Por favor insira uma senha com no mínimo 6 caracteres!")
 
         if(!phone) return alert("Por favor insira seu telefone!");
-        else if (phone.length < 9) return alert("Por favor insira seu telefone!");
+        
+        if(!phoneRegExp.test(phone)) return alert("Por favor insira um número de telefone válido");
 
         setIsLoading(true);
 
