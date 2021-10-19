@@ -1,44 +1,80 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, TouchableOpacity, View, Linking, StatusBar, Text } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View, Linking, StatusBar, Text, TextInput } from "react-native";
 import colors from "../theme/colors";
 import { api } from "../services/api";
 import { Alert, Platform } from 'react-native';
 import { CallUser } from "../components/CallUser";
 import { Octicons } from '@expo/vector-icons';
 import { useUser } from "../contexts/UserContext";
+import call from 'react-native-phone-call';
 
 export function CallScreen ({ navigation, route }) {
   const { currentUser } = useUser(); 
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);   
+  const [search, setSearch] = useState("");
 
   function renderUser({ item }) {
       return (
-          <CallUser name={item.name} openCall={callUser}/>
+          <CallUser name={item.name} openCall={callUser(users)}/>
       )
   }
+      
+  const ItemSeparatorView = () => {
+    return (
+      <View style={styles.searchList} />
+    )
+  }
+  
+  const searchFilter = (text) => {
+    let newInfo = [];
+    if(text) {
+      newInfo = users.filter((item) => {                    
+        const userName = item.name ? 
+          item.name : 
+          item.users[0]?.id === currentUser?.id ? 
+          item.users[1]?.name :
+          item.users[0]?.name;
+        
+        return userName.toLowerCase().includes(text.toLowerCase());
+      })
+      setFilteredUsers(newInfo);       
+    }
+    async function getUsers () {
+      try {
+          const users = (await api.get(`/users/all`)).data;
+          setUsers(users);   
+      } catch (error) {
+          console.log(error);
+      }
+    };
+    getUsers();
+    setSearch(text);
+  }
+
 
   useEffect(() => {
       async function getUsers () {
           try {
               const users = (await api.get(`/users/all`)).data;
               setUsers(users);   
-              
-              // for (userIndex of users) {
-              //   if (users[userIndex].id !== currentUser.id) {
-              //     setUsers(users);   
-              //   }
-              // }
-
           } catch (error) {
               console.log(error);
           }
       };
       getUsers();
   }, []);
+console.log(users)
 
-  function callUser () {
+  function callUser ({ item }) {
+    console.log(item)
     try {
-      // const openURL
+      const args = { 
+        number: item.phone,
+        prompt: false
+      };
+    
+      call(args).catch(console.error)
       console.log("error");
     } catch (error) {
       console.log(error);
@@ -59,11 +95,29 @@ export function CallScreen ({ navigation, route }) {
           </TouchableOpacity>
         </Text>
       </View>
-        <FlatList 
+      <TextInput 
+          value={search}
+          onChangeText={(text) => searchFilter(text)}            
+          style={styles.searchBox}
+          placeholder={"Busca de usuários"}
+      />
+        {
+          filteredUsers.length > 0 ?
+          <FlatList 
+            data={filteredUsers}
             renderItem={renderUser}
-            keyExtractor={item => "" + item.id}
-            data={users}
-        />
+            keyExtractor={(item, index)=> "" + item.id + index.toString()}
+            ItemSeparatorComponent={ItemSeparatorView}
+            style={styles.chats}
+          />  :
+          <FlatList 
+              data={users}
+              renderItem={renderUser}
+              keyExtractor={(item, index)=> "" + item.id + index.toString()}
+              ItemSeparatorComponent={ItemSeparatorView}
+              style={styles.chats}
+          />
+        }        
     </View>
   );
 }
@@ -102,7 +156,17 @@ const styles = StyleSheet.create({
   },
   options:{
   },
-
+  chats: {
+    paddingVertical: 2,
+  },
+  searchBox: {
+      marginVertical: 10,
+      marginHorizontal: 20,
+      borderBottomWidth: 1,
+      borderColor: colors.button,
+      paddingStart: 10,
+      paddingVertical: 0
+  }
 })
 
 // export const callNumber = phone => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, View, TextInput } from "react-native";
 import { User } from "../components/User";
 import colors from "../theme/colors";
 import { EvilIcons } from '@expo/vector-icons';
@@ -14,6 +14,8 @@ export function CreateChats ({ navigation }) {
     const [users, setUsers] = useState([]);
     const [selectUser, selectedUser] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);   
+    const [search, setSearch] = useState("");
 
     // Criar uma função que verifica se o usuário ja esta no vetor selectedUsers
 
@@ -46,6 +48,38 @@ export function CreateChats ({ navigation }) {
             console.log(error);
         }
     }
+      
+      const ItemSeparatorView = () => {
+        return (
+          <View style={styles.searchList} />
+        )
+      }
+      
+      const searchFilter = (text) => {
+        let newInfo = [];
+        if(text) {
+          newInfo = users.filter((item) => {                    
+            const userName = item.name ? 
+              item.name : 
+              item.users[0]?.id === currentUser?.id ? 
+              item.users[1]?.name :
+              item.users[0]?.name;
+            
+            return userName.toLowerCase().includes(text.toLowerCase());
+          })
+          setFilteredUsers(newInfo);       
+        }
+        async function getUsers () {
+          try {
+              const users = (await api.get(`/users/all`)).data;
+              setUsers(users);   
+          } catch (error) {
+              console.log(error);
+          }
+        };
+        getUsers();
+        setSearch(text);
+      }
 
     return(
         <View style={styles.container}>
@@ -61,16 +95,34 @@ export function CreateChats ({ navigation }) {
                     </TouchableOpacity>
                 </Text>
             </View>
+                <TextInput 
+          value={search}
+          onChangeText={(text) => searchFilter(text)}            
+          style={styles.searchBox}
+          placeholder={"Busca de usuários"}
+        />
+        {
+          filteredUsers.length > 0 ?
+          <FlatList 
+            data={filteredUsers}
+            renderItem={renderUser}
+            keyExtractor={(item, index)=> "" + item.id + index.toString()}
+            ItemSeparatorComponent={ItemSeparatorView}
+            style={styles.chats}
+          />  :
+          <FlatList 
+              data={users}
+              renderItem={renderUser}
+              keyExtractor={(item, index)=> "" + item.id + index.toString()}
+              ItemSeparatorComponent={ItemSeparatorView}
+              style={styles.chats}
+          />
+        }        
             <View style={styles.addButtons}>
                 <TouchableOpacity onPress={() => createChat(selectedUsers)}>
                     <EvilIcons style={styles.createGroupButton} name="plus" size={66} color="black" />
                 </TouchableOpacity>
             </View>
-            <FlatList 
-                renderItem={renderUser}
-                keyExtractor={item => "" + item.id}
-                data={users}
-            />
             {
                 selectedUsers.length > 0 &&
                 <TouchableOpacity onPress={() => createChat(selectedUsers)}>
@@ -127,4 +179,15 @@ const styles = StyleSheet.create({
         bottom: 10,
         right: 10
       },
+    chats: {
+    paddingVertical: 2,
+    },
+    searchBox: {
+        marginVertical: 10,
+        marginHorizontal: 20,
+        borderBottomWidth: 1,
+        borderColor: colors.button,
+        paddingStart: 10,
+        paddingVertical: 0
+    }
 })
