@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     buttonText: {
-        color: colors.backgroundColor
+        color: "black"
     }
 });

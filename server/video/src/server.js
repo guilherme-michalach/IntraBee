@@ -29,7 +29,10 @@ app.use(express.json())
 app.use("/mypeer", peerServer);
 
 io.on("connection", function(socket) {
-    console.log("socket conectado")
+    socket.on("join-room", ({roomID, userId}) => {
+        socket.join(roomID)
+        socket.to(roomID).broadcast.emit("user-connected", userId)
+    })
 });
 
 // Definição do middleware de tratamento de erros
