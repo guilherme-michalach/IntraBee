@@ -6,7 +6,11 @@ IntraBee é um projeto desenvolvido como trabalho final do curso Entra21. Possui
 
 ## Tecnologias usadas
 
-
+* React Native
+* Expo
+* Node.js
+* PostgreSQL
+* Heroku
 
 Requerimentos
 Download
